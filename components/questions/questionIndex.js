@@ -13,4 +13,4 @@ export default class QuestionIndex extends Component {
 }
 
 
-// import QuestionIndex from './components/questions/questionIndex.js';
+// import QuestionIndex from './components/questions/QuestionIndex.js';
