@@ -11,10 +11,10 @@ export default class Welcome extends Component {
       <View>
         <Text>QuestionAmble</Text>
         <Text>A Quest for Knowledge</Text>
-        <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}}>
+        <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}} onPress={() => this.props.navigation.navigate("Login")}>
           Login
         </Button>
-        <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}}>
+        <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}} onPress={() => this.props.navigation.navigate("NewAccount")}>
           Sign Up
         </Button>
         <Text>*If you have a Quest Code, but don't have an account yet, sign up to play</Text>
