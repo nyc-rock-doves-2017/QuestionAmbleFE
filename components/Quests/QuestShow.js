@@ -8,7 +8,7 @@ import {
   Alert
 } from 'react-native';
 
-import NavigationBar from '/General/NavigationBar.js'
+import NavigationBar from '../General/NavigationBar.js'
 
 export default class QuestShow extends Component {
   render() {

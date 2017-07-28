@@ -11,6 +11,7 @@ import {
   Text,
   View,
   Button,
+  ScrollView
 } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import Login from './components/User/Login.js';
@@ -25,11 +26,16 @@ import QuestionShow from './components/questions/QuestionShow.js';
 import QuestionNew from './components/questions/QuestionNew.js';
 import QuestionEdit from './components/questions/QuestionEdit.js';
 
+import QuestAction from './components/Quests/QuestAction.js';
+import QuestCreation from './components/Quests/QuestCreation.js';
+import QuestIndex from './components/Quests/QuestIndex.js';
+import QuestShow from './components/Quests/QuestShow.js';
+
 export default class QuestionAmbleFE extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
+      <ScrollView keyboardShouldPersistTaps={true} style={{paddingLeft:10,paddingRight:10, height:200}}>
         <Text style={styles.welcome}> Directory </Text>
 
         <Text style={styles.welcome}> Users </Text>
@@ -52,7 +58,7 @@ export default class QuestionAmbleFE extends Component {
         <Button onPress={() => this.props.navigation.navigate("QuestCreation")} title="Quest Creation"/>
         <Button onPress={() => this.props.navigation.navigate("QuestIndex")} title="Quest Index"/>
         <Button onPress={() => this.props.navigation.navigate("QuestShow")} title="Quest Show"/>
-      </View>
+      </ScrollView>
     );
   }
 }
