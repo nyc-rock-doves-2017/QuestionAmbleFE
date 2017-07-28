@@ -34,3 +34,5 @@ export default class QuestionEdit extends Component {
     );
   }
 }
+
+//Use sample data

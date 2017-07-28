@@ -21,24 +21,24 @@ import PlayerStatistics from './components/User/PlayerStatistics.js';
 import UserProfile from './components/User/UserProfile.js';
 import Welcome from './components/User/Welcome.js';
 
-import QuestionIndex from './components/questions/QuestionIndex.js';
-import QuestionShow from './components/questions/QuestionShow.js';
-import QuestionNew from './components/questions/QuestionNew.js';
-import QuestionEdit from './components/questions/QuestionEdit.js';
+import QuestionIndex from './components/Questions/QuestionIndex.js';
+import QuestionShow from './components/Questions/QuestionShow.js';
+import QuestionNew from './components/Questions/QuestionNew.js';
+import QuestionEdit from './components/Questions/QuestionEdit.js';
 
-import ClueShow from './components/clues/ClueShow.js';
+import ClueShow from './components/Clues/ClueShow.js';
 
 import QuestAction from './components/Quests/QuestAction.js';
 import QuestCreation from './components/Quests/QuestCreation.js';
 import QuestIndex from './components/Quests/QuestIndex.js';
 import QuestShow from './components/Quests/QuestShow.js';
 
-import PlayWindow from './components/game/PlayWindow.js';
-import ResultNew from './components/game/ResultNew.js';
-import ResultWin from './components/game/ResultWin.js';
-import ResultLose from './components/game/ResultLose.js';
-import RoundShow from './components/game/RoundShow.js';
-import GameNew from './components/game/GameNew.js';
+import PlayWindow from './components/Game/PlayWindow.js';
+import ResultNew from './components/Game/ResultNew.js';
+import ResultWin from './components/Game/ResultWin.js';
+import ResultLose from './components/Game/ResultLose.js';
+import RoundShow from './components/Game/RoundShow.js';
+import GameNew from './components/Game/GameNew.js';
 
 export default class QuestionAmbleFE extends Component {
   render() {
@@ -72,10 +72,10 @@ export default class QuestionAmbleFE extends Component {
         <Button onPress={() => this.props.navigation.navigate("QuestShow")} title="Quest Show"/>
 
         <Text style={styles.welcome}> Game </Text>
-        <Button onPress={() => this.props.navigation.navigate("PlayWindow")} title="Start"/>
+        <Button onPress={() => this.props.navigation.navigate("PlayWindow")} title="Game Start"/>
         <Button onPress={() => this.props.navigation.navigate("ResultNew")} title="New Result"/>
-        <Button onPress={() => this.props.navigation.navigate("ResultWin")} title="Winner"/>
-        <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Looser"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultWin")} title="Result Win"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Result Lose"/>
         <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
         <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
 
