@@ -11,7 +11,7 @@ export default class MainMenu extends Component {
       <View>
         <Text>Main Menu</Text>
         <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}}>
-          Play Game
+          Play New Game
         </Button>
         <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}}>
           My Quests
@@ -26,5 +26,3 @@ export default class MainMenu extends Component {
     );
   }
 }
-
-AppRegistry.registerComponent('QuestionAmbleFE', () => MainMenu);

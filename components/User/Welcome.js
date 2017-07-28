@@ -22,5 +22,3 @@ export default class Welcome extends Component {
     );
   }
 }
-
-AppRegistry.registerComponent('QuestionAmbleFE', () => Welcome);

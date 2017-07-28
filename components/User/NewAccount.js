@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry,
   Text,
+  ScrollView,
   View
 } from 'react-native';
 import Button from 'apsl-react-native-button';
@@ -13,9 +14,8 @@ import { Form,
         DatePicker,
         TimePickerField
 } from 'react-native-form-generator';
-import Button from 'apsl-react-native-button';
 
-export default class Login extends Component {
+export default class NewAccount extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -59,5 +59,3 @@ export default class Login extends Component {
     );
   }
 }
-
-AppRegistry.registerComponent('QuestionAmbleFE', () => Login);

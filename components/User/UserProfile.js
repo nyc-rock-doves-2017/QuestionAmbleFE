@@ -3,8 +3,8 @@ import { AppRegistry,
   Text,
   View
 } from 'react-native';
-import NavigationBar from './components/General';
-import PlayerStatistics from './components/User';
+import NavigationBar from '../General/NavigationBar.js';
+import PlayerStatistics from './PlayerStatistics.js';
 
 export default class UserProfile extends Component {
   render(){
@@ -16,5 +16,3 @@ export default class UserProfile extends Component {
     );
   }
 }
-
-AppRegistry.registerComponent('QuestionAmbleFE', () => UserProfile);

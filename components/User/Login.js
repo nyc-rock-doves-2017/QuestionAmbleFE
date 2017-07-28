@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry,
   Text,
+  ScrollView,
   View
 } from 'react-native';
 import Button from 'apsl-react-native-button';
@@ -13,7 +14,6 @@ import { Form,
         DatePicker,
         TimePickerField
 } from 'react-native-form-generator';
-import Button from 'apsl-react-native-button';
 
 export default class Login extends Component {
   constructor(props){
@@ -34,7 +34,7 @@ export default class Login extends Component {
 
   render(){
     return(
-      <ScrollView keyboardShouldPersistTaps={true} style={{paddingLeft:10,paddingRight:10, height:200}}>
+      <ScrollView keyboardShouldPersistTaps={"always"} style={{paddingLeft:10,paddingRight:10, height:200}}>
         <Text>Login</Text>
         <Form
           ref='LoginForm'
@@ -56,5 +56,3 @@ export default class Login extends Component {
     );
   }
 }
-
-AppRegistry.registerComponent('QuestionAmbleFE', () => Login);
