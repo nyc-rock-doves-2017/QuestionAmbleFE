@@ -25,7 +25,6 @@ import QuestionIndex from './components/questions/QuestionIndex.js';
 import QuestionShow from './components/questions/QuestionShow.js';
 import QuestionNew from './components/questions/QuestionNew.js';
 import QuestionEdit from './components/questions/QuestionEdit.js';
-import ClueShow from './components/clues/ClueShow.js';
 
 import QuestAction from './components/Quests/QuestAction.js';
 import QuestCreation from './components/Quests/QuestCreation.js';
@@ -114,9 +113,10 @@ const AppDirectory = StackNavigator({
   QuestionEdit: {
     screen: QuestionEdit,
   },
-  ClueShow: {
-    screen: ClueShow,
-  },
+  // ClueShow: {
+  //   path:,
+  //   screen: ClueShow,
+  // },
   // PlayWindow: {
   //   path:,
   //   screen: PlayWindow,
