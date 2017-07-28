@@ -25,6 +25,7 @@ import QuestionIndex from './components/questions/QuestionIndex.js';
 import QuestionShow from './components/questions/QuestionShow.js';
 import QuestionNew from './components/questions/QuestionNew.js';
 import QuestionEdit from './components/questions/QuestionEdit.js';
+import ClueShow from './components/clues/ClueShow.js';
 
 import QuestAction from './components/Quests/QuestAction.js';
 import QuestCreation from './components/Quests/QuestCreation.js';
@@ -59,6 +60,10 @@ export default class QuestionAmbleFE extends Component {
         <Button onPress={() => this.props.navigation.navigate("QuestIndex")} title="Quest Index"/>
         <Button onPress={() => this.props.navigation.navigate("QuestShow")} title="Quest Show"/>
       </ScrollView>
+
+        <Text style={styles.welcome}> Clues </Text>
+        <Button onPress={() => this.props.navigation.navigate("ClueShow")} title="Show Clues"/>
+      </View>
     );
   }
 }
@@ -109,10 +114,9 @@ const AppDirectory = StackNavigator({
   QuestionEdit: {
     screen: QuestionEdit,
   },
-  // ClueShow: {
-  //   path:,
-  //   screen: ClueShow,
-  // },
+  ClueShow: {
+    screen: ClueShow,
+  },
   // PlayWindow: {
   //   path:,
   //   screen: PlayWindow,
