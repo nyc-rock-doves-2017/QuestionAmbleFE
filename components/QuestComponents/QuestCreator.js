@@ -4,36 +4,19 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   Button,
   Alert
 } from 'react-native';
 
 import { Form,
-  Separator,InputField, LinkField,
-  SwitchField, PickerField, DatePickerField, TimePickerField
+  Separator, InputField
 } from 'react-native-form-generator';
 
-export default class QuestionAmbleFE extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      formData:{}
-    }
-  }
-  handleFormChange(formData){
-    this.setState({formData:formData})
-    this.props.onFormChange && this.props.onFormChange(formData);
-  }
-  handleFormFocus(e, component){
-
-  }
+export default class QuestCreator extends Component {
   render() {
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
       <Form
         ref='QuestionForm'
-        onFocus={this.handleFormFocus.bind(this)}
-        onChange={this.handleFormChange.bind(this)}
         label="Question Creator">
         <Separator />
         <Text>Question</Text>
@@ -44,8 +27,6 @@ export default class QuestionAmbleFE extends Component {
         <InputField
           multiline = {true}
           placeholder="Answer"
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
           />
           <Button
             onPress={() => {Alert.alert('Form submission not yet implemented!')}}
@@ -80,5 +61,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-AppRegistry.registerComponent('QuestionAmbleFE', () => QuestionAmbleFE);
