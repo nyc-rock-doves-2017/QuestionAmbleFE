@@ -9,6 +9,9 @@ export default class QuestionIndex extends Component {
         <NavigationBar/>
         <Text>Here are your questions:</Text>
         <Text>List here:</Text>
+        <Text>Sample Data</Text>
+        <Text>Sample Data</Text>
+        <Text>Sample Data</Text>
       </View>
     );
   }

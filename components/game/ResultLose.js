@@ -5,7 +5,7 @@ export default class ResultLose extends Component {
   render() {
     return (
       <View>
-        <Text>Glory of the Loosers!</Text>
+        <Text>You have lost!</Text>
       </View>
     );
   }
