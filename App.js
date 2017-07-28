@@ -26,9 +26,6 @@ import QuestionNew from './components/questions/QuestionNew.js';
 import QuestionEdit from './components/questions/QuestionEdit.js';
 
 export default class QuestionAmbleFE extends Component {
-  static navigationOptions = {
-    title: "QuestionAmbleFE",
-  }
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -49,6 +46,12 @@ export default class QuestionAmbleFE extends Component {
         <Button onPress={() => this.props.navigation.navigate("QuestionShow")} title="Question Show"/>
         <Button onPress={() => this.props.navigation.navigate("QuestionNew")} title="Question New"/>
         <Button onPress={() => this.props.navigation.navigate("QuestionEdit")} title="Question Edit"/>
+
+        <Text style={styles.welcome}> Quests </Text>
+        <Button onPress={() => this.props.navigation.navigate("QuestAction")} title="Quest Action"/>
+        <Button onPress={() => this.props.navigation.navigate("QuestCreation")} title="Quest Creation"/>
+        <Button onPress={() => this.props.navigation.navigate("QuestIndex")} title="Quest Index"/>
+        <Button onPress={() => this.props.navigation.navigate("QuestShow")} title="Quest Show"/>
       </View>
     );
   }
@@ -76,22 +79,18 @@ const AppDirectory = StackNavigator({
   MainMenu: {
     screen: MainMenu,
   },
-  // QuestAction: {
-  //   path:,
-  //   screen: QuestAction,
-  // },
-  // QuestShow: {
-  //   path:,
-  //   screen: QuestShow,
-  // },
-  // QuestCreation: {
-  //   path:,
-  //   screen: QuestCreation,
-  // },
-  // QuestIndex: {
-  //   path:,
-  //   screen: QuestIndex,
-  // },
+  QuestAction: {
+    screen: QuestAction,
+  },
+  QuestShow: {
+    screen: QuestShow,
+  },
+  QuestCreation: {
+    screen: QuestCreation,
+  },
+  QuestIndex: {
+    screen: QuestIndex,
+  },
   QuestionIndex: {
     screen: QuestionIndex
   },
