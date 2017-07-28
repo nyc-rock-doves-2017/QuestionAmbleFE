@@ -14,7 +14,7 @@ import { Form,
   SwitchField, PickerField, DatePickerField, TimePickerField
 } from 'react-native-form-generator';
 
-export default class QuestionAmbleFE extends Component {
+export default class QuestAction extends Component {
   constructor(props){
     super(props);
     this.state = {
