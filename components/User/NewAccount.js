@@ -34,7 +34,7 @@ export default class NewAccount extends Component {
 
   render(){
     return(
-      <ScrollView keyboardShouldPersistTaps={true} style={{paddingLeft:10,paddingRight:10, height:200}}>
+      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10,paddingRight:10, height:200}}>
         <Text>Create Account</Text>
         <Form
           ref='NewAccountForm'
@@ -52,7 +52,7 @@ export default class NewAccount extends Component {
               ref="password"
               placeholder="Password"/>
         </Form>
-        <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}}>
+        <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}} onPress={() => this.props.navigation.navigate("MainMenu")}>
           Create Account
         </Button>
     </ScrollView>
