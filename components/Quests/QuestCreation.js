@@ -8,6 +8,8 @@ import {
   Alert
 } from 'react-native';
 
+import NavigationBar from '../General/NavigationBar.js'
+
 import { Form,
   Separator, InputField
 } from 'react-native-form-generator';
@@ -15,6 +17,7 @@ import { Form,
 export default class QuestCreation extends Component {
   render() {
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
+      <NavigationBar/>
       <Form
         ref='QuestForm'
         label="Quest Creator">

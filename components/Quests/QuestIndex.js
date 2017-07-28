@@ -8,22 +8,13 @@ import {
   Alert
 } from 'react-native';
 
-import { Form,
-  Separator, InputField,
-} from 'react-native-form-generator';
+import NavigationBar from '../General/NavigationBar.js'
 
-export default class QuestAction extends Component {
+export default class QuestIndex extends Component {
   render() {
-    return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
-        <Button
-          onPress={() => {Alert.alert('Not yet implemented!')}}
-          title="Make A Quest"
-        />
-        <Button
-          onPress={() => {Alert.alert('Not yet implemented!')}}
-          title="View Your Quests"
-        />
-
+    return (<View style={styles.container}>
+      <NavigationBar/>
+      <Text style={styles.instructions}> This page will display all of the information about the recently completed Quest</Text>
 
       </View>
     );

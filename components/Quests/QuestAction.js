@@ -8,10 +8,24 @@ import {
   Alert
 } from 'react-native';
 
-export default class QuestShow extends Component {
+import NavigationBar from '../General/NavigationBar.js'
+
+import { Form,
+  Separator, InputField,
+} from 'react-native-form-generator';
+
+export default class QuestAction extends Component {
   render() {
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
-        <Text>This is the QuestShow page</Text>
+      <NavigationBar/>
+        <Button
+          onPress={() => {Alert.alert('Not yet implemented!')}}
+          title="Make A Quest"
+        />
+        <Button
+          onPress={() => {Alert.alert('Not yet implemented!')}}
+          title="View Your Quests"
+        />
 
 
       </View>

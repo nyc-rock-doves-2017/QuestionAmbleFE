@@ -8,10 +8,14 @@ import {
   Alert
 } from 'react-native';
 
-export default class QuestIndex extends Component {
+import NavigationBar from '../General/NavigationBar.js'
+
+export default class QuestShow extends Component {
   render() {
-    return (<View style={styles.container}>
-      <Text style={styles.instructions}> This page will display all of the information about the recently completed Quest</Text>
+    return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
+      <NavigationBar/>
+        <Text>This is the QuestShow page</Text>
+
 
       </View>
     );
