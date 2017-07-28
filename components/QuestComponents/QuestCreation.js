@@ -12,12 +12,20 @@ import { Form,
   Separator, InputField
 } from 'react-native-form-generator';
 
-export default class QuestCreator extends Component {
+export default class QuestCreation extends Component {
   render() {
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
       <Form
-        ref='QuestionForm'
-        label="Question Creator">
+        ref='QuestForm'
+        label="Quest Creator">
+        <Text>Quest Title</Text>
+        <InputField
+          ref='title'
+          placeholder='Quest Title'/>
+          <Text>Quest Description</Text>
+          <InputField
+            multiline = {true}
+            placeholder='Quest Description'/>
         <Separator />
         <Text>Question</Text>
         <InputField
@@ -25,12 +33,7 @@ export default class QuestCreator extends Component {
           placeholder='Question'/>
           <Text>Answer</Text>
         <InputField
-          multiline = {true}
           placeholder="Answer"
-          />
-          <Button
-            onPress={() => {Alert.alert('Form submission not yet implemented!')}}
-            title="Make another question"
           />
         <Button
           onPress={() => {Alert.alert('Form submission not yet implemented!')}}
