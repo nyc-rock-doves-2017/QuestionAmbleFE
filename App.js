@@ -26,16 +26,25 @@ import QuestionShow from './components/questions/QuestionShow.js';
 import QuestionNew from './components/questions/QuestionNew.js';
 import QuestionEdit from './components/questions/QuestionEdit.js';
 
+import ClueShow from './components/clues/ClueShow.js';
+
 import QuestAction from './components/Quests/QuestAction.js';
 import QuestCreation from './components/Quests/QuestCreation.js';
 import QuestIndex from './components/Quests/QuestIndex.js';
 import QuestShow from './components/Quests/QuestShow.js';
 
+import PlayWindow from './components/game/PlayWindow.js';
+import ResultNew from './components/game/ResultNew.js';
+import ResultWin from './components/game/ResultWin.js';
+import ResultLose from './components/game/ResultLose.js';
+import RoundShow from './components/game/RoundShow.js';
+import GameNew from './components/game/GameNew.js';
+
 export default class QuestionAmbleFE extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView keyboardShouldPersistTaps={true} style={{paddingLeft:10,paddingRight:10, height:200}}>
+      <ScrollView keyboardShouldPersistTaps={"always"} style={{paddingLeft:10,paddingRight:10, height:200}}>
         <Text style={styles.welcome}> Directory </Text>
 
         <Text style={styles.welcome}> Users </Text>
@@ -53,11 +62,23 @@ export default class QuestionAmbleFE extends Component {
         <Button onPress={() => this.props.navigation.navigate("QuestionNew")} title="Question New"/>
         <Button onPress={() => this.props.navigation.navigate("QuestionEdit")} title="Question Edit"/>
 
+        <Text style={styles.welcome}> Clues </Text>
+        <Button onPress={() => this.props.navigation.navigate("ClueShow")} title="Show Clue"/>
+
         <Text style={styles.welcome}> Quests </Text>
         <Button onPress={() => this.props.navigation.navigate("QuestAction")} title="Quest Action"/>
         <Button onPress={() => this.props.navigation.navigate("QuestCreation")} title="Quest Creation"/>
         <Button onPress={() => this.props.navigation.navigate("QuestIndex")} title="Quest Index"/>
         <Button onPress={() => this.props.navigation.navigate("QuestShow")} title="Quest Show"/>
+
+        <Text style={styles.welcome}> Game </Text>
+        <Button onPress={() => this.props.navigation.navigate("PlayWindow")} title="Start"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultNew")} title="New Result"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultWin")} title="Winner"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Looser"/>
+        <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
+        <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
+
       </ScrollView>
     );
   }
@@ -109,34 +130,27 @@ const AppDirectory = StackNavigator({
   QuestionEdit: {
     screen: QuestionEdit,
   },
-  // ClueShow: {
-  //   path:,
-  //   screen: ClueShow,
-  // },
-  // PlayWindow: {
-  //   path:,
-  //   screen: PlayWindow,
-  // },
-  // ResultNew: {
-  //   path:,
-  //   screen: ResultNew,
-  // },
-  // ResultWin: {
-  //   path:,
-  //   screen: ResultWin,
-  // },
-  // ResultLose: {
-  //   path:,
-  //   screen: ResultLose,
-  // },
-  // RoundShow: {
-  //   path:,
-  //   screen: RoundShow,
-  // },
-  // GameNew: {
-  //   path:,
-  //   screen: GameNew,
-  // },
+  ClueShow: {
+    screen: ClueShow,
+  },
+  PlayWindow: {
+    screen: PlayWindow,
+  },
+  ResultNew: {
+    screen: ResultNew,
+  },
+  ResultWin: {
+    screen: ResultWin,
+  },
+  ResultLose: {
+    screen: ResultLose,
+  },
+  RoundShow: {
+    screen: RoundShow,
+  },
+  GameNew: {
+    screen: GameNew,
+  },
 });
 
 const styles = StyleSheet.create({
