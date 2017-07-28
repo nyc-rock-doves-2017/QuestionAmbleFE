@@ -34,6 +34,11 @@ import QuestIndex from './components/Quests/QuestIndex.js';
 import QuestShow from './components/Quests/QuestShow.js';
 
 import PlayWindow from './components/game/PlayWindow.js';
+import ResultNew from './components/game/ResultNew.js';
+import ResultWin from './components/game/ResultWin.js';
+import ResultLose from './components/game/ResultLose.js';
+import RoundShow from './components/game/RoundShow.js';
+import GameNew from './components/game/GameNew.js';
 
 export default class QuestionAmbleFE extends Component {
   render() {
@@ -68,6 +73,11 @@ export default class QuestionAmbleFE extends Component {
 
         <Text style={styles.welcome}> Game </Text>
         <Button onPress={() => this.props.navigation.navigate("PlayWindow")} title="Start"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultNew")} title="New Result"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultWin")} title="Winner"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Looser"/>
+        <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
+        <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
 
       </ScrollView>
     );
@@ -126,26 +136,21 @@ const AppDirectory = StackNavigator({
   PlayWindow: {
     screen: PlayWindow,
   },
-  // ResultNew: {
-  //   path:,
-  //   screen: ResultNew,
-  // },
-  // ResultWin: {
-  //   path:,
-  //   screen: ResultWin,
-  // },
-  // ResultLose: {
-  //   path:,
-  //   screen: ResultLose,
-  // },
-  // RoundShow: {
-  //   path:,
-  //   screen: RoundShow,
-  // },
-  // GameNew: {
-  //   path:,
-  //   screen: GameNew,
-  // },
+  ResultNew: {
+    screen: ResultNew,
+  },
+  ResultWin: {
+    screen: ResultWin,
+  },
+  ResultLose: {
+    screen: ResultLose,
+  },
+  RoundShow: {
+    screen: RoundShow,
+  },
+  GameNew: {
+    screen: GameNew,
+  },
 });
 
 const styles = StyleSheet.create({
