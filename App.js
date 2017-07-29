@@ -41,6 +41,28 @@ import RoundShow from './components/Game/RoundShow.js';
 import GameNew from './components/Game/GameNew.js';
 
 export default class QuestionAmbleFE extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      playerStatistics: [],  //Data about the user's game statistics
+      currentUser: {
+                    userID: "",
+                    userEmail: ""
+                    },  //Data about the current user
+      roundStatistics: [], //Data about information related to the current round
+      questData: [], //Data regarding all the quests that the user ever created along with question and stat info
+      nextQuestion: {}, // Data about the next question except for coordinates
+      loginForm: {}, //Data entered from the login form
+      signupForm: {}, //Data entered from the signup form
+      newQuestionForm: {}, //Data entered from the new question form
+      editQuestionForm: {}, //Data entered from the edit question form
+      newQuestForm: {}, //Data entered from the new quest form
+      editQuestForm: {}, //Data entered from the edit quest form
+      playerQuestionInput: {}, //What the user types in when trying to answer a question
+      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
