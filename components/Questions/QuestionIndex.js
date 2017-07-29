@@ -12,6 +12,8 @@ export default class QuestionIndex extends Component {
         <Text>Sample Data</Text>
         <Text>Sample Data</Text>
         <Text>Sample Data</Text>
+        <Text>Sample Data</Text>
+        <Text>Sample Data</Text>
       </View>
     );
   }
