@@ -41,10 +41,14 @@ import RoundShow from './components/Game/RoundShow.js';
 import GameNew from './components/Game/GameNew.js';
 
 export default class QuestionAmbleFE extends Component {
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state = {
-      playerStatistics: [],  //Data about the user's game statistics
+      playerStatistics: {id: "",
+                          title: "",
+                          key: "",
+                          description: "",
+                          questCreator: ""},  //Data about the user's game statistics
       currentUser: {
                     userID: "",
                     userEmail: ""
@@ -61,6 +65,21 @@ export default class QuestionAmbleFE extends Component {
       playerQuestionInput: {}, //What the user types in when trying to answer a question
       currentGameResult: {}, //Data on whether the user got the answer correct for the guess
     }
+    // this.userRegistration = this.userRegistration.bind(this)
+  }
+componentDidMount(){
+
+  //This is for testing fetch of the player statistics
+    fetch("")
+    .then(response => response.json())
+    .then(body => {
+      this.setState({playerStatistics: body[0]})
+    })
+    .catch( err => {
+      console.log(err)
+    })
+
+    
   }
 
   render() {
@@ -101,6 +120,8 @@ export default class QuestionAmbleFE extends Component {
         <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
         <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
 
+        <Text style={styles.welcome}> Test </Text>
+        <Text style={styles.welcome}> {this.state.playerStatistics.title} </Text>
       </ScrollView>
     );
   }
