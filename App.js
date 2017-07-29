@@ -41,6 +41,47 @@ import RoundShow from './components/Game/RoundShow.js';
 import GameNew from './components/Game/GameNew.js';
 
 export default class QuestionAmbleFE extends Component {
+  constructor(){
+    super();
+    this.state = {
+      playerStatistics: {id: "",
+                          title: "",
+                          key: "",
+                          description: "",
+                          questCreator: ""},  //Data about the user's game statistics
+      currentUser: {
+                    userID: "",
+                    userEmail: ""
+                    },  //Data about the current user
+      roundStatistics: [], //Data about information related to the current round
+      questData: [], //Data regarding all the quests that the user ever created along with question and stat info
+      nextQuestion: {}, // Data about the next question except for coordinates
+      loginForm: {}, //Data entered from the login form
+      signupForm: {}, //Data entered from the signup form
+      newQuestionForm: {}, //Data entered from the new question form
+      editQuestionForm: {}, //Data entered from the edit question form
+      newQuestForm: {}, //Data entered from the new quest form
+      editQuestForm: {}, //Data entered from the edit quest form
+      playerQuestionInput: {}, //What the user types in when trying to answer a question
+      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
+    }
+    // this.userRegistration = this.userRegistration.bind(this)
+  }
+componentDidMount(){
+
+  //This is for testing fetch of the player statistics
+    fetch("")
+    .then(response => response.json())
+    .then(body => {
+      this.setState({playerStatistics: body[0]})
+    })
+    .catch( err => {
+      console.log(err)
+    })
+
+    
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -79,6 +120,8 @@ export default class QuestionAmbleFE extends Component {
         <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
         <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
 
+        <Text style={styles.welcome}> Test </Text>
+        <Text style={styles.welcome}> {this.state.playerStatistics.title} </Text>
       </ScrollView>
     );
   }
