@@ -13,7 +13,13 @@ import { Form,
 } from 'react-native-form-generator';
 
 export default class QuestCreation extends Component {
+
   render() {
+    let handleQuestTitleInputForNewQuest = this.props.screenProps.handleQuestTitleInputForNewQuest
+    let handleQuestDescriptionInputForNewQuest = this.props.screenProps.handleQuestDescriptionInputForNewQuest
+    let handleQuestGameKeyInputForNewQuest = this.props.screenProps.handleQuestGameKeyInputForNewQuest
+    let handleNewQuestForm = this.props.screenProps.handleNewQuestForm
+
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
       <Form
         ref='QuestForm'
@@ -21,22 +27,19 @@ export default class QuestCreation extends Component {
         <Text>Quest Title</Text>
         <InputField
           ref='title'
-          placeholder='Quest Title'/>
+          placeholder='Quest Title'
+          onChangeText={handleQuestTitleInputForNewQuest}/>
+
           <Text>Quest Description</Text>
           <InputField
             multiline = {true}
-            placeholder='Quest Description'/>
+            placeholder='Quest Description'
+            onChangeText={handleQuestDescriptionInputForNewQuest}/>
+
         <Separator />
-        <Text>Question</Text>
-        <InputField
-          ref='question'
-          placeholder='Question'/>
-          <Text>Answer</Text>
-        <InputField
-          placeholder="Answer"
-          />
+
         <Button
-          onPress={() => {Alert.alert('Form submission not yet implemented!')}}
+          onPress={handleNewQuestForm}
           title="Finish making Quest"
         />
         </Form>

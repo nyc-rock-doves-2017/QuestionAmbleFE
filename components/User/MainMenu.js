@@ -7,16 +7,16 @@ import { AppRegistry,
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 
-async userLogout() {
-  try {
-    await AsyncStorage.removeItem('id_token');
-    Alert.alert("Logout Success!");
-  } catch (error) {
-    console.log('AsyncStorage error:' + error.message);
-  }
-}
-
 export default class MainMenu extends Component {
+  async userLogout() {
+    try {
+      await AsyncStorage.removeItem('id_token');
+      Alert.alert("Logout Success!");
+    } catch (error) {
+      console.log('AsyncStorage error:' + error.message);
+    }
+  }
+
   render(){
     return(
       <View>

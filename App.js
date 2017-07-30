@@ -41,101 +41,11 @@ import ResultWin from './components/Game/ResultWin.js';
 import ResultLose from './components/Game/ResultLose.js';
 import RoundShow from './components/Game/RoundShow.js';
 import GameNew from './components/Game/GameNew.js';
-
-export default class QuestionAmbleFE extends Component {
-  constructor(){
-    super();
-    this.state = {
-      hasToken: false,
-      isLoaded: false,
-
-      playerStatistics: {id: "",
-                          title: "",
-                          key: "",
-                          description: "",
-                          questCreator: ""},  //Data about the user's game statistics
-      currentUser: {
-                    userID: "",
-                    userEmail: ""
-                    },  //Data about the current user
-      roundStatistics: [], //Data about information related to the current round
-      questData: [], //Data regarding all the quests that the user ever created along with question and stat info
-      nextQuestion: {}, // Data about the next question except for coordinates
-      loginForm: {}, //Data entered from the login form
-      signupForm: {}, //Data entered from the signup form
-      newQuestionForm: {}, //Data entered from the new question form
-      editQuestionForm: {}, //Data entered from the edit question form
-      newQuestForm: {}, //Data entered from the new quest form
-      editQuestForm: {}, //Data entered from the edit quest form
-      playerQuestionInput: {}, //What the user types in when trying to answer a question
-      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
-    }
-    // this.userRegistration = this.userRegistration.bind(this)
-  }
-  componentDidMount(){
-    AsyncStorage.getItem('id_token').then((token) => {
-     if (token !== null){
-       this.setState({
-         hasToken: true,
-         isLoaded: true
-       });
-     } else{
-       this.setState({
-         hasToken: false,
-         isLoaded: true
-       });
-      }
-    });
-  }
-
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <ScrollView keyboardShouldPersistTaps={"always"} style={{paddingLeft:10,paddingRight:10, height:200}}>
-        <Text style={styles.welcome}> Directory </Text>
-
-        <Text style={styles.welcome}> Users </Text>
-        <Button onPress={() => this.props.navigation.navigate("Login")} title="Login"/>
-        <Button onPress={() => this.props.navigation.navigate("MainMenu")} title="MainMenu"/>
-        <Button onPress={() => this.props.navigation.navigate("NewAccount")} title="NewAccount"/>
-        <Button onPress={() => this.props.navigation.navigate("PlayerStatistics")} title="PlayerStatistics"/>
-        <Button onPress={() => this.props.navigation.navigate("UserProfile")} title="UserProfile"/>
-        <Button onPress={() => this.props.navigation.navigate("Welcome")} title="Welcome"/>
-
-
-        <Text style={styles.welcome}> Questions </Text>
-        <Button onPress={() => this.props.navigation.navigate("QuestionIndex")} title="Question Index"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestionShow")} title="Question Show"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestionNew")} title="Question New"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestionEdit")} title="Question Edit"/>
-
-        <Text style={styles.welcome}> Clues </Text>
-        <Button onPress={() => this.props.navigation.navigate("ClueShow")} title="Show Clue"/>
-
-        <Text style={styles.welcome}> Quests </Text>
-        <Button onPress={() => this.props.navigation.navigate("QuestAction")} title="Quest Action"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestCreation")} title="Quest Creation"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestIndex")} title="Quest Index"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestShow")} title="Quest Show"/>
-
-        <Text style={styles.welcome}> Game </Text>
-        <Button onPress={() => this.props.navigation.navigate("PlayWindow")} title="Game Start"/>
-        <Button onPress={() => this.props.navigation.navigate("ResultNew")} title="New Result"/>
-        <Button onPress={() => this.props.navigation.navigate("ResultWin")} title="Result Win"/>
-        <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Result Lose"/>
-        <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
-        <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
-
-        <Text style={styles.welcome}> Test </Text>
-        <Text style={styles.welcome}> {this.state.playerStatistics.title} </Text>
-      </ScrollView>
-    );
-  }
-}
+import Directory from './components/Directory.js';
 
 const AppDirectory = StackNavigator({
   Directory: {
-    screen: QuestionAmbleFE,
+    screen: Directory,
   },
   Welcome: {
     screen: Welcome,
@@ -202,24 +112,114 @@ const AppDirectory = StackNavigator({
   },
 });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+export default class QuestionAmbleFE extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      hasToken: false,
+      isLoaded: false,
 
-AppRegistry.registerComponent('QuestionAmbleFE', () => AppDirectory);
-// AppRegistry.registerComponent('QuestionAmbleFE', () => QuestionAmbleFE);
+      playerStatistics: {id: "",
+                          title: "",
+                          key: "",
+                          description: "",
+                          questCreator: ""},  //Data about the user's game statistics
+      currentUser: {
+                    userID: "",
+                    userEmail: ""
+                    },  //Data about the current user
+      roundStatistics: [], //Data about information related to the current round
+      questData: [], //Data regarding all the quests that the user ever created along with question and stat info
+      nextQuestion: {}, // Data about the next question except for coordinates
+      loginForm: {}, //Data entered from the login form
+      signupForm: {}, //Data entered from the signup form
+      newQuestionForm: {
+      }, //Data entered from the new question form
+      editQuestionForm: {
+                        questTitle: "",
+      }, //Data entered from the edit question form
+      newQuestFormQuestTitle: "",
+      newQuestFormQuestDescription: "",
+      newQuestFormQuestTitleGameKey: "",
+      newQuestFormErrors: "",
+       //Data entered from the new quest form
+      editQuestForm: {}, //Data entered from the edit quest form
+      playerQuestionInput: {}, //What the user types in when trying to answer a question
+      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
+    }
+    this.handleQuestTitleInputForNewQuest = this.handleQuestTitleInputForNewQuest.bind(this)
+    this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
+    this.handleNewQuestForm = this.handleNewQuestForm.bind(this)
+  }
+
+  componentDidMount(){
+    AsyncStorage.getItem('id_token').then((token) => {
+     if (token !== null){
+       this.setState({
+         hasToken: true,
+         isLoaded: true
+       });
+     } else{
+       this.setState({
+         hasToken: false,
+         isLoaded: true
+       });
+      }
+    });
+  }
+
+  handleQuestTitleInputForNewQuest(textValue){
+    this.setState({newQuestFormQuestTitle: textValue})
+  }
+
+  handleQuestDescriptionInputForNewQuest(textValue){
+    this.setState({newQuestFormQuestDescription: textValue})
+  }
+
+  handleNewQuestForm(event){
+    event.preventDefault();
+    currentContext = this;
+    fetch("http://localhost:8000/quests",{ //Replace link with "/quests/"
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
+                            description: this.state.newQuestFormQuestDescription,
+                            creator_id: "1"}
+                          })
+    }).then(
+      response => {
+        return response.json()})
+    .then(body => {
+      if (body.hasOwnProperty("error")){
+        this.setState({newQuestFormErrors: body.error})
+      }else {
+        //Ask for guidance tomorrow on line below
+        currentContext.navigator._navigation.navigate("QuestIndex")
+      }
+    })
+    .catch( err => {
+      console.log(err)
+    })
+  }
+
+
+  render() {
+    let methods = {
+                  handleQuestTitleInputForNewQuest: this.handleQuestTitleInputForNewQuest,
+                  handleQuestDescriptionInputForNewQuest: this.handleQuestDescriptionInputForNewQuest,
+                  handleNewQuestForm: this.handleNewQuestForm,
+                    }
+    return (
+      <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
+    );
+  }
+}
+
+AppRegistry.registerComponent('QuestionAmbleFE', () => QuestionAmbleFE);
+
+//Note:
+//Read github and docs for guidance:
+// https://reactnavigation.org/docs/navigators/
+// https://reactnavigation.org/docs/navigators/navigation-options
+// https://github.com/react-community/react-navigation
+// https://github.com/react-community/react-navigation/issues/876
