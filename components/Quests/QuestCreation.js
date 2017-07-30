@@ -21,11 +21,6 @@ export default class QuestCreation extends Component {
     let handleNewQuestForm = this.props.screenProps.handleNewQuestForm
 
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
-<<<<<<< HEAD
-=======
-      <NavigationBar/>
-      <Text>{this.props.screenProps.newQuestFormErrors}</Text>
->>>>>>> Add basic logic for quest creation.
       <Form
         ref='QuestForm'
         label="Quest Creator">
