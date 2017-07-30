@@ -11,6 +11,8 @@ import {
   Text,
   View,
   Button,
+  ActivityIndicator,
+  AsyncStorage,
   ScrollView
 } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
@@ -44,6 +46,9 @@ export default class QuestionAmbleFE extends Component {
   constructor(){
     super();
     this.state = {
+      hasToken: false,
+      isLoaded: false,
+
       playerStatistics: {id: "",
                           title: "",
                           key: "",
@@ -67,35 +72,20 @@ export default class QuestionAmbleFE extends Component {
     }
     // this.userRegistration = this.userRegistration.bind(this)
   }
-componentDidMount(){
-
-  debugger
-  //This is for testing fetch of the player statistics
-    fetch("http://localhost:3004/users",{
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: ''
-        user_id: 'alfonso',
-        password: 'password',
-      })
-    }).then((response) => response.json())
-      .then((responseData) => {
-        debugger
-        console.log("works");
-        console.log('this:', responseData);
-      })
-
-    // .then(response => response.json())
-    // .then(body => {
-    //   this.setState({playerStatistics: body[0]})
-    // })
-    // .catch( err => {
-    //   console.log(err)
-    // })
+  componentDidMount(){
+    AsyncStorage.getItem('id_token').then((token) => {
+     if (token !== null){
+       this.setState({
+         hasToken: true,
+         isLoaded: true
+       });
+     } else{
+       this.setState({
+         hasToken: false,
+         isLoaded: true
+       });
+      }
+    });
   }
 
   render() {
