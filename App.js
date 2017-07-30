@@ -69,17 +69,33 @@ export default class QuestionAmbleFE extends Component {
   }
 componentDidMount(){
 
+  debugger
   //This is for testing fetch of the player statistics
-    fetch("")
-    .then(response => response.json())
-    .then(body => {
-      this.setState({playerStatistics: body[0]})
-    })
-    .catch( err => {
-      console.log(err)
-    })
+    fetch("http://localhost:3004/users",{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: ''
+        user_id: 'alfonso',
+        password: 'password',
+      })
+    }).then((response) => response.json())
+      .then((responseData) => {
+        debugger
+        console.log("works");
+        console.log('this:', responseData);
+      })
 
-    
+    // .then(response => response.json())
+    // .then(body => {
+    //   this.setState({playerStatistics: body[0]})
+    // })
+    // .catch( err => {
+    //   console.log(err)
+    // })
   }
 
   render() {
