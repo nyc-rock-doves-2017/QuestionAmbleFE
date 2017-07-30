@@ -150,7 +150,6 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestTitleInputForNewQuest = this.handleQuestTitleInputForNewQuest.bind(this)
     this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
     this.handleNewQuestForm = this.handleNewQuestForm.bind(this)
-    this.handleQuestData = this.handleQuestData.bind(this)
   }
 
   componentDidMount(){
@@ -203,30 +202,13 @@ export default class QuestionAmbleFE extends Component {
     })
   }
 
-  handleQuestData(){
-    currentContext = this;
-    fetch("http://localhost:8000/users/1/my_quests")
-    .then(
-      response => {
-        return response.json()})
-    .then(body => {
-      this.setState({questData: body})
-    })
-    .catch( err => {
-      console.log(err)
-    })
-  }
 
   render() {
     let methods = {
-                  handleQuestData: this.handleQuestData,
-                  getQuestData: this.getQuestData,
                   handleQuestTitleInputForNewQuest: this.handleQuestTitleInputForNewQuest,
                   handleQuestDescriptionInputForNewQuest: this.handleQuestDescriptionInputForNewQuest,
                   handleNewQuestForm: this.handleNewQuestForm,
-                  questData: this.state.questData,
-                  }
-
+                    }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
     );
