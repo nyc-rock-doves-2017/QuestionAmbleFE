@@ -26,35 +26,6 @@ export default class NewAccount extends Component {
     }
   }
 
-  async saveItem(item, selectedValue) {
-    try {
-      await AsyncStorage.setItem(item, selectedValue);
-    } catch(error) {
-      console.error('AsyncStorage error: ' + error.message);
-    }
-  }
-
-  userSignup() {
-    if (!this.state.username || !this.state.password) return;
-    fetch('', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        username: this.state.username,
-        password: this.state.password,
-      })
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.saveItem('id_token', responseData.id_token),
-        Alert.alert('New Account Created!')
-      })
-    })
-  }
-
   handleFormChange(formData){
     this.setState({formData:formData})
     this.props.onFormChange && this.props.onFormChange(formData);
