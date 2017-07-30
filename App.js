@@ -41,6 +41,76 @@ import ResultWin from './components/Game/ResultWin.js';
 import ResultLose from './components/Game/ResultLose.js';
 import RoundShow from './components/Game/RoundShow.js';
 import GameNew from './components/Game/GameNew.js';
+import Directory from './components/Directory.js';
+
+const AppDirectory = StackNavigator({
+  Directory: {
+    screen: Directory,
+  },
+  Welcome: {
+    screen: Welcome,
+  },
+  Login: {
+    screen: Login,
+  },
+  NewAccount: {
+    screen: NewAccount,
+  },
+  PlayerStatistics: {
+    screen: PlayerStatistics,
+  },
+  UserProfile: {
+    screen: UserProfile,
+  },
+  MainMenu: {
+    screen: MainMenu,
+  },
+  QuestAction: {
+    screen: QuestAction,
+  },
+  QuestShow: {
+    screen: QuestShow,
+  },
+  QuestCreation: {
+    screen: QuestCreation,
+  },
+  QuestIndex: {
+    screen: QuestIndex,
+  },
+  QuestionIndex: {
+    screen: QuestionIndex
+  },
+  QuestionShow: {
+    screen: QuestionShow,
+  },
+  QuestionNew: {
+    screen: QuestionNew,
+  },
+  QuestionEdit: {
+    screen: QuestionEdit,
+  },
+  ClueShow: {
+    screen: ClueShow,
+  },
+  PlayWindow: {
+    screen: PlayWindow,
+  },
+  ResultNew: {
+    screen: ResultNew,
+  },
+  ResultWin: {
+    screen: ResultWin,
+  },
+  ResultLose: {
+    screen: ResultLose,
+  },
+  RoundShow: {
+    screen: RoundShow,
+  },
+  GameNew: {
+    screen: GameNew,
+  },
+});
 
 export default class QuestionAmbleFE extends Component {
   constructor(props){
@@ -109,14 +179,14 @@ export default class QuestionAmbleFE extends Component {
   handleNewQuestForm(event){
     event.preventDefault();
     currentContext = this;
-    fetch(""),{ //Replace link with "/quests/"
+    fetch("http://localhost:8000/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
                             description: this.state.newQuestFormQuestDescription,
-                            creator_id: "1"}})
-    })
-    .then(
+                            creator_id: "1"}
+                          })
+    }).then(
       response => {
         return response.json()})
     .then(body => {
