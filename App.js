@@ -145,7 +145,6 @@ export default class QuestionAmbleFE extends Component {
   }
 }
 
-
 AppRegistry.registerComponent('QuestionAmbleFE', () => QuestionAmbleFE);
 
 //Note:
