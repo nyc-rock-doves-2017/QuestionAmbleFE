@@ -133,93 +133,12 @@ export default class QuestionAmbleFE extends Component {
   }
 }
 
-const AppDirectory = StackNavigator({
-  Directory: {
-    screen: QuestionAmbleFE,
-  },
-  Welcome: {
-    screen: Welcome,
-  },
-  Login: {
-    screen: Login,
-  },
-  NewAccount: {
-    screen: NewAccount,
-  },
-  PlayerStatistics: {
-    screen: PlayerStatistics,
-  },
-  UserProfile: {
-    screen: UserProfile,
-  },
-  MainMenu: {
-    screen: MainMenu,
-  },
-  QuestAction: {
-    screen: QuestAction,
-  },
-  QuestShow: {
-    screen: QuestShow,
-  },
-  QuestCreation: {
-    screen: QuestCreation,
-  },
-  QuestIndex: {
-    screen: QuestIndex,
-  },
-  QuestionIndex: {
-    screen: QuestionIndex
-  },
-  QuestionShow: {
-    screen: QuestionShow,
-  },
-  QuestionNew: {
-    screen: QuestionNew,
-  },
-  QuestionEdit: {
-    screen: QuestionEdit,
-  },
-  ClueShow: {
-    screen: ClueShow,
-  },
-  PlayWindow: {
-    screen: PlayWindow,
-  },
-  ResultNew: {
-    screen: ResultNew,
-  },
-  ResultWin: {
-    screen: ResultWin,
-  },
-  ResultLose: {
-    screen: ResultLose,
-  },
-  RoundShow: {
-    screen: RoundShow,
-  },
-  GameNew: {
-    screen: GameNew,
-  },
-});
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+AppRegistry.registerComponent('QuestionAmbleFE', () => QuestionAmbleFE);
 
-AppRegistry.registerComponent('QuestionAmbleFE', () => AppDirectory);
-// AppRegistry.registerComponent('QuestionAmbleFE', () => QuestionAmbleFE);
+//Note:
+//Read github and docs for guidance:
+// https://reactnavigation.org/docs/navigators/
+// https://reactnavigation.org/docs/navigators/navigation-options
+// https://github.com/react-community/react-navigation
+// https://github.com/react-community/react-navigation/issues/876
