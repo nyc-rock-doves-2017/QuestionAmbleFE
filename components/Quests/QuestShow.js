@@ -8,12 +8,10 @@ import {
   Alert
 } from 'react-native';
 
-import NavigationBar from '../General/NavigationBar.js'
 
 export default class QuestShow extends Component {
   render() {
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
-      <NavigationBar/>
         <Text>This is the QuestShow page</Text>
 
 

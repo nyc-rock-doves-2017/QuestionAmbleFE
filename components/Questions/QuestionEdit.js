@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, SectionList, Button } from 'react-native';
-import NavigationBar from '../General/NavigationBar.js';
 import { Form, Separator, InputField, PickerField } from 'react-native-form-generator';
 
 export default class QuestionEdit extends Component {
   render() {
     return (
       <View>
-        <NavigationBar/>
         <Form
           ref="EditQuestionForm"
           label="Edit Question">
