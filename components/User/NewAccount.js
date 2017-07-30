@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { AppRegistry,
   Text,
+  Alert,
+  TextInput,
   ScrollView,
+  AsyncStorage,
   View
 } from 'react-native';
 import Button from 'apsl-react-native-button';
@@ -23,6 +26,35 @@ export default class NewAccount extends Component {
     }
   }
 
+  async saveItem(item, selectedValue) {
+    try {
+      await AsyncStorage.setItem(item, selectedValue);
+    } catch(error) {
+      console.error('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  userSignup() {
+    if (!this.state.username || !this.state.password) return;
+    fetch('', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        username: this.state.username,
+        password: this.state.password,
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.saveItem('id_token', responseData.id_token),
+        Alert.alert('New Account Created!')
+      })
+    })
+  }
+
   handleFormChange(formData){
     this.setState({formData:formData})
     this.props.onFormChange && this.props.onFormChange(formData);
@@ -42,15 +74,31 @@ export default class NewAccount extends Component {
           onChange={this.handleFormChange.bind(this)}
           label="Create a New Account">
             <Separator />
-            <InputField
+            <TextInput
+              editable={true}
+              onChangeText={(email) => this.setState({email})}
               ref="email"
-              placeholder="Email"/>
-            <InputField
+              placeholder="Email"
+              returnKeyType='next'
+              value={this.state.email}
+            />
+            <TextInput
+              editable={true}
+              onChangeText={(username) => this.setState({username})}
               ref="username"
-              placeholder="Username"/>
-            <InputField
+              placeholder="Username"
+              returnKeyType='next'
+              value={this.state.username}
+            />
+            <TextInput
+              editable={true}
+              onChangeText={(password) => this.setState({password})}
               ref="password"
-              placeholder="Password"/>
+              placeholder="Password"
+              returnKeyType='next'
+              secureTextEntry={true}
+              value={this.state.password}
+            />
         </Form>
         <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}} onPress={() => this.props.navigation.navigate("MainMenu")}>
           Create Account

@@ -33,6 +33,26 @@ export default class Login extends Component {
     }
   }
 
+  userLogin() {
+    if (!this.state.username || !this.state.password) return;
+    fetch('', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.saveItem('id_token', responseData.id_token),
+        Alert.alert('Login Successful!')
+      })
+    })
+  }
+
   handleFormChange(formData){
     this.setState({formData:formData})
     this.props.onFormChange && this.props.onFormChange(formData);
