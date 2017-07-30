@@ -20,7 +20,7 @@ export default class QuestCreation extends Component {
     let handleQuestGameKeyInputForNewQuest = this.props.screenProps.handleQuestGameKeyInputForNewQuest
     let handleNewQuestForm = this.props.screenProps.handleNewQuestForm
 
-    return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
+    return (<View style={{paddingLeft:10, paddingRight:10, height:200}}>
       <Form
         ref='QuestForm'
         label="Quest Creator">
@@ -40,8 +40,7 @@ export default class QuestCreation extends Component {
 
         <Button
           onPress={handleNewQuestForm}
-          title="Finish making Quest"
-        />
+          title="Finish making Quest"/>
         </Form>
 
       </View>
