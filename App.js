@@ -326,7 +326,7 @@ export default class QuestionAmbleFE extends Component {
 
     userLogin() {
       if (this.state.username && this.state.password) {
-        fetch('https://questionamble.herokuapp.com/users', {
+        fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
