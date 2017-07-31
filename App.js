@@ -324,8 +324,9 @@ export default class QuestionAmbleFE extends Component {
     }
 
     userLogin() {
+      debugger
       if (this.state.username && this.state.password) {
-        fetch('https://questionamble.herokuapp.com/users', {
+        fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -361,6 +362,7 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
                   playerStatistics: this.state.playerStatistics,
                   handleUserProfile: this.handleUserProfile,
+                  userLogin: this.userLogin,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
