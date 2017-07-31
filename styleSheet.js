@@ -4,33 +4,6 @@ import { AppRegistry,
   View,
   StyleSheet
 } from 'react-native';
-import Button from 'apsl-react-native-button';
-
-export default class Welcome extends Component {
-  render(){
-    return(
-      <View style={styles.wholeScreen}>
-        <View style={styles.container}>
-          <Text style={styles.title}>QuestionAmble</Text>
-          <Text style={styles.subtitle}>A Quest for Knowledge</Text>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("Login")}>
-              <Text style={styles.buttonText}>
-                LOGIN
-              </Text>
-            </Button>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("NewAccount")}>
-              <Text style={styles.buttonText}>
-                SIGN UP
-              </Text>
-            </Button>
-          </View>
-          <Text style={styles.disclaimerText}>*If you have a Quest Code, but don't have an account yet, sign up to play!</Text>
-        </View>
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   button: {
