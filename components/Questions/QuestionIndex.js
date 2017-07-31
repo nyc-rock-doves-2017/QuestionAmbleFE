@@ -7,8 +7,10 @@ export default class QuestionIndex extends Component {
     return (
       <View>
         <Text>Here are your questions:</Text>
-        <FlatList data={questData[0].questions} renderItem={({item}) => <Text
-          key={item.id}>{item.id} - {item.questId} - {item.questionText}</Text>}/>
+        <FlatList data={questData[0].questions} renderItem={({item}) =>
+          <Text
+            onPress={() => this.props.navigation.navigate("QuestionShow", {questID: this.props.navigation.state.params.questID, questionID: item.id})}
+            >{item.id} - {item.questId} - {item.questionText}</Text>}/>
       </View>
     );
   }

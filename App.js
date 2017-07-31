@@ -119,7 +119,11 @@ export default class QuestionAmbleFE extends Component {
       hasToken: false,
       isLoaded: false,
 
-      playerStatistics: {},  //Data about the user's game statistics
+      playerStatistics: {numGamesStarted: "",
+                        numGamesCompleted: "",
+                        completenessPercentage: "",
+                        indAverageScore: "",
+                        gamesPlayed: []},  //Data about the user's game statistics
       currentUser: {
                     userID: "",
                     userEmail: ""
@@ -155,6 +159,7 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestionAnswerputForNewQuestion = this.handleQuestionAnswerputForNewQuestion.bind(this)
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
     this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
+    this.handleUserProfile = this.handleUserProfile.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -190,7 +195,7 @@ export default class QuestionAmbleFE extends Component {
   handleNewQuestForm(event){
     event.preventDefault();
     currentContext = this;
-    fetch("/quests",{ //Replace link with "/quests/"
+    fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
@@ -215,7 +220,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("/users/1/my_quests")
+    fetch("https://questionamble.herokuapp.com/users/1/my_quests")
     .then(
       response => {
         return response.json()})
@@ -229,8 +234,7 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    debugger
-    fetch("/questions",{
+    fetch("https://questionamble.herokuapp.com/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: { quest_id: "1",
@@ -245,7 +249,6 @@ export default class QuestionAmbleFE extends Component {
     }).then((response => {
       return response.json()})
     ).then(body => {
-      debugger
       if (body.hasOwnProperty("error") === false){
         //Ask for guidance on line below
         currentContext.navigator._navigation.navigate("QuestIndex")
@@ -276,7 +279,7 @@ export default class QuestionAmbleFE extends Component {
   //Player statistics
   handleUserProfile(){
       currentContext = this;
-      fetch("/users/1/my_stats")
+      fetch("https://questionamble.herokuapp.com/users/1/my_stats")
       .then(
         response => {
           return response.json()})
@@ -298,48 +301,50 @@ export default class QuestionAmbleFE extends Component {
     }
 
     userSignup() {
-      if (!this.state.username || !this.state.password) return;
-      fetch('', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user: {
-            email: this.state.email,
-            username: this.state.username,
-            password: this.state.password
-          }
+      if (this.state.username && this.state.password) {
+        fetch('https://questionamble.herokuapp.com/users', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user: {
+              email: this.state.email,
+              username: this.state.username,
+              password: this.state.password
+            }
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            this.saveItem('id_token', responseData.id_token),
+            Alert.alert('New Account Created!')
+          })
         })
-        .then((response) => response.json())
-        .then((responseData) => {
-          this.saveItem('id_token', responseData.id_token),
-          Alert.alert('New Account Created!')
-        })
-      })
+      }
     }
 
     userLogin() {
-      if (!this.state.username || !this.state.password) return;
-      fetch('', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user: {
-            username: this.state.username,
-            password: this.state.password
-          }
+      if (this.state.username && this.state.password) {
+        fetch('https://questionamble.herokuapp.com/users/login', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user: {
+              username: this.state.username,
+              password: this.state.password
+            }
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            this.saveItem('id_token', responseData.id_token),
+            Alert.alert('Login Success!')
+          })
         })
-        .then((response) => response.json())
-        .then((responseData) => {
-          this.saveItem('id_token', responseData.id_token),
-          Alert.alert('Login Successful!')
-        })
-      })
+      }
     }
 
   render() {
@@ -356,8 +361,11 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
                   handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
                   playerStatistics: this.state.playerStatistics,
+
                   newQuestionFormLat: this.state.newQuestionFormLat,
-                  newQuestionFormLng: this.state.newQuestionFormLng
+                  newQuestionFormLng: this.state.newQuestionFormLng,
+                  handleUserProfile: this.handleUserProfile,
+
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
