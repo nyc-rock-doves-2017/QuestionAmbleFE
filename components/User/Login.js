@@ -37,20 +37,20 @@ export default class Login extends Component {
           <Text style={styles.title}>Login</Text>
           <Form
             ref='LoginForm'
-            onFocus={this.handleFormFocus.bind(this)}
-            onChange={this.handleFormChange.bind(this)}
+            // onFocus={this.handleFormFocus.bind(this)}
+            // onChange={this.handleFormChange.bind(this)}
             label="Login">
               <Separator />
               <InputField
                 editable={true}
-                onChangeText={(username) => this.setState({username})}
+                onChangeText={(username) => this.setState({username: ""})}
                 ref="username"
                 placeholder="Username"
                 returnKeyType='next'
                 value={this.state.username}/>
               <InputField
                 editable={true}
-                onChangeText={(password) => this.setState({password})}
+                onChangeText={}
                 ref="password"
                 placeholder="Password"
                 returnKeyType='next'
@@ -58,7 +58,7 @@ export default class Login extends Component {
                 value={this.state.password}/>
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+            <Button style={styles.button} onPress={() => this.props.screenProps.userLogin}>
               <Text style={styles.buttonText}>
                 LOGIN
               </Text>

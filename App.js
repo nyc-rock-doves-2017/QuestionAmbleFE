@@ -325,6 +325,7 @@ export default class QuestionAmbleFE extends Component {
     }
 
     userLogin() {
+      debugger
       if (this.state.username && this.state.password) {
         fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
@@ -365,6 +366,7 @@ export default class QuestionAmbleFE extends Component {
                   newQuestionFormLat: this.state.newQuestionFormLat,
                   newQuestionFormLng: this.state.newQuestionFormLng,
                   handleUserProfile: this.handleUserProfile,
+                  userLogin: this.userLogin,
 
                   }
     return (
