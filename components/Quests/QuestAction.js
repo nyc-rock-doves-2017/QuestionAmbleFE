@@ -17,7 +17,7 @@ export default class QuestAction extends Component {
     return (
       <View style={styles.wholeScreen}>
         <View style={styles.container}>
-          <Text style={styles.title}>Choose Your Adevnture...</Text>
+          <Text style={styles.title}>Choose Your Adventure...</Text>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestCreation")}>
               <Text style={styles.buttonText}>
