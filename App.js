@@ -228,7 +228,13 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    debugger
+    let lat, lng
+
+    navigator.geolocation.getCurrentPosition((position) => {
+                                          lat = position.coords.latitude;
+                                          lng = position.coords.longitude;
+                                            })
+
     fetch("http://localhost:8000/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -237,8 +243,8 @@ export default class QuestionAmbleFE extends Component {
         answer: this.state.newQuestionFormAnswer,
         clue_type: "text",
         clue_text: this.state.newQuestionFormHint,
-        lat: "",
-        lng: "",
+        lat: lat,
+        lng: lng,
       }})
     }).then((response => {
       return response.json()})
