@@ -7,9 +7,11 @@ import { AppRegistry,
 } from 'react-native';
 
 export default class PlayerStatistics extends Component {
+  componentWillMount(){
+    this.props.handleUserProfile();
+  }
   render(){
-    let { playerStatistics } = this.props.screenProps
-
+    let { playerStatistics } = this.props
     return(
       <View>
         <Text>My Statistics</Text>
