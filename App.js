@@ -133,11 +133,11 @@ export default class QuestionAmbleFE extends Component {
       nextQuestion: {}, // Data about the next question except for coordinates
       loginForm: {}, //Data entered from the login form
       signupForm: {}, //Data entered from the signup form
-      newQuestionForm: {
-      }, //Data entered from the new question form
+
       editQuestionForm: {
                         questTitle: "",
       }, //Data entered from the edit question form
+
       newQuestFormQuestTitle: "",
       newQuestFormQuestDescription: "",
       newQuestFormQuestTitleGameKey: "",
