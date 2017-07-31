@@ -159,6 +159,7 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestionAnswerputForNewQuestion = this.handleQuestionAnswerputForNewQuestion.bind(this)
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
     this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
+    this.handleUserProfile = this.handleUserProfile.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -325,7 +326,7 @@ export default class QuestionAmbleFE extends Component {
 
     userLogin() {
       if (this.state.username && this.state.password) {
-        fetch('https://questionamble.herokuapp.com/users', {
+        fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
