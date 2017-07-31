@@ -133,11 +133,17 @@ export default class QuestionAmbleFE extends Component {
       nextQuestion: {}, // Data about the next question except for coordinates
       loginForm: {}, //Data entered from the login form
       signupForm: {}, //Data entered from the signup form
-      newQuestionForm: {
-      }, //Data entered from the new question form
+
       editQuestionForm: {
                         questTitle: "",
       }, //Data entered from the edit question form
+      newQuestionFormText: "",
+      newQuestionFormAnswer: "",
+      newQuestionFormHint: "",
+      newQuestionFormClueText: "",
+      newQuestionFormLat: "",
+      newQuestionFormLng: "",
+
       newQuestFormQuestTitle: "",
       newQuestFormQuestDescription: "",
       newQuestFormQuestTitleGameKey: "",
@@ -151,6 +157,12 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
     this.handleNewQuestForm = this.handleNewQuestForm.bind(this)
     this.handleQuestData = this.handleQuestData.bind(this)
+    this.handleQuestionNew = this.handleQuestionNew.bind(this)
+    this.handleQuestionTextInputForNewQuestion = this.handleQuestionTextInputForNewQuestion.bind(this)
+    this.handleQuestionAnswerputForNewQuestion = this.handleQuestionAnswerputForNewQuestion.bind(this)
+    this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
+    this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
+    this.getCurrentLocation = this.getCurrentLocation.bind(this)
   }
 
   componentDidMount(){
@@ -168,7 +180,13 @@ export default class QuestionAmbleFE extends Component {
       }
     });
   }
-
+  componentWillMount(){
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({newQuestionFormLat: position.coords.latitude})
+      this.setState({newQuestionFormLng: position.coords.longitude})
+                                            })
+  }
+  //Quest
   handleQuestTitleInputForNewQuest(textValue){
     this.setState({newQuestFormQuestTitle: textValue})
   }
@@ -194,7 +212,7 @@ export default class QuestionAmbleFE extends Component {
       if (body.hasOwnProperty("error")){
         this.setState({newQuestFormErrors: body.error})
       }else {
-        //Ask for guidance tomorrow on line below
+        //Ask for guidance on line below
         currentContext.navigator._navigation.navigate("QuestIndex")
       }
     })
@@ -216,6 +234,55 @@ export default class QuestionAmbleFE extends Component {
       console.log(err)
     })
   }
+  //Questions
+  handleQuestionNew(){
+    currentContext = this;
+    debugger
+    fetch("http://localhost:8000/questions",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({question: { quest_id: "1",
+        question_text: this.state.newQuestionFormText,
+        answer: this.state.newQuestionFormAnswer,
+        clue_type: "text",
+        clue_text: this.state.newQuestionFormClueText,
+        hint: this.state.newQuestionFormHint,
+        lat: this.state.newQuestionFormLat,
+        lng: this.state.newQuestionFormLng,
+      }})
+    }).then((response => {
+      return response.json()})
+    ).then(body => {
+      debugger
+      if (body.hasOwnProperty("error") === false){
+        //Ask for guidance on line below
+        currentContext.navigator._navigation.navigate("QuestIndex")
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  handleQuestionTextInputForNewQuestion(textValue){
+    this.setState({newQuestionFormText: textValue})
+  }
+
+  handleQuestionAnswerputForNewQuestion(textValue){
+    this.setState({newQuestionFormAnswer: textValue})
+  }
+
+  handleQuestionHintInputForNewQuestion(textValue){
+    this.setState({newQuestionFormHint: textValue})
+  }
+
+  handleQuestionClueTextInputForNewQuestion(textValue){
+    this.setState({newQuestionFormClue: textValue})
+  }
+
+  getCurrentLocation(){
+
+  }
 
   render() {
     let methods = {
@@ -225,8 +292,13 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestDescriptionInputForNewQuest: this.handleQuestDescriptionInputForNewQuest,
                   handleNewQuestForm: this.handleNewQuestForm,
                   questData: this.state.questData,
-                  }
+                  handleQuestionNew: this.handleQuestionNew,
+                  handleQuestionTextInputForNewQuestion: this.handleQuestionTextInputForNewQuestion,
+                  handleQuestionAnswerputForNewQuestion: this.handleQuestionAnswerputForNewQuestion,
+                  handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
+                  handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
 
+                  }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
     );

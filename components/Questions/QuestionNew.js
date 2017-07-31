@@ -4,13 +4,11 @@ import { Form, Separator, InputField, PickerField } from 'react-native-form-gene
 
 export default class QuestionNew extends Component {
   render() {
-
+    let handleQuestionNew = this.props.screenProps.handleQuestionNew
     let handleQuestionTextInputForNewQuestion = this.props.screenProps.handleQuestionTextInputForNewQuestion
-    let handleQuestionAnswerInputForNewQuestion = this.props.screenProps.handleQuestionAnswerInputForNewQuestion
+    let handleQuestionAnswerputForNewQuestion = this.props.screenProps.handleQuestionAnswerputForNewQuestion
     let handleQuestionHintInputForNewQuestion = this.props.screenProps.handleQuestionHintInputForNewQuestion
-    let handleQuestionClueTextForNewQuestion = this.props.screenProps.handleQuestionClueTextForNewQuestion
-    let handleNewQuestionForm = this.props.screenProps.handleNewQuestionForm
-
+    let handleQuestionClueTextInputForNewQuestion = this.props.screenProps.handleQuestionClueTextInputForNewQuestion
     return (
       <View>
         <Form
@@ -31,21 +29,13 @@ export default class QuestionNew extends Component {
           placeholder="Hint to the answer"
           onChangeText={handleQuestionHintInputForNewQuestion}/>
 
-          <Text>Clue Type:</Text>
-          <PickerField value={"text"} options={{"":'',
-                                text: "Text",
-                                image: "Image"}}/>
-
-          <Text>Clue Image:</Text>
-          <InputField placeholder="Clue Image"/>
-
           <Text>Clue Text:</Text>
           <InputField
           placeholder="Clue Text"
           onChangeText={handleQuestionClueTextInputForNewQuestion}/>
 
           <Button
-            onPress={() => this.props.navigation.navigate("QuestionIndex")}
+            onPress={() => handleQuestionNew()}
             title="Create Question"/>
         </Form>
       </View>
