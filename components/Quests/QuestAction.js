@@ -16,11 +16,11 @@ export default class QuestAction extends Component {
   render() {
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
         <Button
-          onPress={() => {Alert.alert('Not yet implemented!')}}
+          onPress={() => this.props.navigation.navigate("QuestCreation")}
           title="Make A Quest"
         />
         <Button
-          onPress={() => {Alert.alert('Not yet implemented!')}}
+          onPress={() => this.props.navigation.navigate("QuestIndex")}
           title="View Your Quests"
         />
 

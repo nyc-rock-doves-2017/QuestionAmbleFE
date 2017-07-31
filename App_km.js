@@ -201,7 +201,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleUserProfile(){
       currentContext = this;
-      fetch("http://localhost:3000/users/1/my_stats")
+      fetch("http://localhost:8000/users/1/my_stats")
       .then(
         response => {
           return response.json()})

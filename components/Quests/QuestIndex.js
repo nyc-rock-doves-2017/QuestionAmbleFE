@@ -5,14 +5,21 @@ import {
   Text,
   View,
   Button,
-  Alert
+  Alert,
+  FlatList
 } from 'react-native';
 
 export default class QuestIndex extends Component {
+  componentDidMount(){
+    this.props.screenProps.handleQuestData()
+  }
   render() {
+    let questData = this.props.screenProps.questData
     return (<View style={styles.container}>
-      <Text style={styles.instructions}> This page will display all of the information about the recently completed Quest</Text>
-
+      <Text style={styles.instructions}> Here are your completed quests</Text>
+      <Text> ID | Title | Code </Text>
+      <FlatList data={questData} renderItem={({item}) => <Text onPress={() => this.props.navigation.navigate("QuestShow", {questId: item.id})}
+        key={item.id}>{item.id} - {item.title} - {item.gameKey}</Text>}/>
       </View>
     );
   }
