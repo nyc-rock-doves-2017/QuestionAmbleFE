@@ -18,14 +18,14 @@ export default class Directory extends Component {
         <Button onPress={() => this.props.navigation.navigate("Login")} title="Login"/>
         <Button onPress={() => this.props.navigation.navigate("MainMenu")} title="MainMenu"/>
         <Button onPress={() => this.props.navigation.navigate("NewAccount")} title="NewAccount"/>
-        <Button onPress={() => this.props.navigation.navigate("PlayerStatistics")} title="PlayerStatistics"/>
+        {/* <Button onPress={() => this.props.navigation.navigate("PlayerStatistics")} title="PlayerStatistics"/> */}
         <Button onPress={() => this.props.navigation.navigate("UserProfile")} title="UserProfile"/>
         <Button onPress={() => this.props.navigation.navigate("Welcome")} title="Welcome"/>
 
 
         <Text style={styles.welcome}> Questions </Text>
-        <Button onPress={() => this.props.navigation.navigate("QuestionIndex")} title="Question Index"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestionShow")} title="Question Show"/>
+        {/* <Button onPress={() => this.props.navigation.navigate("QuestionIndex")} title="Question Index"/>
+        <Button onPress={() => this.props.navigation.navigate("QuestionShow")} title="Question Show"/> */}
         <Button onPress={() => this.props.navigation.navigate("QuestionNew")} title="Question New"/>
         <Button onPress={() => this.props.navigation.navigate("QuestionEdit")} title="Question Edit"/>
 

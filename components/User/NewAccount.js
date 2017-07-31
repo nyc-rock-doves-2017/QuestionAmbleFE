@@ -79,7 +79,7 @@ export default class NewAccount extends Component {
                 CREATE ACCOUNT
               </Text>
             </Button>
-        </View>
+          </View>
       </View>
     </ScrollView>
     );
