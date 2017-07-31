@@ -119,11 +119,7 @@ export default class QuestionAmbleFE extends Component {
       hasToken: false,
       isLoaded: false,
 
-      playerStatistics: {id: "",
-                          title: "",
-                          key: "",
-                          description: "",
-                          questCreator: ""},  //Data about the user's game statistics
+      playerStatistics: {},  //Data about the user's game statistics
       currentUser: {
                     userID: "",
                     userEmail: ""
@@ -131,9 +127,6 @@ export default class QuestionAmbleFE extends Component {
       roundStatistics: [], //Data about information related to the current round
       questData: [], //Data regarding all the quests that the user ever created along with question and stat info
       nextQuestion: {}, // Data about the next question except for coordinates
-      loginForm: {}, //Data entered from the login form
-      signupForm: {}, //Data entered from the signup form
-
       editQuestionForm: {
                         questTitle: "",
       }, //Data entered from the edit question form
@@ -162,9 +155,8 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestionAnswerputForNewQuestion = this.handleQuestionAnswerputForNewQuestion.bind(this)
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
     this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
-    this.getCurrentLocation = this.getCurrentLocation.bind(this)
   }
-
+  //To test:
   componentDidMount(){
     AsyncStorage.getItem('id_token').then((token) => {
      if (token !== null){
@@ -198,7 +190,7 @@ export default class QuestionAmbleFE extends Component {
   handleNewQuestForm(event){
     event.preventDefault();
     currentContext = this;
-    fetch("http://localhost:8000/quests",{ //Replace link with "/quests/"
+    fetch("/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
@@ -223,7 +215,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("http://localhost:8000/users/1/my_quests")
+    fetch("/users/1/my_quests")
     .then(
       response => {
         return response.json()})
@@ -238,7 +230,7 @@ export default class QuestionAmbleFE extends Component {
   handleQuestionNew(){
     currentContext = this;
     debugger
-    fetch("http://localhost:8000/questions",{
+    fetch("/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: { quest_id: "1",
@@ -280,9 +272,75 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newQuestionFormClue: textValue})
   }
 
-  getCurrentLocation(){
 
-  }
+  //Player statistics
+  handleUserProfile(){
+      currentContext = this;
+      fetch("/users/1/my_stats")
+      .then(
+        response => {
+          return response.json()})
+      .then(body => {
+        this.setState({playerStatistics: body})
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    }
+
+    //User Signup/Login
+    async saveItem(item, selectedValue) {
+      try {
+        await AsyncStorage.setItem(item, selectedValue);
+      } catch(error) {
+        console.error('AsyncStorage error: ' + error.message);
+      }
+    }
+
+    userSignup() {
+      if (!this.state.username || !this.state.password) return;
+      fetch('', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password
+          }
+        })
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.saveItem('id_token', responseData.id_token),
+          Alert.alert('New Account Created!')
+        })
+      })
+    }
+
+    userLogin() {
+      if (!this.state.username || !this.state.password) return;
+      fetch('', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user: {
+            username: this.state.username,
+            password: this.state.password
+          }
+        })
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.saveItem('id_token', responseData.id_token),
+          Alert.alert('Login Successful!')
+        })
+      })
+    }
 
   render() {
     let methods = {
@@ -297,7 +355,7 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestionAnswerputForNewQuestion: this.handleQuestionAnswerputForNewQuestion,
                   handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
                   handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
-
+                  playerStatistics: this.state.playerStatistics,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
