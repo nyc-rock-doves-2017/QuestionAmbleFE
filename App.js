@@ -356,6 +356,7 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
                   handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
                   playerStatistics: this.state.playerStatistics,
+                  handleUserProfile: this.handleUserProfile,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
