@@ -4,13 +4,11 @@ import { Form, Separator, InputField, PickerField } from 'react-native-form-gene
 
 export default class QuestionNew extends Component {
   render() {
-
     let handleQuestionNew = this.props.screenProps.handleQuestionNew
     let handleQuestionTextInputForNewQuestion = this.props.screenProps.handleQuestionTextInputForNewQuestion
     let handleQuestionAnswerputForNewQuestion = this.props.screenProps.handleQuestionAnswerputForNewQuestion
     let handleQuestionHintInputForNewQuestion = this.props.screenProps.handleQuestionHintInputForNewQuestion
     let handleQuestionClueTextInputForNewQuestion = this.props.screenProps.handleQuestionClueTextInputForNewQuestion
-
     return (
       <View>
         <Form

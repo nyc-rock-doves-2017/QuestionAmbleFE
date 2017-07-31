@@ -141,6 +141,8 @@ export default class QuestionAmbleFE extends Component {
       newQuestionFormAnswer: "",
       newQuestionFormHint: "",
       newQuestionFormClueText: "",
+      newQuestionFormLat: "",
+      newQuestionFormLng: "",
 
       newQuestFormQuestTitle: "",
       newQuestFormQuestDescription: "",
@@ -160,6 +162,7 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestionAnswerputForNewQuestion = this.handleQuestionAnswerputForNewQuestion.bind(this)
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
     this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
+    this.getCurrentLocation = this.getCurrentLocation.bind(this)
   }
 
   componentDidMount(){
@@ -176,6 +179,12 @@ export default class QuestionAmbleFE extends Component {
        });
       }
     });
+  }
+  componentWillMount(){
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({newQuestionFormLat: position.coords.latitude})
+      this.setState({newQuestionFormLng: position.coords.longitude})
+                                            })
   }
   //Quest
   handleQuestTitleInputForNewQuest(textValue){
@@ -228,13 +237,7 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    let lat, lng
-
-    navigator.geolocation.getCurrentPosition((position) => {
-                                          lat = position.coords.latitude;
-                                          lng = position.coords.longitude;
-                                            })
-
+    debugger
     fetch("http://localhost:8000/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -242,9 +245,10 @@ export default class QuestionAmbleFE extends Component {
         question_text: this.state.newQuestionFormText,
         answer: this.state.newQuestionFormAnswer,
         clue_type: "text",
-        clue_text: this.state.newQuestionFormHint,
-        lat: lat,
-        lng: lng,
+        clue_text: this.state.newQuestionFormClueText,
+        hint: this.state.newQuestionFormHint,
+        lat: this.state.newQuestionFormLat,
+        lng: this.state.newQuestionFormLng,
       }})
     }).then((response => {
       return response.json()})
@@ -274,6 +278,10 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestionClueTextInputForNewQuestion(textValue){
     this.setState({newQuestionFormClue: textValue})
+  }
+
+  getCurrentLocation(){
+
   }
 
   render() {
