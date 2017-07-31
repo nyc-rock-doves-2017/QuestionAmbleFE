@@ -3,13 +3,16 @@ import { AppRegistry,
   StyleSheet,
   Text,
   View,
-  SectionList
+  SectionList,
+  Dimensions
 } from 'react-native';
 import { Form,
   Separator,
   InputField
 } from 'react-native-form-generator';
 import Button from 'apsl-react-native-button';
+var {height, width} = Dimensions.get('window');
+import MapView from 'react-native-maps';
 
 export default class QuestionNew extends Component {
   render() {
@@ -47,12 +50,24 @@ export default class QuestionNew extends Component {
             onPress={() => handleQuestionNew()}
             title="Create Question"/>
         </Form>
+        <MapView style={styles.map}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  map: {
+    height: height,
+    width: width,
+  },
   button: {
     backgroundColor: '#FB8422',
     borderRadius: 25,
