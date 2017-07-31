@@ -119,11 +119,7 @@ export default class QuestionAmbleFE extends Component {
       hasToken: false,
       isLoaded: false,
 
-      playerStatistics: {id: "",
-                          title: "",
-                          key: "",
-                          description: "",
-                          questCreator: ""},  //Data about the user's game statistics
+      playerStatistics: {},  //Data about the user's game statistics
       currentUser: {
                     userID: "",
                     userEmail: ""
@@ -159,7 +155,6 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestionAnswerputForNewQuestion = this.handleQuestionAnswerputForNewQuestion.bind(this)
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
     this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
-    this.getCurrentLocation = this.getCurrentLocation.bind(this)
   }
   //To test:
   componentDidMount(){
