@@ -3,7 +3,6 @@ import { AppRegistry, StyleSheet, Text, View, SectionList, Button } from 'react-
 
 export default class QuestionShow extends Component {
   render() {
-    // debugger
     let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     let question = questData[0].questions.filter( (question) => question.id === this.props.navigation.state.params.questionID)
     return (

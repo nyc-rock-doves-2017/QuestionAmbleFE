@@ -24,8 +24,8 @@ export default class Directory extends Component {
 
 
         <Text style={styles.welcome}> Questions </Text>
-        <Button onPress={() => this.props.navigation.navigate("QuestionIndex")} title="Question Index"/>
-        <Button onPress={() => this.props.navigation.navigate("QuestionShow")} title="Question Show"/>
+        {/* <Button onPress={() => this.props.navigation.navigate("QuestionIndex")} title="Question Index"/>
+        <Button onPress={() => this.props.navigation.navigate("QuestionShow")} title="Question Show"/> */}
         <Button onPress={() => this.props.navigation.navigate("QuestionNew")} title="Question New"/>
         <Button onPress={() => this.props.navigation.navigate("QuestionEdit")} title="Question Edit"/>
 
