@@ -366,7 +366,7 @@ export default class QuestionAmbleFE extends Component {
                   newQuestionFormLat: this.state.newQuestionFormLat,
                   newQuestionFormLng: this.state.newQuestionFormLng,
                   handleUserProfile: this.handleUserProfile,
-                  userLogin: this.userLogin,
+                  handleUserLogin: this.handleUserLogin,
 
                   }
     return (
