@@ -13,6 +13,7 @@ import {
   Button,
   ActivityIndicator,
   AsyncStorage,
+  Alert,
   ScrollView
 } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
@@ -124,16 +125,11 @@ export default class QuestionAmbleFE extends Component {
                         completenessPercentage: "",
                         indAverageScore: "",
                         gamesPlayed: []},  //Data about the user's game statistics
-      currentUser: {
-                    userID: "",
-                    userEmail: ""
-                    },  //Data about the current user
+      //Data about the current user
       roundStatistics: [], //Data about information related to the current round
       questData: [], //Data regarding all the quests that the user ever created along with question and stat info
       nextQuestion: {}, // Data about the next question except for coordinates
-      editQuestionForm: {
-                        questTitle: "",
-      }, //Data entered from the edit question form
+      editQuestionForm: {questTitle: ""}, //Data entered from the edit question form
       newQuestionFormText: "",
       newQuestionFormAnswer: "",
       newQuestionFormHint: "",
@@ -145,10 +141,17 @@ export default class QuestionAmbleFE extends Component {
       newQuestFormQuestDescription: "",
       newQuestFormQuestTitleGameKey: "",
       newQuestFormErrors: "",
+
+      //Data for login and signup
+      currentUserUsername: "",
+      currentUserPassword: "",
+      newUserUsername: "",
+      newUserEmail: "",
+      newUserPassword: "",
        //Data entered from the new quest form
       editQuestForm: {}, //Data entered from the edit quest form
       playerQuestionInput: {}, //What the user types in when trying to answer a question
-      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
+      currentGameResult: {} //Data on whether the user got the answer correct for the guess
     }
     this.handleQuestTitleInputForNewQuest = this.handleQuestTitleInputForNewQuest.bind(this)
     this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
@@ -160,6 +163,13 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
     this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
     this.handleUserProfile = this.handleUserProfile.bind(this)
+    this.handleUserLogin = this.handleUserLogin.bind(this)
+    this.handleUserUsernameInputForLogin = this.handleUserUsernameInputForLogin.bind(this)
+    this.handleUserPasswordInputForLogin = this.handleUserPasswordInputForLogin.bind(this)
+    this.handleUserSignUp = this.handleUserSignUp.bind(this)
+    this.handleUserUsernameInputForSignUp = this.handleUserUsernameInputForSignUp.bind(this)
+    this.handleUserEmailInputForSignUp = this.handleUserEmailInputForSignUp.bind(this)
+    this.handleUserPasswordInputForSignUp = this.handleUserPasswordInputForSignUp.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -177,12 +187,30 @@ export default class QuestionAmbleFE extends Component {
       }
     });
   }
-  componentWillMount(){
+  componentWillMount() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.setState({newQuestionFormLat: position.coords.latitude})
       this.setState({newQuestionFormLng: position.coords.longitude})
-                                            })
+    })
   }
+
+  //User Stuff
+  handleUserUsernameInputForLogin(textValue){
+    this.setState({currentUserUsername: textValue})
+  }
+  handleUserPasswordInputForLogin(textValue){
+    this.setState({currentUserPassword: textValue})
+  }
+  handleUserUsernameInputForSignUp(textValue){
+    this.setState({newUserUsername: textValue})
+  }
+  handleUserEmailInputForSignUp(textValue){
+    this.setState({newUserEmail: textValue})
+  }
+  handleUserPasswordInputForSignUp(textValue){
+    this.setState({newUserPassword: textValue})
+  }
+
   //Quest
   handleQuestTitleInputForNewQuest(textValue){
     this.setState({newQuestFormQuestTitle: textValue})
@@ -291,17 +319,11 @@ export default class QuestionAmbleFE extends Component {
       })
     }
 
-    //User Signup/Login
-    async saveItem(item, selectedValue) {
-      try {
-        await AsyncStorage.setItem(item, selectedValue);
-      } catch(error) {
-        console.error('AsyncStorage error: ' + error.message);
-      }
-    }
+    // User Signup/Login
 
-    userSignup() {
-      if (this.state.username && this.state.password) {
+    handleUserSignUp() {
+      currentContext = this;
+      if (this.handleUserUsernameInputForSignUp && this.handleUserPasswordInputForSignUp) {
         fetch('https://questionamble.herokuapp.com/users', {
           method: 'POST',
           headers: {
@@ -310,21 +332,23 @@ export default class QuestionAmbleFE extends Component {
           },
           body: JSON.stringify({
             user: {
-              email: this.state.email,
-              username: this.state.username,
-              password: this.state.password
+              email: this.state.newUserEmail,
+              username: this.state.newUserUsername,
+              password: this.state.newUserPassword
             }
           })
-          .then((response) => response.json())
-          .then((responseData) => {
-            this.saveItem('id_token', responseData.id_token),
+        })
+          .then(response => {return response.json()})
+          .then(responseData => {
+            debugger
+            AsyncStorage.setItem('auth_token', responseData.id_token);
+            debugger
             Alert.alert('New Account Created!')
-          })
         })
       }
     }
 
-    userLogin() {
+    handleUserLogin() {
       debugger
       if (this.state.username && this.state.password) {
         fetch('https://questionamble.herokuapp.com/users/login', {
@@ -341,7 +365,7 @@ export default class QuestionAmbleFE extends Component {
           })
           .then((response) => response.json())
           .then((responseData) => {
-            this.saveItem('id_token', responseData.id_token),
+            this.saveItem('auth_token', responseData.id_token),
             Alert.alert('Login Success!')
           })
         })
@@ -366,7 +390,14 @@ export default class QuestionAmbleFE extends Component {
                   newQuestionFormLat: this.state.newQuestionFormLat,
                   newQuestionFormLng: this.state.newQuestionFormLng,
                   handleUserProfile: this.handleUserProfile,
+
                   handleUserLogin: this.handleUserLogin,
+                  handleUserUsernameInputForLogin: this.handleUserUsernameInputForLogin,
+                  handleUserPasswordInputForLogin: this.handleUserPasswordInputForLogin,
+                  handleUserSignUp: this.handleUserSignUp,
+                  handleUserUsernameInputForSignUp: this.handleUserUsernameInputForSignUp,
+                  handleUserEmailInputForSignUp: this.handleUserEmailInputForSignUp,
+                  handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp
 
                   }
     return (
