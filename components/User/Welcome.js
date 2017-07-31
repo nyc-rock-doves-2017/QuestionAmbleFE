@@ -12,14 +12,20 @@ export default class Welcome extends Component {
       <View style={styles.wholeScreen}>
         <View style={styles.container}>
           <Text style={styles.title}>QuestionAmble</Text>
-          <Text>A Quest for Knowledge</Text>
-          <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}} onPress={() => this.props.navigation.navigate("Login")}>
-            Login
-          </Button>
-          <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}} onPress={() => this.props.navigation.navigate("NewAccount")}>
-            Sign Up
-          </Button>
-          <Text>*If you have a Quest Code, but don't have an account yet, sign up to play</Text>
+          <Text style={styles.subtitle}>A Quest for Knowledge</Text>
+          <View style={styles.buttonContainer}>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("Login")}>
+              <Text style={styles.buttonText}>
+                Login
+              </Text>
+            </Button>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("NewAccount")}>
+              <Text style={styles.buttonText}>
+                Sign Up
+              </Text>
+            </Button>
+          </View>
+          <Text style={styles.disclaimerText}>*If you have a Quest Code, but don't have an account yet, sign up to play</Text>
         </View>
       </View>
     );
@@ -27,11 +33,26 @@ export default class Welcome extends Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#FB8422',
+    borderRadius: 25,
+    borderColor: 'azure',
+    borderWidth: 2
+  },
   wholeScreen: {
     backgroundColor: '#66a3ff',
+    flex: 3
   },
   container: {
-    marginTop: 40,
+    marginTop: 100,
+  },
+  buttonContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 40,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   title: {
     color: 'azure',
@@ -39,7 +60,26 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center'
   },
-  red: {
-    color: 'red',
+  subtitle: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    paddingTop: 10,
   },
+  buttonText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  disclaimerText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'center',
+    paddingTop: 10,
+    paddingLeft: 25,
+    paddingRight: 25,
+  }
 });

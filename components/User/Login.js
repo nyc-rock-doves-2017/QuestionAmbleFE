@@ -4,7 +4,8 @@ import { AppRegistry,
   TextInput,
   ScrollView,
   AsyncStorage,
-  View
+  View,
+  StyleSheet
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import { Form,
@@ -36,8 +37,8 @@ export default class Login extends Component {
 
   render(){
     return(
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10,paddingRight:10, height:200}}>
-        <Text>Login</Text>
+      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#66a3ff'}}>
+        <Text style={styles.title}>Login</Text>
         <Form
           ref='LoginForm'
           onFocus={this.handleFormFocus.bind(this)}
@@ -67,3 +68,55 @@ export default class Login extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#FB8422',
+    borderRadius: 25,
+    borderColor: 'azure',
+    borderWidth: 2
+  },
+  wholeScreen: {
+    backgroundColor: '#66a3ff',
+    flex: 3
+  },
+  container: {
+    marginTop: 100,
+  },
+  buttonContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 40,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  title: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center'
+  },
+  subtitle: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    paddingTop: 10,
+  },
+  buttonText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  disclaimerText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 14,
+    textAlign: 'center',
+    paddingTop: 10,
+    paddingLeft: 25,
+    paddingRight: 25,
+  }
+});
