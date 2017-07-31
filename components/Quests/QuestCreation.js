@@ -4,13 +4,14 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
-
 import { Form,
-  Separator, InputField
+  Separator,
+  InputField
 } from 'react-native-form-generator';
+import Button from 'apsl-react-native-button';
 
 export default class QuestCreation extends Component {
 
@@ -20,49 +21,69 @@ export default class QuestCreation extends Component {
     let handleQuestGameKeyInputForNewQuest = this.props.screenProps.handleQuestGameKeyInputForNewQuest
     let handleNewQuestForm = this.props.screenProps.handleNewQuestForm
 
-    return (<View style={{paddingLeft:10, paddingRight:10, height:200}}>
-      <Form
-        ref='QuestForm'
-        label="Quest Creator">
-        <Text>Quest Title</Text>
-        <InputField
-          ref='title'
-          placeholder='Quest Title'
-          onChangeText={handleQuestTitleInputForNewQuest}/>
-
-          <Text>Quest Description</Text>
-          <InputField
-            multiline = {true}
-            placeholder='Quest Description'
-            onChangeText={handleQuestDescriptionInputForNewQuest}/>
-
-        <Separator />
-
-        <Button
-          onPress={handleNewQuestForm}
-          title="Finish making Quest"/>
-        </Form>
-
-      </View>
+    return (
+      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#66a3ff'}}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Create a New Quest</Text>
+          <Form
+            ref='QuestForm'
+            label="QuestCreator">
+            <Separator />
+            <InputField
+              ref='title'
+              placeholder='Title'
+              onChangeText={handleQuestTitleInputForNewQuest}/>
+            <InputField
+              multiline = {true}
+              placeholder='Description'
+              onChangeText={handleQuestDescriptionInputForNewQuest}
+              />
+          </Form>
+              <View style={styles.buttonContainer}>
+                <Button style={styles.button} onPress={handleNewQuestForm}>
+                  <Text style={styles.buttonText}>
+                    CREATE QUEST
+                  </Text>
+                </Button>
+              </View>
+          </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#FB8422',
+    borderRadius: 25,
+    borderColor: 'azure',
+    borderWidth: 2
+  },
+  wholeScreen: {
+    backgroundColor: '#66a3ff',
+    flex: 3
+  },
   container: {
-    flex: 1,
+    marginTop: 100,
+  },
+  buttonContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 40,
+    width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  title: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  buttonText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center'
+  }
 });

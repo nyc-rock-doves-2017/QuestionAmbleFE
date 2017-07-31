@@ -10,12 +10,7 @@ import { AppRegistry,
 import Button from 'apsl-react-native-button';
 import { Form,
         Separator,
-        InputField,
-        LinkField,
-        SwitchField,
-        PickerField,
-        DatePicker,
-        TimePickerField
+        InputField
 } from 'react-native-form-generator';
 
 export default class Login extends Component {

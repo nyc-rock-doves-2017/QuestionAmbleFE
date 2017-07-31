@@ -76,7 +76,7 @@ export default class NewAccount extends Component {
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
               <Text style={styles.buttonText}>
-                Create Account
+                CREATE ACCOUNT
               </Text>
             </Button>
         </View>
