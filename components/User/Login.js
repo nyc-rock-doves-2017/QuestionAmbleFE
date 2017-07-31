@@ -65,7 +65,7 @@ export default class Login extends Component {
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
               <Text style={styles.buttonText}>
-                Login
+                LOGIN
               </Text>
             </Button>
         </View>

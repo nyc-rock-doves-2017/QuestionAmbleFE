@@ -16,16 +16,16 @@ export default class Welcome extends Component {
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("Login")}>
               <Text style={styles.buttonText}>
-                Login
+                LOGIN
               </Text>
             </Button>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("NewAccount")}>
               <Text style={styles.buttonText}>
-                Sign Up
+                SIGN UP
               </Text>
             </Button>
           </View>
-          <Text style={styles.disclaimerText}>*If you have a Quest Code, but don't have an account yet, sign up to play</Text>
+          <Text style={styles.disclaimerText}>*If you have a Quest Code, but don't have an account yet, sign up to play!</Text>
         </View>
       </View>
     );
