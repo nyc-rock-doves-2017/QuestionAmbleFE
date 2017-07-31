@@ -18,7 +18,8 @@ export default class QuestIndex extends Component {
     return (<View style={styles.container}>
       <Text style={styles.instructions}> Here are your completed quests</Text>
       <Text> ID | Title | Code </Text>
-      <FlatList data={questData} renderItem={({item}) => <Text key={item.id}>{item.id} - {item.title} - {item.gameKey}</Text>}/>
+      <FlatList data={questData} renderItem={({item}) => <Text onPress={() => this.props.navigation.navigate("QuestShow", {id: item.id})}
+        key={item.id}>{item.id} - {item.title} - {item.gameKey}</Text>}/>
       </View>
     );
   }
