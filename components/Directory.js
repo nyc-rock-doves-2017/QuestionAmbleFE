@@ -18,7 +18,7 @@ export default class Directory extends Component {
         <Button onPress={() => this.props.navigation.navigate("Login")} title="Login"/>
         <Button onPress={() => this.props.navigation.navigate("MainMenu")} title="MainMenu"/>
         <Button onPress={() => this.props.navigation.navigate("NewAccount")} title="NewAccount"/>
-        <Button onPress={() => this.props.navigation.navigate("PlayerStatistics")} title="PlayerStatistics"/>
+        {/* <Button onPress={() => this.props.navigation.navigate("PlayerStatistics")} title="PlayerStatistics"/> */}
         <Button onPress={() => this.props.navigation.navigate("UserProfile")} title="UserProfile"/>
         <Button onPress={() => this.props.navigation.navigate("Welcome")} title="Welcome"/>
 
