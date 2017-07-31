@@ -11,7 +11,7 @@ import {
 
 export default class QuestShow extends Component {
   render() {
-    let data = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.id)
+    let data = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questId)
 
     return (<View style={{paddingLeft:10,paddingRight:10, height:200}}>
         <Text>Quest ID:</Text>
@@ -34,7 +34,7 @@ export default class QuestShow extends Component {
         <Text>{data[0].avgAccuracyScore}</Text>
         <Text>Played By</Text>
         <Text>{data[0].playedBy}</Text>
-        <Button onPress={() => this.props.navigation.navigate("QuestionIndex", {id: data[0].id})} title="View Question List"/>
+        <Button onPress={() => this.props.navigation.navigate("QuestionIndex", {questID: data[0].id})} title="View Question List"/>
       </View>
     );
   }

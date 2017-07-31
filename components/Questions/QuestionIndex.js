@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, SectionList } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, FlatList } from 'react-native';
 
 export default class QuestionIndex extends Component {
   render() {
+    let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     return (
       <View>
         <Text>Here are your questions:</Text>
-        <Text>List here:</Text>
-        <Text>Sample Data</Text>
-        <Text>Sample Data</Text>
-        <Text>Sample Data</Text>
-        <Text>Sample Data</Text>
-        <Text>Sample Data</Text>
+        <FlatList data={questData[0].questions} renderItem={({item}) => <Text
+          key={item.id}>{item.id} - {item.questId} - {item.questionText}</Text>}/>
       </View>
     );
   }
