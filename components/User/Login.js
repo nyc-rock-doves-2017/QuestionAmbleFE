@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { AppRegistry,
   Text,
-  TextInput,
   ScrollView,
-  AsyncStorage,
   View,
+  Alert,
   StyleSheet
 } from 'react-native';
 import Button from 'apsl-react-native-button';
@@ -37,28 +36,20 @@ export default class Login extends Component {
           <Text style={styles.title}>Login</Text>
           <Form
             ref='LoginForm'
-            // onFocus={this.handleFormFocus.bind(this)}
-            // onChange={this.handleFormChange.bind(this)}
             label="Login">
               <Separator />
               <InputField
-                editable={true}
-                onChangeText={(username) => this.setState({username: ""})}
+                onChangeText={this.props.screenProps.handleUserUsernameInputForLogin}
                 ref="username"
-                placeholder="Username"
-                returnKeyType='next'
-                value={this.state.username}/>
+                placeholder="Username"/>
               <InputField
-                editable={true}
-                onChangeText={}
+                onChangeText={this.props.screenProps.handleUserPasswordInputForLogin}
                 ref="password"
                 placeholder="Password"
-                returnKeyType='next'
-                secureTextEntry={true}
-                value={this.state.password}/>
+                secureTextEntry={true}/>
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={() => this.props.screenProps.userLogin}>
+            <Button style={styles.button} onPress={this.props.screenProps.handleUserLogin}>
               <Text style={styles.buttonText}>
                 LOGIN
               </Text>
