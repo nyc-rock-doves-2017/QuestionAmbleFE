@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry,
   Text,
   Alert,
-  TextInput,
   ScrollView,
-  AsyncStorage,
   View,
   StyleSheet
 } from 'react-native';
@@ -43,38 +41,24 @@ export default class NewAccount extends Component {
           <Text style={styles.title}>Create Account</Text>
           <Form
             ref='NewAccountForm'
-            onFocus={this.handleFormFocus.bind(this)}
-            onChange={this.handleFormChange.bind(this)}
             label="Create a New Account">
               <Separator />
               <InputField
-                editable={true}
-                onChangeText={(email) => this.setState({email})}
+                onChangeText={this.props.screenProps.handleUserEmailInputForSignUp}
                 ref="email"
-                placeholder="Email"
-                returnKeyType='next'
-                value={this.state.email}
-              />
+                placeholder="Email"/>
               <InputField
-                editable={true}
-                onChangeText={(username) => this.setState({username})}
+                onChangeText={this.props.screenProps.handleUserUsernameInputForSignUp}
                 ref="username"
-                placeholder="Username"
-                returnKeyType='next'
-                value={this.state.username}
-              />
+                placeholder="Username"/>
               <InputField
-                editable={true}
-                onChangeText={(password) => this.setState({password})}
+                onChangeText={this.props.screenProps.handleUserPasswordInputForSignUp}
                 ref="password"
                 placeholder="Password"
-                returnKeyType='next'
-                secureTextEntry={true}
-                value={this.state.password}
-              />
+                secureTextEntry={true}/>
           </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+            <Button style={styles.button} onPress={this.props.screenProps.handleUserSignUp}>
               <Text style={styles.buttonText}>
                 CREATE ACCOUNT
               </Text>
