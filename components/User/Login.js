@@ -50,8 +50,7 @@ export default class Login extends Component {
               ref="username"
               placeholder="Username"
               returnKeyType='next'
-              value={this.state.username}
-            />
+              value={this.state.username}/>
             <TextInput
               editable={true}
               onChangeText={(password) => this.setState({password})}
@@ -59,8 +58,7 @@ export default class Login extends Component {
               placeholder="Password"
               returnKeyType='next'
               secureTextEntry={true}
-              value={this.state.password}
-            />
+              value={this.state.password}/>
         </Form>
         <Button style={{backgroundColor: 'red'}} textStyle={{fontSize: 18}} onPress={() => this.props.navigation.navigate("MainMenu")}>
           Login
