@@ -6,10 +6,14 @@ import { AppRegistry,
 import PlayerStatistics from './PlayerStatistics.js';
 
 export default class UserProfile extends Component {
+  componentDidMount(){
+    this.props.screenProps.handleUserProfile();
+  }
   render(){
+    let { playerStatistics } = this.props.screenProps
     return(
       <View>
-        <PlayerStatistics />
+        <PlayerStatistics playerStatistics = { playerStatistics }/>
       </View>
     );
   }
