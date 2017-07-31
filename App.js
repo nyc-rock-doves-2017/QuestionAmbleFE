@@ -233,7 +233,6 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    debugger
     fetch("https://questionamble.herokuapp.com/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -249,7 +248,6 @@ export default class QuestionAmbleFE extends Component {
     }).then((response => {
       return response.json()})
     ).then(body => {
-      debugger
       if (body.hasOwnProperty("error") === false){
         //Ask for guidance on line below
         currentContext.navigator._navigation.navigate("QuestIndex")
@@ -302,48 +300,50 @@ export default class QuestionAmbleFE extends Component {
     }
 
     userSignup() {
-      if (!this.state.username || !this.state.password) return;
-      fetch('https://questionamble.herokuapp.com/users', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user: {
-            email: this.state.email,
-            username: this.state.username,
-            password: this.state.password
-          }
+      if (this.state.username && this.state.password) {
+        fetch('https://questionamble.herokuapp.com/users', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user: {
+              email: this.state.email,
+              username: this.state.username,
+              password: this.state.password
+            }
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            this.saveItem('id_token', responseData.id_token),
+            Alert.alert('New Account Created!')
+          })
         })
-        .then((response) => response.json())
-        .then((responseData) => {
-          this.saveItem('id_token', responseData.id_token),
-          Alert.alert('New Account Created!')
-        })
-      })
+      }
     }
 
     userLogin() {
-      if (!this.state.username || !this.state.password) return;
-      fetch('https://questionamble.herokuapp.com/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user: {
-            username: this.state.username,
-            password: this.state.password
-          }
+      if (this.state.username && this.state.password) {
+        fetch('https://questionamble.herokuapp.com/users', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user: {
+              username: this.state.username,
+              password: this.state.password
+            }
+          })
+          .then((response) => response.json())
+          .then((responseData) => {
+            this.saveItem('id_token', responseData.id_token),
+            Alert.alert('Login Success!')
+          })
         })
-        .then((response) => response.json())
-        .then((responseData) => {
-          this.saveItem('id_token', responseData.id_token),
-          Alert.alert('Login Successful!')
-        })
-      })
+      }
     }
 
   render() {
