@@ -9,6 +9,7 @@ import { AppRegistry,
 export default class PlayerStatistics extends Component {
   render(){
     let { playerStatistics } = this.props.screenProps
+
     return(
       <View>
         <Text>My Statistics</Text>
