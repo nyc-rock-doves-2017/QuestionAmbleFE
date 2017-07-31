@@ -34,7 +34,7 @@ export default class MainMenu extends Component {
                 MY QUESTS
               </Text>
             </Button>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("User Profile")}>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("UserProfile")}>
               <Text style={styles.buttonText}>
                 MY PROFILE
               </Text>
