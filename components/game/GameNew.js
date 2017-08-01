@@ -13,8 +13,26 @@ import { AppRegistry,
   } from 'react-native-form-generator';
 
 export default class GameNew extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      formErrors: "",
+    }
+    this.processGame = this.processGame.bind(this)
+  }
+
+  processGame(){
+    this.props.screenProps.processGameKey()
+    if (this.props.screenProps.newQuestionFormErrors === ""){
+      this.props.navigation.navigate("ClueShow")
+    }
+    else{
+      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+    }
+  }
+
   render() {
-    let { handleNewGameKeyInput, processGameKey } = this.props.screenProps
+    let { handleNewGameKeyInput } = this.props.screenProps
     return (
       <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
         <View style={styles.container}>
@@ -32,7 +50,7 @@ export default class GameNew extends Component {
                 />
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={processGameKey}>
+            <Button style={styles.button} onPress={this.processGame}>
               <Text style={styles.buttonText}>
                 LET'S GO
               </Text>

@@ -16,6 +16,25 @@ var {height, width} = Dimensions.get('window');
 import MapView from 'react-native-maps';
 
 export default class QuestionNew extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      formErrors: "",
+    }
+    this.props.screenProps.updateLocation();
+    this.processNewQuestion = this.processNewQuestion.bind(this)
+  }
+
+  processNewQuestion(){
+    this.props.screenProps.handleQuestionNew()
+    if (this.props.screenProps.newQuestionFormErrors === ""){
+      this.props.screenProps.handleQuestData();
+      this.props.navigation.navigate("QuestIndex")
+    }
+    else{
+      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+    }
+  }
   render() {
     let handleQuestionNew = this.props.screenProps.handleQuestionNew
     let handleQuestionTextInputForNewQuestion = this.props.screenProps.handleQuestionTextInputForNewQuestion
@@ -30,6 +49,7 @@ export default class QuestionNew extends Component {
           <Text style={styles.title}>
             Create a New Question
           </Text>
+          <Text>{this.state.formErrors}</Text>
           <Form
             ref="QuestionForm"
             label="New Question">
@@ -87,7 +107,7 @@ export default class QuestionNew extends Component {
           </MapView>
           <View style={styles.buttonContainer}>
             <Button style={styles.button}
-            onPress={() => handleQuestionNew()}>
+            onPress={this.processNewQuestion}>
               <Text style={styles.buttonText}>
                 CREATE QUESTION
               </Text>

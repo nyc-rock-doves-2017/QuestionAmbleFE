@@ -4,17 +4,12 @@ import { AppRegistry, StyleSheet, Text, View, SectionList, Button } from 'react-
 export default class ClueShow extends Component {
   constructor(props){
     super(props);
-    // this.state = {
-    //   currentQuestion: {
-    //     id: "",
-    //     questId: "",
-    //     questionText: "",
-    //     q_text: "",
-    //     answer: "",
-    //     hint: ""
-    //   }
-    // }
+    this.props.screenProps.updateLocation();
     this.props.screenProps.getNextQuestion();
+  }
+
+  test(){
+    console.log("Test")
   }
   render() {
   let {currentQuestion} = this.props.screenProps
@@ -22,7 +17,8 @@ export default class ClueShow extends Component {
       <View>
         <Text>Here's a clue to find your question...Where could it be?</Text>
         <Text>{currentQuestion.clueText}</Text>
-          <Text> CHECK LOCATION </Text>
+        <Text>Check Location!</Text>
+
       </View>
     );
   }
