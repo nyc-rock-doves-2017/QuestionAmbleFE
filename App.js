@@ -154,10 +154,17 @@ export default class QuestionAmbleFE extends Component {
        //Data entered from the new quest form
       editQuestForm: {}, //Data entered from the edit quest form
       playerQuestionInput: {}, //What the user types in when trying to answer a question
-      currentGameResult: {} //Data on whether the user got the answer correct for the guess
+      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
 
       //Data for the logic to start a new game
       currentGameKey: "",
+      currentRound: "",
+      currentQuestion: {id: "",
+                        questId: "",
+                        questionText: "",
+                        q_text: "",
+                        answer: "",
+                        hint: ""},
 
       editQuestForm: {}, //Data entered from the edit quest form
       playerQuestionInput: {}, //What the user types in when trying to answer a question
@@ -184,6 +191,7 @@ export default class QuestionAmbleFE extends Component {
     this.getToken = this.getToken.bind(this)
     this.handleNewGameKeyInput = this.handleNewGameKeyInput.bind(this)
     this.processGameKey = this.processGameKey.bind(this)
+    this.getNextQuestion = this.getNextQuestion.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -373,7 +381,6 @@ export default class QuestionAmbleFE extends Component {
     }
 
     handleUserLogin() {
-      debugger
       if (this.state.username && this.state.password) {
         fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
@@ -413,10 +420,27 @@ export default class QuestionAmbleFE extends Component {
       ).then(body => {
         if (body.hasOwnProperty("error") === false){
           //Ask for guidance on line below
+          currentContext.setState({currentRound: body.id})
+          this.getNextQuestion()
           currentContext.navigator._navigation.navigate("ClueShow")
         }
       })
       .catch(err => {
+        console.log(err)
+      })
+    }
+
+    getNextQuestion(){
+      // var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
+      var newPath = "https://questionamble.herokuapp.com/rounds/"+23+"/next_question"
+      fetch(newPath)
+      .then(
+        response => {
+          return response.json()})
+      .then(body => {
+        this.setState({currentQuestion: body})
+      })
+      .catch( err => {
         console.log(err)
       })
     }
@@ -444,10 +468,11 @@ export default class QuestionAmbleFE extends Component {
                   handleUserSignUp: this.handleUserSignUp,
                   handleUserUsernameInputForSignUp: this.handleUserUsernameInputForSignUp,
                   handleUserEmailInputForSignUp: this.handleUserEmailInputForSignUp,
-                  handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp
-
+                  handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp,
                   handleNewGameKeyInput: this.handleNewGameKeyInput,
                   processGameKey: this.processGameKey,
+                  getNextQuestion: this.getNextQuestion,
+                  currentQuestion: this.currentQuestion,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
