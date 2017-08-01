@@ -132,8 +132,9 @@ export default class QuestionAmbleFE extends Component {
       newQuestionFormAnswer: "",
       newQuestionFormHint: "",
       newQuestionFormClueText: "",
-      newQuestionFormLat: "",
-      newQuestionFormLng: "",
+      currentLat: "",
+      currentLng: "",
+      newQuestionFormErrors: "",
 
       //Data entered from the new quest form
       newQuestFormQuestTitle: "",
@@ -154,9 +155,11 @@ export default class QuestionAmbleFE extends Component {
       playerQuestionInput: {}, //What the user types in when trying to answer a question
       currentGameResult: {}, //Data on whether the user got the answer correct for the guess
 
+      enterGameKeyErrors: "",
       //Data for the logic to start a new game
       currentGameKey: "",
-      currentRound: "",
+      currentRoundID: "",
+      currentLocationMatch: "",
       currentQuestion: {id: "",
                         questId: "",
                         questionText: "",
@@ -190,6 +193,8 @@ export default class QuestionAmbleFE extends Component {
     this.handleNewGameKeyInput = this.handleNewGameKeyInput.bind(this)
     this.processGameKey = this.processGameKey.bind(this)
     this.getNextQuestion = this.getNextQuestion.bind(this)
+    this.updateLocation = this.updateLocation.bind(this)
+    this.checkLocation = this.checkLocation.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -206,12 +211,6 @@ export default class QuestionAmbleFE extends Component {
        });
       }
     });
-  }
-  componentWillMount() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({newQuestionFormLat: position.coords.latitude})
-      this.setState({newQuestionFormLng: position.coords.longitude})
-    })
   }
 
   //User Stuff
@@ -240,25 +239,21 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newQuestFormQuestDescription: textValue})
   }
 
-  handleNewQuestForm(event){
-    event.preventDefault();
+  handleNewQuestForm(){
     currentContext = this;
     fetch("http://localhost:3000/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
                             description: this.state.newQuestFormQuestDescription,
-                            creator_id: "1"}
+                            creator_id: "2"}
                           })
     }).then(
       response => {
         return response.json()})
     .then(body => {
       if (body.hasOwnProperty("error")){
-        this.setState({newQuestFormErrors: body.error})
-      }else {
-        //Ask for guidance on line below
-        currentContext.navigator._navigation.navigate("QuestIndex")
+        currentContext.setState({newQuestFormErrors: body.error})
       }
     })
     .catch( err => {
@@ -285,21 +280,20 @@ export default class QuestionAmbleFE extends Component {
     fetch("http://localhost:3000/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({question: { quest_id: "1",
+      body: JSON.stringify({question: { quest_id: "2",
         question_text: this.state.newQuestionFormText,
         answer: this.state.newQuestionFormAnswer,
         clue_type: "text",
         clue_text: this.state.newQuestionFormClueText,
         hint: this.state.newQuestionFormHint,
-        lat: this.state.newQuestionFormLat,
-        lng: this.state.newQuestionFormLng,
+        lat: this.state.currentLat,
+        lng: this.state.currentLng,
       }})
     }).then((response => {
       return response.json()})
     ).then(body => {
-      if (body.hasOwnProperty("error") === false){
-        //Ask for guidance on line below
-        currentContext.navigator._navigation.navigate("QuestIndex")
+      if (body.hasOwnProperty("error")){
+        this.setState({newQuestionFormErrors: body.error})
       }
     })
     .catch(err => {
@@ -380,8 +374,10 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
+
             this.setState({currentUserId: responseData.userID })
             this.setState({currentUserToken: responseData.auth_token});
+
         })
       }
     }
@@ -403,6 +399,7 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
+
             this.setState({currentUserId: responseData.userID })
             this.setState({currentUserToken: responseData.auth_token})
           })
@@ -418,17 +415,18 @@ export default class QuestionAmbleFE extends Component {
       fetch("http://localhost:3000/rounds",{
         method: "POST",
         headers: {"Content-Type": "application/json"},
+
         body: JSON.stringify({round: { player_id: this.state.currentUserId,
           game_key: this.state.currentGameKey,
+
+        
         }})
       }).then((response => {
         return response.json()})
       ).then(body => {
         if (body.hasOwnProperty("error") === false){
           //Ask for guidance on line below
-          currentContext.setState({currentRound: body.id})
-          this.getNextQuestion()
-          currentContext.navigator._navigation.navigate("ClueShow")
+          currentContext.setState({currentRoundID: body.round_id, currentQuestion: body.first_question})
         }
       })
       .catch(err => {
@@ -437,19 +435,53 @@ export default class QuestionAmbleFE extends Component {
     }
 
     getNextQuestion(){
-      // var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
-      var newPath = "http://localhost:3000/rounds/"+23+"/next_question"
+
+      var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
+
+      currentContext = this;
+      var currentRoundID = currentContext.state.currentRoundID
+      var newPath = ""
+
       fetch(newPath)
       .then(
         response => {
           return response.json()})
       .then(body => {
-        this.setState({currentQuestion: body})
+        currentContext.setState({currentQuestion: body})
       })
       .catch( err => {
         console.log(err)
       })
     }
+
+  updateLocation(){
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({currentLat: position.coords.latitude})
+      this.setState({currentLng: position.coords.longitude})
+    })
+  }
+
+
+  checkLocation(){
+    currentContext = this;
+    var roundID = this.state.currentRoundID
+    var currentQuestionID = this.state.currentQuestion.id
+    var path = "https://questionamble.herokuapp.com/rounds/"+roundID+"/compare_location?player_lat="+currentContext.state.currentLat+"&player_lng="+currentContext.state.currentLng+"&cur_question_id="+currentQuestionID
+    fetch(path,{
+      method: "GET",
+      headers: {"Content-Type": "application/json"}
+    }).then((response => {
+      return response.json()})
+    ).then(body => {
+      if (body.clue === "found"){
+        //Ask for guidance on line below
+        currentContext.setState({currentLocationMatch: body.clue})
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
   render() {
     let methods = {
                   handleQuestData: this.handleQuestData,
@@ -464,8 +496,8 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
                   handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
                   playerStatistics: this.state.playerStatistics,
-                  newQuestionFormLat: this.state.newQuestionFormLat,
-                  newQuestionFormLng: this.state.newQuestionFormLng,
+                  currentLat: this.state.currentLat,
+                  currentLng: this.state.currentLng,
                   handleUserProfile: this.handleUserProfile,
 
                   handleUserLogin: this.handleUserLogin,
@@ -478,7 +510,17 @@ export default class QuestionAmbleFE extends Component {
                   handleNewGameKeyInput: this.handleNewGameKeyInput,
                   processGameKey: this.processGameKey,
                   getNextQuestion: this.getNextQuestion,
-                  currentQuestion: this.currentQuestion,
+                  currentQuestion: this.state.currentQuestion,
+                  checkLocation: this.checkLocation,
+                  newQuestFormErrors: this.state.newQuestFormErrors,
+                  newQuestionFormErrors: this.state.newQuestionFormErrors,
+                  handleQuestionNew: this.handleQuestionNew,
+                  handleNewQuestForm: this.handleNewQuestForm,
+                  enterGameKeyErrors: this.state.enterGameKeyErrors,
+                  requestQuestion: this.requestQuestion,
+                  updateLocation: this.updateLocation,
+                  currentLocationMatch: this.state.currentLocationMatch,
+                  checkLocation: this.checkLocation,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />

@@ -21,7 +21,7 @@ export default class QuestionIndex extends Component {
           Questions
         </Text>
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestionNew", {questID: data[0].id})}>
+          <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestionNew", {questID: questData[0].id})}>
             <Text style={styles.buttonText}>
               ADD QUESTION
             </Text>

@@ -16,20 +16,40 @@ var {height, width} = Dimensions.get('window');
 import MapView from 'react-native-maps';
 
 export default class QuestionNew extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      formErrors: "",
+    }
+    this.props.screenProps.updateLocation();
+    this.processNewQuestion = this.processNewQuestion.bind(this)
+  }
+
+  processNewQuestion(){
+    this.props.screenProps.handleQuestionNew()
+    if (this.props.screenProps.newQuestionFormErrors === ""){
+      this.props.screenProps.handleQuestData();
+      this.props.navigation.navigate("QuestIndex")
+    }
+    else{
+      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+    }
+  }
   render() {
     let handleQuestionNew = this.props.screenProps.handleQuestionNew
     let handleQuestionTextInputForNewQuestion = this.props.screenProps.handleQuestionTextInputForNewQuestion
     let handleQuestionAnswerputForNewQuestion = this.props.screenProps.handleQuestionAnswerputForNewQuestion
     let handleQuestionHintInputForNewQuestion = this.props.screenProps.handleQuestionHintInputForNewQuestion
     let handleQuestionClueTextInputForNewQuestion = this.props.screenProps.handleQuestionClueTextInputForNewQuestion
-    let newQuestionFormLat = this.props.screenProps.newQuestionFormLat
-    let newQuestionFormLng = this.props.screenProps.newQuestionFormLng
+    let currentLat = this.props.screenProps.currentLat
+    let currentLng = this.props.screenProps.currentLng
     return (
       <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#06AED5'}}>
         <View style={styles.container}>
           <Text style={styles.title}>
             Create a New Question
           </Text>
+          <Text>{this.state.formErrors}</Text>
           <Form
             ref="QuestionForm"
             label="New Question">
@@ -76,18 +96,18 @@ export default class QuestionNew extends Component {
         <MapView
           style={styles.map}
           region={{
-            latitude: newQuestionFormLat,
-            longitude: newQuestionFormLng,
+            latitude: currentLat,
+            longitude: currentLng,
             latitudeDelta: 0.00922,
             longitudeDelta: 0.00421,
           }}>
               <MapView.Marker
-                coordinate={{latitude: newQuestionFormLat, longitude: newQuestionFormLng}}
+                coordinate={{latitude: currentLat, longitude: currentLng}}
               />
           </MapView>
           <View style={styles.buttonContainer}>
             <Button style={styles.button}
-            onPress={() => handleQuestionNew()}>
+            onPress={this.processNewQuestion}>
               <Text style={styles.buttonText}>
                 CREATE QUESTION
               </Text>
