@@ -170,10 +170,12 @@ export default class QuestionAmbleFE extends Component {
     this.handleUserUsernameInputForSignUp = this.handleUserUsernameInputForSignUp.bind(this)
     this.handleUserEmailInputForSignUp = this.handleUserEmailInputForSignUp.bind(this)
     this.handleUserPasswordInputForSignUp = this.handleUserPasswordInputForSignUp.bind(this)
+    this.saveToken = this.saveToken.bind(this)
+    this.getToken = this.getToken.bind(this)
   }
   //To test:
   componentDidMount(){
-    AsyncStorage.getItem('id_token').then((token) => {
+    AsyncStorage.getItem('auth_token').then((token) => {
      if (token !== null){
        this.setState({
          hasToken: true,
@@ -321,6 +323,18 @@ export default class QuestionAmbleFE extends Component {
 
     // User Signup/Login
 
+    async saveToken(value) {
+       await AsyncStorage.setItem("auth_token", value)
+    }
+
+    async getToken() {
+      const value = await AsyncStorage.getItem("auth_token")
+      if (value !== null){
+        console.log(value)
+      }
+    }
+
+
     handleUserSignUp() {
       currentContext = this;
       if (this.handleUserUsernameInputForSignUp && this.handleUserPasswordInputForSignUp) {
@@ -340,10 +354,8 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
-            debugger
-            AsyncStorage.setItem('auth_token', responseData.id_token);
-            debugger
-            Alert.alert('New Account Created!')
+            // debugger
+            this.saveToken(responseData.auth_token);
         })
       }
     }
@@ -365,7 +377,7 @@ export default class QuestionAmbleFE extends Component {
           })
           .then((response) => response.json())
           .then((responseData) => {
-            this.saveItem('auth_token', responseData.id_token),
+            this.saveItem('auth_token', responseData.auth_token),
             Alert.alert('Login Success!')
           })
         })
