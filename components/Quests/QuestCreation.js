@@ -14,6 +14,24 @@ import { Form,
 import Button from 'apsl-react-native-button';
 
 export default class QuestCreation extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      formErrors: "",
+    }
+    this.processNewQuest = this.processNewQuest.bind(this)
+  }
+
+  processNewQuest(){
+    this.props.screenProps.handleNewQuestForm()
+    if (this.props.screenProps.newQuestionFormErrors === ""){
+      this.props.screenProps.handleQuestData();
+      this.props.navigation.navigate("QuestIndex")
+    }
+    else{
+      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+    }
+  }
 
   render() {
     let handleQuestTitleInputForNewQuest = this.props.screenProps.handleQuestTitleInputForNewQuest
@@ -40,7 +58,7 @@ export default class QuestCreation extends Component {
               />
           </Form>
               <View style={styles.buttonContainer}>
-                <Button style={styles.button} onPress={handleNewQuestForm}>
+                <Button style={styles.button} onPress={this.processNewQuest}>
                   <Text style={styles.buttonText}>
                     CREATE QUEST
                   </Text>
