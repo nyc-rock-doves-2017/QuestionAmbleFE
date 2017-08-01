@@ -151,8 +151,6 @@ export default class QuestionAmbleFE extends Component {
       newUserEmail: "",
       newUserPassword: "",
        //Data entered from the new quest form
-      editQuestForm: {}, //Data entered from the edit quest form
-      playerQuestionInput: {}, //What the user types in when trying to answer a question
       currentGameResult: {}, //Data on whether the user got the answer correct for the guess
 
       enterGameKeyErrors: "",
@@ -166,6 +164,8 @@ export default class QuestionAmbleFE extends Component {
                         q_text: "",
                         answer: "",
                         hint: ""},
+      currentGuess: "",
+      currentGuessStatus: "",
 
       editQuestForm: {}, //Data entered from the edit quest form
       playerQuestionInput: {}, //What the user types in when trying to answer a question
@@ -195,6 +195,8 @@ export default class QuestionAmbleFE extends Component {
     this.getNextQuestion = this.getNextQuestion.bind(this)
     this.updateLocation = this.updateLocation.bind(this)
     this.checkLocation = this.checkLocation.bind(this)
+    this.handleUserGuess = this.handleUserGuess.bind(this)
+    this.processGuess = this.processGuess.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -482,6 +484,33 @@ export default class QuestionAmbleFE extends Component {
       console.log(err)
     })
   }
+
+  handleUserGuess(text_value){
+    this.setState({currentGuess: text_value})
+  }
+
+  processGuess(){
+    currentContext = this;
+    fetch("https://questionamble.herokuapp.com/results",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ player_id: 2,
+        question_id: currentContext.state.currentQuestion.id,
+        round_id: currentContext.state.currentRoundID,
+        user_guess: currentContext.state.currentGuess,
+      })
+    }).then((response => {
+      return response.json()})
+    ).then(body => {
+      if (body.result === "correct"){
+        //Ask for guidance on line below
+        currentContext.setState({currentGuessStatus: "correct"})
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
   render() {
     let methods = {
                   handleQuestData: this.handleQuestData,
@@ -521,6 +550,9 @@ export default class QuestionAmbleFE extends Component {
                   updateLocation: this.updateLocation,
                   currentLocationMatch: this.state.currentLocationMatch,
                   checkLocation: this.checkLocation,
+                  handleUserGuess: this.handleUserGuess,
+                  processGuess: this.processGuess,
+                  currentGuessStatus: this.state.currentGuessStatus,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
