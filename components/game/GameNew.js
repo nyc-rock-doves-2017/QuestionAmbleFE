@@ -40,7 +40,7 @@ export default class GameNew extends Component {
   render() {
     let { handleNewGameKeyInput } = this.props.screenProps
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
+      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#bfd629'}}>
         <View style={styles.container}>
           <Text style={styles.title}>Enter the Quest Code to Begin...</Text>
           <Form
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#C2D834',
     flex: 3
   },
   container: {

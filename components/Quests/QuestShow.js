@@ -46,7 +46,7 @@ export default class QuestShow extends Component {
                   <Text style={styles.gridTitle}>
                     Times Played
                   </Text>
-                  <Text style={styles.gridText}>
+                  <Text style={styles.gridTextTL}>
                     {data[0].timesPlayed}
                   </Text>
                 </Col>
@@ -54,7 +54,7 @@ export default class QuestShow extends Component {
                   <Text style={styles.gridTitle}>
                     Times Completed
                   </Text>
-                  <Text style={styles.gridText}>
+                  <Text style={styles.gridTextTR}>
                     {data[0].timesCompleted}
                   </Text>
                 </Col>
@@ -65,7 +65,7 @@ export default class QuestShow extends Component {
                   <Text style={styles.gridTitle}>
                     Completion Score
                   </Text>
-                  <Text style={styles.gridText}>
+                  <Text style={styles.gridTextBL}>
                     {data[0].completionScore}
                   </Text>
                 </Col>
@@ -74,7 +74,7 @@ export default class QuestShow extends Component {
                   <Text style={styles.gridTitle}>
                     Accuracy Score
                   </Text>
-                  <Text style={styles.gridText}>
+                  <Text style={styles.gridTextBR}>
                     {data[0].avgAccuracyScore}
                   </Text>
                 </Col>
@@ -159,31 +159,67 @@ const styles = StyleSheet.create({
     color: '#50514F'
   },
   topLeft: {
-    backgroundColor: '#C2D834',
+    backgroundColor: 'azure',
     paddingBottom: 20,
     paddingTop: 10,
-    borderColor: 'azure',
-    borderWidth: 2
+    borderColor: '#E6E6E6',
+    borderLeftWidth: 2,
+    borderTopWidth: 2,
+    borderRightWidth: 1,
+    borderBottomWidth: 1
   },
   topRight: {
-    backgroundColor: '#FFB30F',
+    backgroundColor: 'azure',
     paddingBottom: 20,
     paddingTop: 10,
-    borderColor: 'azure',
-    borderWidth: 2
+    borderColor: '#E6E6E6',
+    borderLeftWidth: 1,
+    borderTopWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 1
   },
   bottomRight: {
-    backgroundColor: '#FD151B',
+    backgroundColor: 'azure',
     paddingBottom: 20,
     paddingTop: 10,
-    borderColor: 'azure',
-    borderWidth: 2,
+    borderColor: '#E6E6E6',
+    borderLeftWidth: 1,
+    borderTopWidth: 1,
+    borderRightWidth: 2,
+    borderBottomWidth: 2
   },
   bottomLeft: {
-    backgroundColor: '#EF39EC',
+    backgroundColor: 'azure',
     paddingBottom: 20,
     paddingTop: 10,
-    borderColor: 'azure',
-    borderWidth: 2
-  }
+    borderColor: '#E6E6E6',
+    borderLeftWidth: 2,
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 2
+  },
+  gridTextBR: {
+    textAlign: 'center',
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#F25F5C'
+  },
+  gridTextBL: {
+    textAlign: 'center',
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#FFB30F'
+  },
+  gridTextTL: {
+    textAlign: 'center',
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#C2D834'
+  },
+  gridTextTR: {
+    textAlign: 'center',
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#CE57A6'
+  },
 });
