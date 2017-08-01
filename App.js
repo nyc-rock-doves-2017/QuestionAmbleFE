@@ -20,7 +20,6 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import Login from './components/User/Login.js';
 import MainMenu from './components/User/MainMenu.js';
 import NewAccount from './components/User/NewAccount.js';
-import PlayerStatistics from './components/User/PlayerStatistics.js';
 import UserProfile from './components/User/UserProfile.js';
 import Welcome from './components/User/Welcome.js';
 
@@ -56,9 +55,6 @@ const AppDirectory = StackNavigator({
   },
   NewAccount: {
     screen: NewAccount,
-  },
-  PlayerStatistics: {
-    screen: PlayerStatistics,
   },
   UserProfile: {
     screen: UserProfile,
@@ -130,6 +126,8 @@ export default class QuestionAmbleFE extends Component {
       questData: [], //Data regarding all the quests that the user ever created along with question and stat info
       nextQuestion: {}, // Data about the next question except for coordinates
       editQuestionForm: {questTitle: ""}, //Data entered from the edit question form
+
+      //Data entered from the new question form
       newQuestionFormText: "",
       newQuestionFormAnswer: "",
       newQuestionFormHint: "",
@@ -137,6 +135,7 @@ export default class QuestionAmbleFE extends Component {
       newQuestionFormLat: "",
       newQuestionFormLng: "",
 
+      //Data entered from the new quest form
       newQuestFormQuestTitle: "",
       newQuestFormQuestDescription: "",
       newQuestFormQuestTitleGameKey: "",
@@ -151,7 +150,21 @@ export default class QuestionAmbleFE extends Component {
        //Data entered from the new quest form
       editQuestForm: {}, //Data entered from the edit quest form
       playerQuestionInput: {}, //What the user types in when trying to answer a question
-      currentGameResult: {} //Data on whether the user got the answer correct for the guess
+      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
+
+      //Data for the logic to start a new game
+      currentGameKey: "",
+      currentRound: "",
+      currentQuestion: {id: "",
+                        questId: "",
+                        questionText: "",
+                        q_text: "",
+                        answer: "",
+                        hint: ""},
+
+      editQuestForm: {}, //Data entered from the edit quest form
+      playerQuestionInput: {}, //What the user types in when trying to answer a question
+      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
     }
     this.handleQuestTitleInputForNewQuest = this.handleQuestTitleInputForNewQuest.bind(this)
     this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
@@ -172,6 +185,9 @@ export default class QuestionAmbleFE extends Component {
     this.handleUserPasswordInputForSignUp = this.handleUserPasswordInputForSignUp.bind(this)
     this.saveToken = this.saveToken.bind(this)
     this.getToken = this.getToken.bind(this)
+    this.handleNewGameKeyInput = this.handleNewGameKeyInput.bind(this)
+    this.processGameKey = this.processGameKey.bind(this)
+    this.getNextQuestion = this.getNextQuestion.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -250,7 +266,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("https://questionamble.herokuapp.com/users/1/my_quests")
+    fetch("https://questionamble.herokuapp.com/users/2/my_quests")
     .then(
       response => {
         return response.json()})
@@ -309,7 +325,7 @@ export default class QuestionAmbleFE extends Component {
   //Player statistics
   handleUserProfile(){
       currentContext = this;
-      fetch("https://questionamble.herokuapp.com/users/1/my_stats")
+      fetch("https://questionamble.herokuapp.com/users/2/my_stats")
       .then(
         response => {
           return response.json()})
@@ -361,9 +377,9 @@ export default class QuestionAmbleFE extends Component {
     }
 
     handleUserLogin() {
-      // debugger
       currentContext = this;
       if (this.handleUserUsernameInputForLogin && this.handleUserPasswordInputForLogin) {
+
         fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
@@ -384,6 +400,47 @@ export default class QuestionAmbleFE extends Component {
         }
       }
 
+    handleNewGameKeyInput(text_value){
+      this.setState({currentGameKey: text_value})
+    }
+
+    processGameKey(){
+      currentContext = this;
+      fetch("https://questionamble.herokuapp.com/rounds",{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({round: { player_id: 1,
+          game_key: this.state.currentGameKey,
+        }})
+      }).then((response => {
+        return response.json()})
+      ).then(body => {
+        if (body.hasOwnProperty("error") === false){
+          //Ask for guidance on line below
+          currentContext.setState({currentRound: body.id})
+          this.getNextQuestion()
+          currentContext.navigator._navigation.navigate("ClueShow")
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+    getNextQuestion(){
+      // var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
+      var newPath = "https://questionamble.herokuapp.com/rounds/"+23+"/next_question"
+      fetch(newPath)
+      .then(
+        response => {
+          return response.json()})
+      .then(body => {
+        this.setState({currentQuestion: body})
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    }
   render() {
     let methods = {
                   handleQuestData: this.handleQuestData,
@@ -398,7 +455,6 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
                   handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
                   playerStatistics: this.state.playerStatistics,
-
                   newQuestionFormLat: this.state.newQuestionFormLat,
                   newQuestionFormLng: this.state.newQuestionFormLng,
                   handleUserProfile: this.handleUserProfile,
@@ -409,8 +465,11 @@ export default class QuestionAmbleFE extends Component {
                   handleUserSignUp: this.handleUserSignUp,
                   handleUserUsernameInputForSignUp: this.handleUserUsernameInputForSignUp,
                   handleUserEmailInputForSignUp: this.handleUserEmailInputForSignUp,
-                  handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp
-
+                  handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp,
+                  handleNewGameKeyInput: this.handleNewGameKeyInput,
+                  processGameKey: this.processGameKey,
+                  getNextQuestion: this.getNextQuestion,
+                  currentQuestion: this.currentQuestion,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />

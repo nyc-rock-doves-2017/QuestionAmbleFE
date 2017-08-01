@@ -25,11 +25,10 @@ export default class QuestionNew extends Component {
     let newQuestionFormLat = this.props.screenProps.newQuestionFormLat
     let newQuestionFormLng = this.props.screenProps.newQuestionFormLng
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#66a3ff'}}>
-
+      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#06AED5'}}>
         <View style={styles.container}>
           <Text style={styles.title}>
-            Ceate a New Question
+            Create a New Question
           </Text>
           <Form
             ref="QuestionForm"
@@ -105,13 +104,13 @@ const styles = StyleSheet.create({
     width: width,
   },
   button: {
-    backgroundColor: '#FB8422',
+    backgroundColor: '#F25F5C',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#66a3ff',
+    backgroundColor: '#06AED5',
     flex: 3
   },
   container: {
@@ -122,8 +121,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 40,
-    paddingBottom: 40,
+    paddingTop: 20,
+    paddingBottom: 20,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center'

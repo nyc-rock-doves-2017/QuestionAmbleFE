@@ -38,13 +38,13 @@ export default class QuestAction extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#FB8422',
+    backgroundColor: '#F25F5C',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#66a3ff',
+    backgroundColor: '#06AED5',
     flex: 3
   },
   container: {

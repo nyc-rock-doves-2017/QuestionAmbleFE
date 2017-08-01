@@ -6,7 +6,8 @@ import {
   View,
   Button,
   Alert,
-  FlatList
+  FlatList,
+  ScrollView
 } from 'react-native';
 
 export default class QuestIndex extends Component {
@@ -15,31 +16,66 @@ export default class QuestIndex extends Component {
   }
   render() {
     let questData = this.props.screenProps.questData
-    return (<View style={styles.container}>
-      <Text style={styles.instructions}> Here are your completed quests</Text>
-      <Text> ID | Title | Code </Text>
-      <FlatList data={questData} renderItem={({item}) => <Text onPress={() => this.props.navigation.navigate("QuestShow", {questId: item.id})}
-        key={item.id}>{item.id} - {item.title} - {item.gameKey}</Text>}/>
-      </View>
+    return (
+      <ScrollView style={styles.wholeScreen}>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            Your Created Quests
+          </Text>
+          <FlatList
+            data={questData}
+            renderItem={({item}) =>
+            <View style={styles.listItems}>
+              <Text style={styles.listText}
+                onPress={() => this.props.navigation.navigate("QuestShow", {questId: item.id})}
+                key={item.id}>
+                <Text style={styles.listTitleItem}> {item.title}
+                </Text>
+                {"\n"}
+                Quest Code: {item.gameKey}
+              </Text>
+            </View>
+          }/>
+        </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  wholeScreen: {
+    backgroundColor: '#06AED5',
+    flex: 3
+  },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    marginTop: 20,
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingBottom: 5
   },
-  welcome: {
-    fontSize: 20,
+  title: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 30,
     textAlign: 'center',
-    margin: 10,
+    paddingBottom: 25,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  listTitleItem: {
+    fontWeight: 'bold',
+    marginBottom: 4,
+    fontSize: 16,
+    paddingLeft: 5
+  },
+  listText: {
+    color: '#6F706F',
+    paddingLeft: 5
+  },
+  listItems: {
+    backgroundColor: 'azure',
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderColor: '#E6E6E6',
+    borderWidth: 1,
+    paddingLeft: 5,
   },
 });
