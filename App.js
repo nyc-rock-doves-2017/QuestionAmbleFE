@@ -143,6 +143,8 @@ export default class QuestionAmbleFE extends Component {
       newQuestFormErrors: "",
 
       //Data for login and signup
+      currentUserToken: "",
+      currentUserId: "",
       currentUserUsername: "",
       currentUserPassword: "",
       newUserUsername: "",
@@ -239,7 +241,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleNewQuestForm(){
     currentContext = this;
-    fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
+    fetch("http://localhost:3000/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
@@ -261,7 +263,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("https://questionamble.herokuapp.com/users/2/my_quests")
+    fetch("https://localhost:3000/users/"+this.state.currentUserId+"/my_quests")
     .then(
       response => {
         return response.json()})
@@ -275,7 +277,7 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    fetch("https://questionamble.herokuapp.com/questions",{
+    fetch("http://localhost:3000/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: { quest_id: "2",
@@ -319,7 +321,15 @@ export default class QuestionAmbleFE extends Component {
   //Player statistics
   handleUserProfile(){
       currentContext = this;
-      fetch("https://questionamble.herokuapp.com/users/2/my_stats")
+      debugger
+      fetch("http://localhost:3000/users/"+this.state.currentUserId+"/my_stats", {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': this.state.currentUserToken
+        }
+      })
       .then(
         response => {
           return response.json()})
@@ -331,7 +341,7 @@ export default class QuestionAmbleFE extends Component {
       })
     }
 
-    // User Signup/Login
+  //User Signup/Login
 
     async saveToken(value) {
        await AsyncStorage.setItem("auth_token", value)
@@ -340,7 +350,7 @@ export default class QuestionAmbleFE extends Component {
     async getToken() {
       const value = await AsyncStorage.getItem("auth_token")
       if (value !== null){
-        console.log(value)
+        return value
       }
     }
 
@@ -348,11 +358,11 @@ export default class QuestionAmbleFE extends Component {
     handleUserSignUp() {
       currentContext = this;
       if (this.handleUserUsernameInputForSignUp && this.handleUserPasswordInputForSignUp) {
-        fetch('https://questionamble.herokuapp.com/users', {
+        fetch('http://localhost:3000/users', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             user: {
@@ -364,7 +374,10 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
-            this.saveToken(responseData.auth_token)
+
+            this.setState({currentUserId: responseData.userID })
+            this.setState({currentUserToken: responseData.auth_token});
+
         })
       }
     }
@@ -373,7 +386,7 @@ export default class QuestionAmbleFE extends Component {
       currentContext = this;
       if (this.handleUserUsernameInputForLogin && this.handleUserPasswordInputForLogin) {
 
-        fetch('https://questionamble.herokuapp.com/users/login', {
+        fetch('http://localhost:3000/users/login', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -386,7 +399,9 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
-            this.saveToken(responseData.auth_token)
+
+            this.setState({currentUserId: responseData.userID })
+            this.setState({currentUserToken: responseData.auth_token})
           })
         }
       }
@@ -397,11 +412,14 @@ export default class QuestionAmbleFE extends Component {
 
     processGameKey(){
       currentContext = this;
-      fetch("https://questionamble.herokuapp.com/rounds",{
+      fetch("http://localhost:3000/rounds",{
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({round: { player_id: 2,
-          game_key: currentContext.state.currentGameKey,
+
+        body: JSON.stringify({round: { player_id: this.state.currentUserId,
+          game_key: this.state.currentGameKey,
+
+        
         }})
       }).then((response => {
         return response.json()})
@@ -417,9 +435,13 @@ export default class QuestionAmbleFE extends Component {
     }
 
     getNextQuestion(){
+
+      var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
+
       currentContext = this;
       var currentRoundID = currentContext.state.currentRoundID
       var newPath = ""
+
       fetch(newPath)
       .then(
         response => {
