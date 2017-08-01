@@ -17,7 +17,7 @@ export default class ClueShow extends Component {
       <View>
         <Text>Here's a clue to find your question...Where could it be?</Text>
         <Text>{currentQuestion.clueText}</Text>
-        <Text>Check Location!</Text>
+        <Text onPress={this.test}>Check Location!</Text>
 
       </View>
     );
