@@ -405,11 +405,12 @@ export default class QuestionAmbleFE extends Component {
     }
 
     processGameKey(){
+
       currentContext = this;
       fetch("https://questionamble.herokuapp.com/rounds",{
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({round: { player_id: 1,
+        body: JSON.stringify({round: { player_id: 2,
           game_key: this.state.currentGameKey,
         }})
       }).then((response => {
@@ -418,7 +419,7 @@ export default class QuestionAmbleFE extends Component {
         if (body.hasOwnProperty("error") === false){
           //Ask for guidance on line below
           currentContext.setState({currentRound: body.id})
-          this.getNextQuestion()
+          // currentContext.getNextQuestion()
           currentContext.navigator._navigation.navigate("ClueShow")
         }
       })
@@ -428,6 +429,7 @@ export default class QuestionAmbleFE extends Component {
     }
 
     getNextQuestion(){
+      currentContext = this;
       // var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
       var newPath = "https://questionamble.herokuapp.com/rounds/"+23+"/next_question"
       fetch(newPath)
@@ -435,7 +437,7 @@ export default class QuestionAmbleFE extends Component {
         response => {
           return response.json()})
       .then(body => {
-        this.setState({currentQuestion: body})
+        currentContext.setState({currentQuestion: body})
       })
       .catch( err => {
         console.log(err)
@@ -469,7 +471,7 @@ export default class QuestionAmbleFE extends Component {
                   handleNewGameKeyInput: this.handleNewGameKeyInput,
                   processGameKey: this.processGameKey,
                   getNextQuestion: this.getNextQuestion,
-                  currentQuestion: this.currentQuestion,
+                  currentQuestion: this.state.currentQuestion,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />

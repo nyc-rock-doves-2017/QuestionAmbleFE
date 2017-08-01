@@ -1,23 +1,29 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, SectionList } from 'react-native';
+import { AppRegistry, StyleSheet, Text, View, SectionList, Button } from 'react-native';
 
 export default class ClueShow extends Component {
   constructor(props){
-    super(props)
+    super(props);
+    // this.state = {
+    //   currentQuestion: {
+    //     id: "",
+    //     questId: "",
+    //     questionText: "",
+    //     q_text: "",
+    //     answer: "",
+    //     hint: ""
+    //   }
+    // }
+    this.props.screenProps.getNextQuestion();
   }
   render() {
-    let {currentQuestion} = this.props.screenProps
+  let {currentQuestion} = this.props.screenProps
     return (
       <View>
-        <Text>Here's a clue to find your question:</Text>
-        <Text>{currentQuestion.id}</Text>
-        <Text>{currentQuestion.questId}</Text>
-        <Text>{currentQuestion.questionText}</Text>
-        <Text>{currentQuestion.q_text}</Text>
-        <Text>{currentQuestion.answer}</Text>
-        <Text>{currentQuestion.hint}</Text>
+        <Text>Here's a clue to find your question...Where could it be?</Text>
+        <Text>{currentQuestion.clueText}</Text>
+          <Text> CHECK LOCATION </Text>
       </View>
     );
   }
 }
-//
