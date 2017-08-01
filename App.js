@@ -132,8 +132,8 @@ export default class QuestionAmbleFE extends Component {
       newQuestionFormAnswer: "",
       newQuestionFormHint: "",
       newQuestionFormClueText: "",
-      newQuestionFormLat: "",
-      newQuestionFormLng: "",
+      currentLat: "",
+      currentLng: "",
       newQuestionFormErrors: "",
 
       //Data entered from the new quest form
@@ -156,7 +156,8 @@ export default class QuestionAmbleFE extends Component {
       enterGameKeyErrors: "",
       //Data for the logic to start a new game
       currentGameKey: "",
-      currentRound: "",
+      currentRoundID: "",
+      currentLocationMatch: "",
       currentQuestion: {id: "",
                         questId: "",
                         questionText: "",
@@ -191,6 +192,7 @@ export default class QuestionAmbleFE extends Component {
     this.processGameKey = this.processGameKey.bind(this)
     this.getNextQuestion = this.getNextQuestion.bind(this)
     this.updateLocation = this.updateLocation.bind(this)
+    this.checkLocation = this.checkLocation.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -282,8 +284,8 @@ export default class QuestionAmbleFE extends Component {
         clue_type: "text",
         clue_text: this.state.newQuestionFormClueText,
         hint: this.state.newQuestionFormHint,
-        lat: this.state.newQuestionFormLat,
-        lng: this.state.newQuestionFormLng,
+        lat: this.state.currentLat,
+        lng: this.state.currentLng,
       }})
     }).then((response => {
       return response.json()})
@@ -394,20 +396,19 @@ export default class QuestionAmbleFE extends Component {
     }
 
     processGameKey(){
-
       currentContext = this;
       fetch("https://questionamble.herokuapp.com/rounds",{
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({round: { player_id: 2,
-          game_key: this.state.currentGameKey,
+          game_key: currentContext.state.currentGameKey,
         }})
       }).then((response => {
         return response.json()})
       ).then(body => {
         if (body.hasOwnProperty("error") === false){
           //Ask for guidance on line below
-          currentContext.setState({currentRound: body.id})
+          currentContext.setState({currentRoundID: body.round_id, currentQuestion: body.first_question})
         }
       })
       .catch(err => {
@@ -417,8 +418,8 @@ export default class QuestionAmbleFE extends Component {
 
     getNextQuestion(){
       currentContext = this;
-      // var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
-      var newPath = "https://questionamble.herokuapp.com/rounds/"+23+"/next_question"
+      var currentRoundID = currentContext.state.currentRoundID
+      var newPath = ""
       fetch(newPath)
       .then(
         response => {
@@ -433,11 +434,32 @@ export default class QuestionAmbleFE extends Component {
 
   updateLocation(){
     navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({newQuestionFormLat: position.coords.latitude})
-      this.setState({newQuestionFormLng: position.coords.longitude})
+      this.setState({currentLat: position.coords.latitude})
+      this.setState({currentLng: position.coords.longitude})
     })
   }
 
+
+  checkLocation(){
+    currentContext = this;
+    var roundID = this.state.currentRoundID
+    var currentQuestionID = this.state.currentQuestion.id
+    var path = "https://questionamble.herokuapp.com/rounds/"+roundID+"/compare_location?player_lat="+currentContext.state.currentLat+"&player_lng="+currentContext.state.currentLng+"&cur_question_id="+currentQuestionID
+    fetch(path,{
+      method: "GET",
+      headers: {"Content-Type": "application/json"}
+    }).then((response => {
+      return response.json()})
+    ).then(body => {
+      if (body.clue === "found"){
+        //Ask for guidance on line below
+        currentContext.setState({currentLocationMatch: body.clue})
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
   render() {
     let methods = {
                   handleQuestData: this.handleQuestData,
@@ -452,8 +474,8 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
                   handleQuestionClueTextInputForNewQuestion: this.handleQuestionClueTextInputForNewQuestion,
                   playerStatistics: this.state.playerStatistics,
-                  newQuestionFormLat: this.state.newQuestionFormLat,
-                  newQuestionFormLng: this.state.newQuestionFormLng,
+                  currentLat: this.state.currentLat,
+                  currentLng: this.state.currentLng,
                   handleUserProfile: this.handleUserProfile,
 
                   handleUserLogin: this.handleUserLogin,
@@ -467,12 +489,16 @@ export default class QuestionAmbleFE extends Component {
                   processGameKey: this.processGameKey,
                   getNextQuestion: this.getNextQuestion,
                   currentQuestion: this.state.currentQuestion,
-                  updateLocation: this.updateLocation,
+                  checkLocation: this.checkLocation,
                   newQuestFormErrors: this.state.newQuestFormErrors,
                   newQuestionFormErrors: this.state.newQuestionFormErrors,
                   handleQuestionNew: this.handleQuestionNew,
                   handleNewQuestForm: this.handleNewQuestForm,
                   enterGameKeyErrors: this.state.enterGameKeyErrors,
+                  requestQuestion: this.requestQuestion,
+                  updateLocation: this.updateLocation,
+                  currentLocationMatch: this.state.currentLocationMatch,
+                  checkLocation: this.checkLocation,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
