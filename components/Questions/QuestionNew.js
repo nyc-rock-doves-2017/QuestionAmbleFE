@@ -41,8 +41,8 @@ export default class QuestionNew extends Component {
     let handleQuestionAnswerputForNewQuestion = this.props.screenProps.handleQuestionAnswerputForNewQuestion
     let handleQuestionHintInputForNewQuestion = this.props.screenProps.handleQuestionHintInputForNewQuestion
     let handleQuestionClueTextInputForNewQuestion = this.props.screenProps.handleQuestionClueTextInputForNewQuestion
-    let newQuestionFormLat = this.props.screenProps.newQuestionFormLat
-    let newQuestionFormLng = this.props.screenProps.newQuestionFormLng
+    let currentLat = this.props.screenProps.currentLat
+    let currentLng = this.props.screenProps.currentLng
     return (
       <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#06AED5'}}>
         <View style={styles.container}>
@@ -96,13 +96,13 @@ export default class QuestionNew extends Component {
         <MapView
           style={styles.map}
           region={{
-            latitude: newQuestionFormLat,
-            longitude: newQuestionFormLng,
+            latitude: currentLat,
+            longitude: currentLng,
             latitudeDelta: 0.00922,
             longitudeDelta: 0.00421,
           }}>
               <MapView.Marker
-                coordinate={{latitude: newQuestionFormLat, longitude: newQuestionFormLng}}
+                coordinate={{latitude: currentLat, longitude: currentLng}}
               />
           </MapView>
           <View style={styles.buttonContainer}>
