@@ -14,6 +14,7 @@ import { AppRegistry,
 
 export default class GameNew extends Component {
   render() {
+    let { handleNewGameKeyInput, processGameKey } = this.props.screenProps
     return (
       <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#66a3ff'}}>
         <View style={styles.container}>
@@ -27,10 +28,11 @@ export default class GameNew extends Component {
                 ref="questCode"
                 placeholder="Quest Code"
                 returnKeyType='next'
+                onChangeText={handleNewGameKeyInput}
                 />
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+            <Button style={styles.button} onPress={processGameKey}>
               <Text style={styles.buttonText}>
                 LET'S GO
               </Text>
