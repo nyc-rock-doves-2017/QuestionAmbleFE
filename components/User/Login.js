@@ -41,16 +41,19 @@ export default class Login extends Component {
               <InputField
                 onChangeText={this.props.screenProps.handleUserUsernameInputForLogin}
                 ref="username"
+                autoCapitalize="none"
                 placeholder="Username"/>
               <InputField
                 onChangeText={this.props.screenProps.handleUserPasswordInputForLogin}
                 ref="password"
+                autoCapitalize="none"
                 placeholder="Password"
                 secureTextEntry={true}/>
             </Form>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={this.props.screenProps.handleUserLogin}>
-              <Text style={styles.buttonText}>
+              <Text style={styles.buttonText} 
+                onPress={() => this.props.navigation.navigate("MainMenu")}>
                 LOGIN
               </Text>
             </Button>
