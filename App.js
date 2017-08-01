@@ -354,15 +354,16 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
-            // debugger
             this.saveToken(responseData.auth_token);
+            this.getToken()
         })
       }
     }
 
     handleUserLogin() {
-      debugger
-      if (this.state.username && this.state.password) {
+      // debugger
+      currentContext = this;
+      if (this.handleUserUsernameInputForLogin && this.handleUserPasswordInputForLogin) {
         fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
@@ -370,19 +371,18 @@ export default class QuestionAmbleFE extends Component {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            user: {
-              username: this.state.username,
-              password: this.state.password
-            }
-          })
-          .then((response) => response.json())
-          .then((responseData) => {
-            this.saveItem('auth_token', responseData.auth_token),
-            Alert.alert('Login Success!')
+            username: this.state.currentUserUsername,
+            password: this.state.currentUserPassword
           })
         })
+          .then(response => {return response.json()})
+          .then(responseData => {
+            debugger
+            this.saveToken(responseData.auth_token),
+            this.getToken()
+          })
+        }
       }
-    }
 
   render() {
     let methods = {
