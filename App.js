@@ -20,7 +20,6 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import Login from './components/User/Login.js';
 import MainMenu from './components/User/MainMenu.js';
 import NewAccount from './components/User/NewAccount.js';
-import PlayerStatistics from './components/User/PlayerStatistics.js';
 import UserProfile from './components/User/UserProfile.js';
 import Welcome from './components/User/Welcome.js';
 
@@ -56,9 +55,6 @@ const AppDirectory = StackNavigator({
   },
   NewAccount: {
     screen: NewAccount,
-  },
-  PlayerStatistics: {
-    screen: PlayerStatistics,
   },
   UserProfile: {
     screen: UserProfile,
@@ -270,7 +266,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("https://questionamble.herokuapp.com/users/1/my_quests")
+    fetch("https://questionamble.herokuapp.com/users/2/my_quests")
     .then(
       response => {
         return response.json()})
@@ -329,7 +325,7 @@ export default class QuestionAmbleFE extends Component {
   //Player statistics
   handleUserProfile(){
       currentContext = this;
-      fetch("https://questionamble.herokuapp.com/users/1/my_stats")
+      fetch("https://questionamble.herokuapp.com/users/2/my_stats")
       .then(
         response => {
           return response.json()})
@@ -374,7 +370,6 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
-            // debugger
             this.saveToken(responseData.auth_token);
         })
       }
