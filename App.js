@@ -442,7 +442,6 @@ export default class QuestionAmbleFE extends Component {
 
       currentContext = this;
       var currentRoundID = currentContext.state.currentRoundID
-      var newPath = ""
 
       fetch(newPath)
       .then(
