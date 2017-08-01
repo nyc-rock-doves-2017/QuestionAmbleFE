@@ -243,7 +243,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleNewQuestForm(){
     currentContext = this;
-    fetch("http://localhost:3000/quests",{ //Replace link with "/quests/"
+    fetch("http://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
@@ -265,7 +265,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("https://localhost:3000/users/"+this.state.currentUserId+"/my_quests")
+    fetch("https://questionamble.herokuapp.com/users/"+this.state.currentUserId+"/my_quests")
     .then(
       response => {
         return response.json()})
@@ -279,7 +279,7 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    fetch("http://localhost:3000/questions",{
+    fetch("http://questionamble.herokuapp.com/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: { quest_id: "2",
@@ -324,7 +324,7 @@ export default class QuestionAmbleFE extends Component {
   handleUserProfile(){
       currentContext = this;
       debugger
-      fetch("http://localhost:3000/users/"+this.state.currentUserId+"/my_stats", {
+      fetch("http://questionamble.herokuapp.com/users/"+this.state.currentUserId+"/my_stats", {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -360,7 +360,7 @@ export default class QuestionAmbleFE extends Component {
     handleUserSignUp() {
       currentContext = this;
       if (this.handleUserUsernameInputForSignUp && this.handleUserPasswordInputForSignUp) {
-        fetch('http://localhost:3000/users', {
+        fetch('http://questionamble.herokuapp.com/users', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -388,7 +388,7 @@ export default class QuestionAmbleFE extends Component {
       currentContext = this;
       if (this.handleUserUsernameInputForLogin && this.handleUserPasswordInputForLogin) {
 
-        fetch('http://localhost:3000/users/login', {
+        fetch('http://questionamble.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -414,14 +414,14 @@ export default class QuestionAmbleFE extends Component {
 
     processGameKey(){
       currentContext = this;
-      fetch("http://localhost:3000/rounds",{
+      fetch("http://questionamble.herokuapp.com/rounds",{
         method: "POST",
         headers: {"Content-Type": "application/json"},
 
         body: JSON.stringify({round: { player_id: this.state.currentUserId,
           game_key: this.state.currentGameKey,
 
-        
+
         }})
       }).then((response => {
         return response.json()})
