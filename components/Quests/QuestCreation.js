@@ -22,7 +22,7 @@ export default class QuestCreation extends Component {
     let handleNewQuestForm = this.props.screenProps.handleNewQuestForm
 
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#66a3ff'}}>
+      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
         <View style={styles.container}>
           <Text style={styles.title}>Create a New Quest</Text>
           <Form
@@ -54,13 +54,13 @@ export default class QuestCreation extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#FB8422',
+    backgroundColor: '#F25F5C',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#66a3ff',
+    backgroundColor: '#06AED5',
     flex: 3
   },
   container: {

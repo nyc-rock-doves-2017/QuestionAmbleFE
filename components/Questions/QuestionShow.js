@@ -1,27 +1,170 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, SectionList, Button } from 'react-native';
+import { AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  SectionList,
+  Dimensions,
+  ScrollView
+} from 'react-native';
+  import Button from 'apsl-react-native-button';
+  var {height, width} = Dimensions.get('window');
+  import MapView from 'react-native-maps';
 
 export default class QuestionShow extends Component {
   render() {
     let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     let question = questData[0].questions.filter( (question) => question.id === this.props.navigation.state.params.questionID)
+    let newQuestionFormLat = this.props.screenProps.newQuestionFormLat
+    let newQuestionFormLng = this.props.screenProps.newQuestionFormLng
     return (
-      <View>
-        <Text>The is the question show page:</Text>
-        <Button onPress={() => this.props.navigation.navigate("QuestionEdit")} title="Edit Question"/>
-        <Text>Question ID:</Text>
-        <Text>{question[0].id}</Text>
-        <Text>Question Text</Text>
-        <Text>{question[0].questionText}</Text>
-        <Text>Answer ID:</Text>
-        <Text>{question[0].answer}</Text>
-        <Text>Clue Text</Text>
-        <Text>{question[0].clueText}</Text>
-        <Text>Hint</Text>
-        <Text>{question[0].hint}</Text>
-        <Text>Quest ID</Text>
-        <Text>{question[0].questId}</Text>
+      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#06AED5'}}>
+        <View style={styles.container}>
+          <Text style={styles.subtitle}>
+            View Question from...
+          </Text>
+          <Text style={styles.title}>
+          {questData[0].title}
+          </Text>
+        <Text style={styles.listItems}>
+          <Text style={styles.listText}>
+            Question:
+          </Text>
+          {"\n"}
+          {question[0].questionText}
+        </Text>
+        <Text style={styles.listItems}>
+          <Text style={styles.listText}>
+            Answer:
+          </Text>
+          {"\n"}
+          {question[0].answer}
+        </Text>
+        <Text style={styles.listItems}>
+          <Text style={styles.listText}>
+            Hint:
+          </Text>
+          {"\n"}
+          {question[0].hint}
+        </Text>
+        <Text style={styles.listItems}>
+          <Text style={styles.listText}>
+            Location Clue:
+          </Text>
+          {"\n"}
+          {question[0].clueText}
+        </Text>
       </View>
+        <View style={styles.mapContainer}>
+          <MapView
+            style={styles.map}
+            region={{
+              latitude: newQuestionFormLat,
+              longitude: newQuestionFormLng,
+              latitudeDelta: 0.00922,
+              longitudeDelta: 0.00421,
+            }}>
+                <MapView.Marker
+                  coordinate={{latitude: newQuestionFormLat, longitude: newQuestionFormLng}}
+                />
+            </MapView>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button style={styles.button}
+            onPress={() => this.props.navigation.navigate("QuestionEdit")}>
+            <Text style={styles.buttonText}>
+              EDIT QUESTION
+            </Text>
+          </Button>
+        </View>
+      </ScrollView>
     );
   }
 }
+const styles = StyleSheet.create({
+  map: {
+    height: 300,
+    width: width,
+  },
+  button: {
+    backgroundColor: '#F25F5C',
+    borderRadius: 25,
+    borderColor: 'azure',
+    borderWidth: 2
+  },
+  wholeScreen: {
+    backgroundColor: '#06AED5',
+    flex: 3
+  },
+  mapcContainer: {
+    marginTop: 20,
+  },
+  container: {
+    marginTop: 20,
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingBottom: 20
+  },
+  buttonContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 20,
+    paddingBottom: 40,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  title: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center',
+    paddingBottom: 15
+  },
+  subtitle: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    paddingTop: 10,
+  },
+  buttonText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  explanationText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+    paddingTop: 15,
+    paddingBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  explanationTextTwo: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  listItems: {
+    backgroundColor: 'azure',
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderColor: '#E6E6E6',
+    borderWidth: 1,
+    paddingLeft: 5,
+    color: '#6F706F',
+    height: 65
+  },
+  listText: {
+    fontWeight: 'bold',
+  },
+});
