@@ -362,8 +362,7 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
-            this.saveToken(responseData.auth_token);
-            this.getToken()
+            this.saveToken(responseData.auth_token)
         })
       }
     }
@@ -385,9 +384,7 @@ export default class QuestionAmbleFE extends Component {
         })
           .then(response => {return response.json()})
           .then(responseData => {
-            debugger
-            this.saveToken(responseData.auth_token),
-            this.getToken()
+            this.saveToken(responseData.auth_token)
           })
         }
       }
