@@ -194,17 +194,14 @@ export default class QuestionAmbleFE extends Component {
     this.handleUserUsernameInputForSignUp = this.handleUserUsernameInputForSignUp.bind(this)
     this.handleUserEmailInputForSignUp = this.handleUserEmailInputForSignUp.bind(this)
     this.handleUserPasswordInputForSignUp = this.handleUserPasswordInputForSignUp.bind(this)
-    // this.saveToken = this.saveToken.bind(this)
-    // this.getToken = this.getToken.bind(this)
     this.handleNewGameKeyInput = this.handleNewGameKeyInput.bind(this)
-    this.processGameKey = this.processGameKey.bind(this)
-    // this.getNextQuestion = this.getNextQuestion.bind(this)
     this.updateLocation = this.updateLocation.bind(this)
     this.checkLocation = this.checkLocation.bind(this)
     this.handleUserGuess = this.handleUserGuess.bind(this)
     this.processGuess = this.processGuess.bind(this)
     this.getRoundInfo = this.getRoundInfo.bind(this)
     this.updateAppStateForUserAndToken = this.updateAppStateForUserAndToken.bind(this)
+    this.setNewGameInfo = this.setNewGameInfo.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -353,19 +350,6 @@ export default class QuestionAmbleFE extends Component {
       })
     }
 
-  //User Signup/Login
-
-    // async saveToken(value) {
-    //    await AsyncStorage.setItem("auth_token", value)
-    // }
-
-    // async getToken() {
-    //   const value = await AsyncStorage.getItem("auth_token")
-    //   if (value !== null){
-    //     return value
-    //   }
-    // }
-
 
     handleUserSignUp() {
       currentContext = this;
@@ -400,53 +384,13 @@ export default class QuestionAmbleFE extends Component {
       this.setState({currentGameKey: text_value})
     }
 
-    processGameKey(){
-      currentContext = this;
-      fetch("https://questionamble.herokuapp.com/rounds",{
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({round: { player_id: 2, //this.state.currentUserId
-          game_key: currentContext.state.currentGameKey,
-        }})
-      }).then((response => {
-        return response.json()})
-      ).then(body => {
-        if (body.hasOwnProperty("error") === false){
-          var resetGameResult = {id: "",
-                              createdBy: "",
-                              questTitle: "",
-                              playedBy: "",
-                              completionScore:"",
-                              accuracyScore: "",
-                              dateOfPlay:""}
 
-          currentContext.setState({currentGameResult: resetGameResult})
-          currentContext.setState({gameStatus: ""})
-          currentContext.setState({previousQuestionID: ""})
-          currentContext.setState({currentRoundID: body.round_id, currentQuestion: body.first_question})
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
-
-    // getNextQuestion(){
-    //   currentContext = this;
-    //   var newPath = "https://questionamble.herokuapp.com/rounds/"+currentContext.state.currentRoundID+"/next_question"
-    //   fetch(newPath)
-    //   .then(
-    //     response => {
-    //       return response.json()})
-    //   .then(body => {
-    //     debugger
-    //     currentContext.setState({previousQuestionID: currentContext.state.currentQuestion.id})
-    //     currentContext.setState({currentQuestion: body})
-    //   })
-    //   .catch( err => {
-    //     console.log(err)
-    //   })
-    // }
+  setNewGameInfo(newGameResult, currRoundID , currQuestion){
+    currentContext.setState({currentGameResult: newGameResult})
+    currentContext.setState({gameStatus: ""})
+    currentContext.setState({previousQuestionID: ""})
+    currentContext.setState({currentRoundID: currRoundID, currentQuestion: currQuestion})
+  }
 
   updateLocation(){
     navigator.geolocation.getCurrentPosition((position) => {
@@ -534,6 +478,7 @@ export default class QuestionAmbleFE extends Component {
 
   render() {
     let methods = {
+                  currentUserId: this.state.currentUserId,
                   currentUserUsername: this.state.currentUserUsername,
                   currentUserPassword: this.state.currentUserPassword,
                   handleQuestData: this.handleQuestData,
@@ -558,8 +503,6 @@ export default class QuestionAmbleFE extends Component {
                   handleUserEmailInputForSignUp: this.handleUserEmailInputForSignUp,
                   handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp,
                   handleNewGameKeyInput: this.handleNewGameKeyInput,
-                  processGameKey: this.processGameKey,
-                  // getNextQuestion: this.getNextQuestion,
                   currentQuestion: this.state.currentQuestion,
                   checkLocation: this.checkLocation,
                   newQuestFormErrors: this.state.newQuestFormErrors,
@@ -586,7 +529,9 @@ export default class QuestionAmbleFE extends Component {
                   currentGameResult: this.state.currentGameResult,
                   currentGameKey: this.state.currentGameKey,
                   updateAppStateForUserAndToken: this.updateAppStateForUserAndToken,
-
+                  currentGameKey: this.state.currentGameKey,
+                  setNewGameInfo: this.setNewGameInfo,
+                  currentRoundID: this.state.currentRoundID,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
