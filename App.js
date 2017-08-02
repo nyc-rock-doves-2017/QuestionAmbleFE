@@ -13,15 +13,17 @@ import {
   Button,
   ActivityIndicator,
   AsyncStorage,
+  TouchableOpacity,
   Alert,
   ScrollView
 } from 'react-native';
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import { TabNavigator, StackNavigator, NavigationActions } from 'react-navigation';
 import Login from './components/User/Login.js';
 import MainMenu from './components/User/MainMenu.js';
 import NewAccount from './components/User/NewAccount.js';
 import UserProfile from './components/User/UserProfile.js';
 import Welcome from './components/User/Welcome.js';
+import Menu from './components/Navbar/Menu.js';
 
 import QuestionIndex from './components/Questions/QuestionIndex.js';
 import QuestionShow from './components/Questions/QuestionShow.js';
@@ -43,6 +45,7 @@ import RoundShow from './components/Game/RoundShow.js';
 import GameNew from './components/Game/GameNew.js';
 import Directory from './components/Directory.js';
 
+
 const AppDirectory = StackNavigator({
   Directory: {
     screen: Directory,
@@ -52,6 +55,9 @@ const AppDirectory = StackNavigator({
   },
   Login: {
     screen: Login,
+    navigationOptions: ({ navigation }) => ({
+      headerRight: () => <Button onPress={() => navigation.navigate('MainMenu') } />
+    })
   },
   NewAccount: {
     screen: NewAccount,
@@ -107,6 +113,9 @@ const AppDirectory = StackNavigator({
   GameNew: {
     screen: GameNew,
   },
+  Menu: {
+    screen: Menu,
+  }
 });
 
 export default class QuestionAmbleFE extends Component {
@@ -503,6 +512,7 @@ export default class QuestionAmbleFE extends Component {
 }
 
 AppRegistry.registerComponent('QuestionAmbleFE', () => QuestionAmbleFE);
+
 
 //Note:
 //Read github and docs for guidance:
