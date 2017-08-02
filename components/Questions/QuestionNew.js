@@ -118,13 +118,13 @@ export default class QuestionNew extends Component {
         <MapView
           style={styles.map}
           region={{
-            latitude: currentLat,
-            longitude: currentLng,
+            latitude: Number(currentLat),
+            longitude: Number(currentLng),
             latitudeDelta: 0.00922,
             longitudeDelta: 0.00421,
           }}>
               <MapView.Marker
-                coordinate={{latitude: currentLat, longitude: currentLng}}
+                coordinate={{latitude: Number(currentLat), longitude: Number(currentLng)}}
               />
           </MapView>
           <View style={styles.buttonContainer}>
