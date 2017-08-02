@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { AppRegistry,
-  ScrollView,
   StyleSheet,
   Text,
-  View,
-  SectionList,
+  View
 } from 'react-native';
-  import Button from 'apsl-react-native-button';
+import Button from 'apsl-react-native-button';
 
 export default class ClueShow extends Component {
   static navigationOptions ={

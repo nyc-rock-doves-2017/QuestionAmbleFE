@@ -42,7 +42,9 @@ export default class GameNew extends Component {
     return (
       <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#bfd629'}}>
         <View style={styles.container}>
-          <Text style={styles.title}>Enter the Quest Code to Begin...</Text>
+          <Text style={styles.title}>
+            Enter the Quest Code to Begin...
+          </Text>
           <Form
             ref='LoginForm'
             label="Login">
