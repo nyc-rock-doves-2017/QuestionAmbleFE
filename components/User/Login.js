@@ -51,9 +51,8 @@ export default class Login extends Component {
                 secureTextEntry={true}/>
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={this.props.screenProps.handleUserLogin}>
-              <Text style={styles.buttonText} 
-                onPress={() => this.props.navigation.navigate("MainMenu")}>
+            <Button style={styles.button} onPress={this.props.screenProps.handleUserLogin.navigation.navigate("MainMenu", {userID: this.props.navigation.state.params.userID})}>
+              <Text style={styles.buttonText}>
                 LOGIN
               </Text>
             </Button>
