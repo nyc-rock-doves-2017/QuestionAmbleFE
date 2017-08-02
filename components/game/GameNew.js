@@ -3,8 +3,7 @@ import { AppRegistry,
   StyleSheet,
   Text,
   View,
-  SectionList,
-  ScrollView
+  Alert
  } from 'react-native';
   import Button from 'apsl-react-native-button';
   import { Form,
@@ -16,7 +15,7 @@ export default class GameNew extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#C2D834'
     }
   }
   constructor(props){
@@ -37,12 +36,36 @@ export default class GameNew extends Component {
     }
   }
 
+  onSubmitForm(e){
+    if (this.props.screenProps.currentGameKey === ""){
+        Alert.alert(
+          'All Fields Are Required',
+          'Please complete all fields before submitting.',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+        { cancelable: false }
+      )
+    }
+    else {
+      this.processGame();
+    }
+  }
   render() {
     let { handleNewGameKeyInput } = this.props.screenProps
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
+      <View keyboardShouldPersistTaps="always"
+        style={{
+          paddingLeft:10,
+          paddingRight:10,
+          height:200,
+          flex: 3,
+          backgroundColor: '#bfd629'
+        }}>
         <View style={styles.container}>
-          <Text style={styles.title}>Enter the Quest Code to Begin...</Text>
+          <Text style={styles.title}>
+            Enter the Quest Code to Begin...
+          </Text>
           <Form
             ref='LoginForm'
             label="Login">
@@ -50,33 +73,34 @@ export default class GameNew extends Component {
               <InputField
                 editable={true}
                 ref="questCode"
-                placeholder="Quest Code"
+                placeholder="Enter your quest code..."
                 returnKeyType='next'
                 onChangeText={handleNewGameKeyInput}
                 />
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={this.processGame}>
+            <Button style={styles.button}
+              onPress={(e) => this.onSubmitForm(e)}>
               <Text style={styles.buttonText}>
                 LET'S GO
               </Text>
             </Button>
         </View>
       </View>
-    </ScrollView>
+    </View>
     );
     }
     }
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#F25F5C',
+    backgroundColor: '#06AED5',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#C2D834',
     flex: 3
   },
   container: {

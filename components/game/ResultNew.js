@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, ScrollView, Text, View, SectionList, Button } from 'react-native';
+import { AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import Button from 'apsl-react-native-button';
 
 export default class ResultNew extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#C2D834'
+    }
+  }
   constructor(props){
     super(props);
 
@@ -20,26 +31,36 @@ export default class ResultNew extends Component {
   }
   render() {
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
+      <View keyboardShouldPersistTaps="always" style={{backgroundColor: '#C2D834', flex: 3}}>
         <View style={styles.container}>
-          <Text style={styles.title}>Processing your guess...</Text>
-          <Text style={styles.title}>You'll see the same question appear if it's incorrect!</Text>
-          <Button style={styles.button} title="Proceed" onPress={this.determineNextScreen}/>
+          <Text style={styles.title}>
+            Checking your guess...
+          </Text>
+          <Text style={styles.subtitle}>
+            You'll see the same question appear if it's incorrect!
+          </Text>
+          <View style={styles.buttonContainer}>
+            <Button style={styles.button} onPress={this.determineNextScreen}>
+              <Text style={styles.buttonText}>
+                PROCEED
+              </Text>
+          </Button>
         </View>
-      </ScrollView>
+      </View>
+    </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#F25F5C',
+    backgroundColor: '#06AED5',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#C2D834',
     flex: 3
   },
   container: {
@@ -58,6 +79,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center'
+  },
+  subtitle: {
+    color: '#06AED5',
+    fontSize: 18,
+    textAlign: 'center',
+    paddingTop: 10,
+    paddingBottom: 20,
+    fontWeight: 'bold',
+    paddingLeft: 50,
+    paddingRight: 50
   },
   buttonText: {
     color: 'azure',

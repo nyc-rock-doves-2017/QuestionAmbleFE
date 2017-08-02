@@ -50,7 +50,7 @@ export default class QuestionNew extends Component {
         this.props.screenProps.newQuestionFormClueText === ""){
         Alert.alert(
           'All Fields Are Required',
-          'Please complete all fields before submitting',
+          'Please complete all fields before submitting.',
               [
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
               ],
@@ -135,7 +135,7 @@ export default class QuestionNew extends Component {
           </MapView>
           <View style={styles.buttonContainer}>
             <Button style={styles.button}
-            onPress={(e) => this.onSubmitForm(e)}>
+              onPress={(e) => this.onSubmitForm(e)}>
               <Text style={styles.buttonText}>
                 CREATE QUESTION
               </Text>
