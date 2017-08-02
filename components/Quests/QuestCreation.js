@@ -33,6 +33,23 @@ export default class QuestCreation extends Component {
     }
   }
 
+  onSubmitForm(e){
+    if (this.props.screenProps.newQuestFormQuestTitle === "" ||
+        this.props.screenProps.newQuestFormQuestDescription === ""){
+        Alert.alert(
+          'All Fields Are Required',
+          'Please complete all fields before submitting',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+        { cancelable: false }
+      )
+    }
+    else {
+      this.processNewQuest();
+    }
+  }
+
   render() {
     let handleQuestTitleInputForNewQuest = this.props.screenProps.handleQuestTitleInputForNewQuest
     let handleQuestDescriptionInputForNewQuest = this.props.screenProps.handleQuestDescriptionInputForNewQuest
@@ -58,7 +75,8 @@ export default class QuestCreation extends Component {
               />
           </Form>
               <View style={styles.buttonContainer}>
-                <Button style={styles.button} onPress={this.processNewQuest}>
+                <Button style={styles.button}
+                  onPress={(e) => this.onSubmitForm(e)}>
                   <Text style={styles.buttonText}>
                     CREATE QUEST
                   </Text>

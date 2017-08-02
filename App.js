@@ -534,7 +534,6 @@ export default class QuestionAmbleFE extends Component {
                   currentLat: this.state.currentLat,
                   currentLng: this.state.currentLng,
                   handleUserProfile: this.handleUserProfile,
-
                   handleUserLogin: this.handleUserLogin,
                   handleUserUsernameInputForLogin: this.handleUserUsernameInputForLogin,
                   handleUserPasswordInputForLogin: this.handleUserPasswordInputForLogin,
@@ -559,12 +558,12 @@ export default class QuestionAmbleFE extends Component {
                   handleUserGuess: this.handleUserGuess,
                   processGuess: this.processGuess,
                   currentGuessStatus: this.state.currentGuessStatus,
-
                   newQuestionFormText: this.state.newQuestionFormText,
                   newQuestionFormAnswer: this.state.newQuestionFormAnswer,
                   newQuestionFormHint: this.state.newQuestionFormHint,
                   newQuestionFormClue: this.state.newQuestionFormClue,
-
+                  newQuestFormQuestTitle: this.state.newQuestFormQuestTitle,
+                  newQuestFormQuestDescription: this.state.newQuestFormQuestDescription,
                   previousQuestionID: this.state.previousQuestionID,
                   gameStatus: this.state.gameStatus,
                   }
