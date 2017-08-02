@@ -188,7 +188,6 @@ export default class QuestionAmbleFE extends Component {
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
     this.handleQuestionClueTextInputForNewQuestion = this.handleQuestionClueTextInputForNewQuestion.bind(this)
     this.handleUserProfile = this.handleUserProfile.bind(this)
-    this.handleUserLogin = this.handleUserLogin.bind(this)
     this.handleUserUsernameInputForLogin = this.handleUserUsernameInputForLogin.bind(this)
     this.handleUserPasswordInputForLogin = this.handleUserPasswordInputForLogin.bind(this)
     this.handleUserSignUp = this.handleUserSignUp.bind(this)
@@ -205,6 +204,7 @@ export default class QuestionAmbleFE extends Component {
     this.handleUserGuess = this.handleUserGuess.bind(this)
     this.processGuess = this.processGuess.bind(this)
     this.getRoundInfo = this.getRoundInfo.bind(this)
+    this.updateAppStateForUserAndToken = this.updateAppStateForUserAndToken.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -391,35 +391,10 @@ export default class QuestionAmbleFE extends Component {
       }
     }
 
-    handleUserLogin() {
-      currentContext = this;
-      if (this.handleUserUsernameInputForLogin && this.handleUserPasswordInputForLogin) {
-        fetch('https://questionamble.herokuapp.com/users/login', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            username: this.state.currentUserUsername,
-            password: this.state.currentUserPassword
-          })
-        })
-          .then(response => {return response.json()})
-          .then(responseData => {
-            this.setState({currentUserId: responseData.userID })
-            this.setState({currentUserToken: responseData.auth_token})
-          })
-          // .then(body => {
-          //   if (body.hasOwnProperty("error")){
-          //     this.setState({currentUserFormErrors: body.error})
-          //   }
-          // })
-          // .catch(err => {
-          //   console.log(err)
-          // })
-        }
-      }
+    updateAppStateForUserAndToken(userID, userToken){
+      this.setState({currentUserId: userID })
+      this.setState({currentUserToken: userToken})
+    }
 
     handleNewGameKeyInput(text_value){
       this.setState({currentGameKey: text_value})
@@ -576,7 +551,6 @@ export default class QuestionAmbleFE extends Component {
                   currentLat: this.state.currentLat,
                   currentLng: this.state.currentLng,
                   handleUserProfile: this.handleUserProfile,
-                  handleUserLogin: this.handleUserLogin,
                   handleUserUsernameInputForLogin: this.handleUserUsernameInputForLogin,
                   handleUserPasswordInputForLogin: this.handleUserPasswordInputForLogin,
                   handleUserSignUp: this.handleUserSignUp,
@@ -610,6 +584,7 @@ export default class QuestionAmbleFE extends Component {
                   previousQuestionID: this.state.previousQuestionID,
                   gameStatus: this.state.gameStatus,
                   currentGameResult: this.state.currentGameResult,
+                  updateAppStateForUserAndToken: this.updateAppStateForUserAndToken,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
