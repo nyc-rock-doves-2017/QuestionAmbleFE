@@ -27,13 +27,36 @@ export default class GameNew extends Component {
   }
 
   processGame(){
-    this.props.screenProps.processGameKey()
-    if (this.props.screenProps.newQuestionFormErrors === ""){
-      this.props.navigation.navigate("ClueShow")
-    }
-    else{
-      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
-    }
+    currentContext = this;
+    fetch("https://questionamble.herokuapp.com/rounds",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({round: { player_id: 2,
+        game_key: currentContext.props.screenProps.currentGameKey,
+      }})
+    }).then((response => {
+      return response.json()})
+    ).then(body => {
+      if (body.hasOwnProperty("error") === false){
+        var resetGameResult = {id: "",
+                            createdBy: "",
+                            questTitle: "",
+                            playedBy: "",
+                            completionScore:"",
+                            accuracyScore: "",
+                            dateOfPlay:""}
+        var cQuestion = body.first_question
+        var cRoundID = body.round_id
+        currentContext.props.screenProps.setNewGameInfo(resetGameResult, cRoundID ,cQuestion)
+        currentContext.props.navigation.navigate("ClueShow")
+      }
+      else{
+        this.setState({formErrors: body.error})
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   onSubmitForm(e){
@@ -63,9 +86,8 @@ export default class GameNew extends Component {
           backgroundColor: '#bfd629'
         }}>
         <View style={styles.container}>
-          <Text style={styles.title}>
-            Enter the Quest Code to Begin...
-          </Text>
+          <Text style={styles.title}>Enter the Quest Code to Begin...</Text>
+          <Text>{this.state.formErrors}</Text>
           <Form
             ref='LoginForm'
             label="Login">

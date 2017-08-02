@@ -18,17 +18,37 @@ export default class ClueShow extends Component {
     this.state = {
       clue: "",
       location: "",
+      formErrors: "",
     }
     this.props.screenProps.updateLocation();
     this.checkQuestion = this.checkQuestion.bind(this)
   }
 
   checkQuestion(){
-    this.props.screenProps.checkLocation();
-    if (this.props.screenProps.currentLocationMatch === "found"){
-      this.setState({location: "found"})
-      this.props.navigation.navigate("PlayWindow")
-    }
+    currentContext = this;
+    var roundID = currentContext.props.screenProps.currentRoundID
+    var currentQuestionID = currentContext.props.screenProps.currentQuestion.id
+    var lat = currentContext.props.screenProps.currentLat
+    var lng = currentContext.props.screenProps.currentLng
+    var path = "https://questionamble.herokuapp.com/rounds/"+roundID+"/compare_location?player_lat="+lat+"&player_lng="+lng+"&cur_question_id="+currentQuestionID
+    fetch(path,{
+      method: "GET",
+      headers: {"Content-Type": "application/json"}
+    }).then((response => {
+      return response.json()})
+    ).then(body => {
+      if (body.clue === "found"){
+        //Ask for guidance on line below
+        this.setState({location: "found"})
+        this.props.navigation.navigate("PlayWindow")
+      }
+      else{
+        this.setState({formErrors: "Sorry, try another location!"})
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
   render() {
   let {currentQuestion} = this.props.screenProps
@@ -41,6 +61,7 @@ export default class ClueShow extends Component {
             <Text style={styles.subtitle}>
               Where could it be?
             </Text>
+            <Text>{this.state.formErrors}</Text>
           </View>
           <View style={styles.questionContainer}>
             <Text style={styles.question}>{currentQuestion.question_text}</Text>
