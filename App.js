@@ -246,8 +246,8 @@ export default class QuestionAmbleFE extends Component {
     fetch("http://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({quest: {title: this.state.newQuestFormQuestTitle,
-                            description: this.state.newQuestFormQuestDescription,
+      body: JSON.stringify({quest: {title: currentContext.state.newQuestFormQuestTitle,
+                            description: currentContext.state.newQuestFormQuestDescription,
                             creator_id: "2"}
                           })
     }).then(
@@ -414,20 +414,16 @@ export default class QuestionAmbleFE extends Component {
 
     processGameKey(){
       currentContext = this;
-      fetch("http://questionamble.herokuapp.com/rounds",{
+      fetch("https://questionamble.herokuapp.com/rounds",{
         method: "POST",
         headers: {"Content-Type": "application/json"},
-
-        body: JSON.stringify({round: { player_id: this.state.currentUserId,
-          game_key: this.state.currentGameKey,
-
-
+        body: JSON.stringify({round: { player_id: 2, //this.state.currentUserId
+          game_key: currentContext.state.currentGameKey,
         }})
       }).then((response => {
         return response.json()})
       ).then(body => {
         if (body.hasOwnProperty("error") === false){
-          //Ask for guidance on line below
           currentContext.setState({currentRoundID: body.round_id, currentQuestion: body.first_question})
         }
       })
@@ -437,7 +433,6 @@ export default class QuestionAmbleFE extends Component {
     }
 
     getNextQuestion(){
-
       var newPath = "https://questionamble.herokuapp.com/rounds/"+this.state.currentRound+"/next_question"
 
       currentContext = this;
@@ -448,6 +443,7 @@ export default class QuestionAmbleFE extends Component {
         response => {
           return response.json()})
       .then(body => {
+        debugger
         currentContext.setState({currentQuestion: body})
       })
       .catch( err => {
