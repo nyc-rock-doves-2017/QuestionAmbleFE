@@ -150,6 +150,7 @@ export default class QuestionAmbleFE extends Component {
       newUserUsername: "",
       newUserEmail: "",
       newUserPassword: "",
+      newUserFormErrors: "",
        //Data entered from the new quest form
       enterGameKeyErrors: "",
       //Data for the logic to start a new game
@@ -379,7 +380,6 @@ export default class QuestionAmbleFE extends Component {
             }
           })
         })
-          .then(response => {return response.json()})
           .then(responseData => {
             this.setState({currentUserId: responseData.userID })
             this.setState({currentUserToken: responseData.auth_token});
@@ -577,6 +577,7 @@ export default class QuestionAmbleFE extends Component {
                   checkLocation: this.checkLocation,
                   newQuestFormErrors: this.state.newQuestFormErrors,
                   newQuestionFormErrors: this.state.newQuestionFormErrors,
+                  newUserFormErrors: this.state.newUserFormErrors,
                   handleQuestionNew: this.handleQuestionNew,
                   handleNewQuestForm: this.handleNewQuestForm,
                   enterGameKeyErrors: this.state.enterGameKeyErrors,
