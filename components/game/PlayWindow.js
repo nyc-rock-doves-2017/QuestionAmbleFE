@@ -9,12 +9,12 @@ export default class PlayWindow extends Component {
     }
     this.checkAnswer = this.checkAnswer.bind(this)
   }
-  
+
   checkAnswer(){
+    debugger
     this.props.screenProps.processGuess();
     if (this.props.screenProps.currentGuessStatus === "correct"){
       this.setState({status: "error"})
-
       this.props.navigation.navigate("ResultNew",{currentQ: this.props.screenProps.currentQuestion.id})
 
     }
