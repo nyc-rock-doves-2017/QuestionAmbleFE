@@ -404,7 +404,6 @@ export default class QuestionAmbleFE extends Component {
             this.setState({currentUserId: responseData.userID })
             this.setState({currentUserToken: responseData.auth_token})
           })
-          debugger
           // .then(body => {
           //   if (body.hasOwnProperty("error")){
           //     this.setState({currentUserFormErrors: body.error})

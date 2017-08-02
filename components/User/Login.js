@@ -31,7 +31,6 @@ export default class Login extends Component {
   }
 
   processLogAgain(){
-    debugger
     this.props.screenProps.handleUserLogin()
     if (this.props.screenProps.currentUserToken === null || this.props.screenProps.currentUserToken === ""){
       this.setState({logErrors: "An error occurred. Please check all fields before submitting!"})
