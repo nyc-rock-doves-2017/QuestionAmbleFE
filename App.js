@@ -150,6 +150,7 @@ export default class QuestionAmbleFE extends Component {
       newUserUsername: "",
       newUserEmail: "",
       newUserPassword: "",
+      currentUserFormErrors: "",
        //Data entered from the new quest form
       currentGameResult: {}, //Data on whether the user got the answer correct for the guess
 
@@ -403,6 +404,15 @@ export default class QuestionAmbleFE extends Component {
             this.setState({currentUserId: responseData.userID })
             this.setState({currentUserToken: responseData.auth_token})
           })
+          debugger
+          // .then(body => {
+          //   if (body.hasOwnProperty("error")){
+          //     this.setState({currentUserFormErrors: body.error})
+          //   }
+          // })
+          // .catch(err => {
+          //   console.log(err)
+          // })
         }
       }
 
@@ -549,6 +559,8 @@ export default class QuestionAmbleFE extends Component {
 
   render() {
     let methods = {
+                  currentUserUsername: this.state.currentUserUsername,
+                  currentUserPassword: this.state.currentUserPassword,
                   handleQuestData: this.handleQuestData,
                   getQuestData: this.getQuestData,
                   handleQuestTitleInputForNewQuest: this.handleQuestTitleInputForNewQuest,
