@@ -21,7 +21,8 @@ export default class ResultNew extends Component {
   render() {
     return (
       <View>
-        <Text>Congrats! You won! Press click to go to the next screen.</Text>
+        <Text>Processing your guess...</Text>
+        <Text>You'll see the same question appear if it's incorrect!</Text>
         <Button title="Proceed" onPress={this.determineNextScreen}/>
       </View>
     );
