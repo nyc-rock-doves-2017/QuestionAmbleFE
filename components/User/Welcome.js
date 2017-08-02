@@ -5,6 +5,7 @@ import { AppRegistry,
   StyleSheet
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Welcome extends Component {
   static navigationOptions ={
@@ -17,6 +18,9 @@ export default class Welcome extends Component {
     return(
       <View style={styles.wholeScreen}>
         <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Icon name="lightbulb-o" size={75} color='azure' />
+          </View>
           <Text style={styles.title}>QuestionAmble</Text>
           <Text style={styles.subtitle}>A Quest for Knowledge</Text>
           <View style={styles.buttonContainer}>
@@ -39,6 +43,11 @@ export default class Welcome extends Component {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   button: {
     backgroundColor: '#F25F5C',
     borderRadius: 25,
