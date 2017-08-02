@@ -32,19 +32,34 @@ export default class Login extends Component {
     this.props.onFormChange && this.props.onFormChange(formData);
   }
 
-  handleFormFocus(e, component){
-
-  }
-
   processLogAgain(){
-    this.props.screenProps.handleUserLogin()
-    if (this.props.screenProps.currentUserToken === null || this.props.screenProps.currentUserToken === ""){
-      this.setState({logErrors: "An error occurred. Please check all fields before submitting!"})
-    }
-    else{
-      this.props.navigation.navigate("MainMenu")
-    }
+    componentContext = this;
+    fetch('https://questionamble.herokuapp.com/users/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: componentContext.props.screenProps.currentUserUsername,
+        password: componentContext.props.screenProps.currentUserPassword
+      })
+    }).then(response => {
+      return response.json()})
+    .then(responseData => {
+      if (responseData.hasOwnProperty("error")){
+          componentContext.setState({logErrors: "An error occurred. Please check all fields before submitting!"})
+        }
+      else{
+          componentContext.props.screenProps.updateAppStateForUserAndToken(responseData.auth_token, responseData.userID)
+          componentContext.props.navigation.navigate("MainMenu")
+        }
+    }).catch(error => {
+      console.log("error found!")
+    })
   }
+
+
 
   onSubmitForm(e){
     if (this.props.screenProps.currentUserUsername === "" ||
@@ -68,6 +83,7 @@ export default class Login extends Component {
       <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
         <View style={styles.container}>
           <Text style={styles.title}>Login</Text>
+          <Text>{this.state.logErrors}</Text>
           <Form
             ref='LoginForm'
             label="Login">
