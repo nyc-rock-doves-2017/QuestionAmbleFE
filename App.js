@@ -198,6 +198,7 @@ export default class QuestionAmbleFE extends Component {
     this.checkLocation = this.checkLocation.bind(this)
     this.handleUserGuess = this.handleUserGuess.bind(this)
     this.processGuess = this.processGuess.bind(this)
+    this.getRoundInfo = this.getRoundInfo.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -244,7 +245,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleNewQuestForm(){
     currentContext = this;
-    fetch("http://localhost:3000/quests",{ //Replace link with "/quests/"
+    fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: currentContext.state.newQuestFormQuestTitle,
@@ -266,7 +267,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("http://localhost:3000/users/"+this.state.currentUserId+"/my_quests")
+    fetch("https://questionamble.herokuapp.com/users/"+this.state.currentUserId+"/my_quests")
     .then(
       response => {
         return response.json()})
@@ -280,7 +281,7 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    fetch("http://localhost:3000/questions",{
+    fetch("https://questionamble.herokuapp.com/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: { quest_id: "2",
@@ -502,6 +503,7 @@ export default class QuestionAmbleFE extends Component {
 
         if (body.game_status === "game complete"){
           currentContext.setState({gameStatus: "game complete"})
+          currentContext.getRoundInfo();
         }
         else{
           currentContext.setState({gameStatus: "game incomplete"})
@@ -513,7 +515,38 @@ export default class QuestionAmbleFE extends Component {
     .catch(err => {
       console.log(err)
     })
-}
+  }
+
+  getRoundInfo(){
+    currentContext = this;
+    var path = "https://questionamble.herokuapp.com/rounds/"+currentContext.state.currentRoundID
+    fetch(path).then((response => {
+      return response.json()})
+    ).then(body => {
+      if (body.result === "correct"){
+        //Ask for guidance on line below
+        //body.game_status
+        //body.result
+        //body.next_question
+        currentContext.setState({currentGuessStatus: "correct"})
+        currentContext.setState({previousQuestionID: currentContext.state.currentQuestion.id})
+
+        if (body.game_status === "game complete"){
+          currentContext.setState({gameStatus: "game complete"})
+        }
+        else{
+          currentContext.setState({gameStatus: "game incomplete"})
+          currentContext.setState({currentQuestion: body.next_question})
+        }
+        //body.next_question
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+
   render() {
     let methods = {
                   handleQuestData: this.handleQuestData,
