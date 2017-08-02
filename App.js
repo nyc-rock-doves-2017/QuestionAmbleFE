@@ -249,6 +249,9 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newQuestFormQuestDescription: textValue})
   }
 
+  //Question
+  // handleCurrentQuestId()
+
   handleNewQuestForm(){
     currentContext = this;
     fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
@@ -391,7 +394,6 @@ export default class QuestionAmbleFE extends Component {
     handleUserLogin() {
       currentContext = this;
       if (this.handleUserUsernameInputForLogin && this.handleUserPasswordInputForLogin) {
-
         fetch('https://questionamble.herokuapp.com/users/login', {
           method: 'POST',
           headers: {
