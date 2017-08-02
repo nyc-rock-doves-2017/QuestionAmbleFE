@@ -608,6 +608,7 @@ export default class QuestionAmbleFE extends Component {
                   previousQuestionID: this.state.previousQuestionID,
                   gameStatus: this.state.gameStatus,
                   currentGameResult: this.state.currentGameResult,
+                  currentGameKey: this.state.currentGameKey,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />

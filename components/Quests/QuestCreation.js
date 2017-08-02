@@ -44,7 +44,7 @@ export default class QuestCreation extends Component {
         this.props.screenProps.newQuestFormQuestDescription === ""){
         Alert.alert(
           'All Fields Are Required',
-          'Please complete all fields before submitting',
+          'Please complete all fields before submitting.',
               [
                 {text: 'OK', onPress: () => console.log('OK Pressed')},
               ],
