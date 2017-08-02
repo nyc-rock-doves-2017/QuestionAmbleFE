@@ -9,10 +9,14 @@ export default class ResultNew extends Component {
   }
 
   determineNextScreen(){
-    this.props.screenProps.getNextQuestion();
-    if (this.props.screenProps.currentQuestion.id != this.props.navigation.state.params.currentQ){
-      this.props.navigation.navigate("ClueShow")
-    }
+    // this.props.screenProps.getNextQuestion();
+      if (this.props.screenProps.gameStatus === "game complete"){
+        this.props.navigation.navigate("QuestIndex")
+      }
+      else{
+        this.props.navigation.navigate("ClueShow")
+      }
+
   }
   render() {
     return (
