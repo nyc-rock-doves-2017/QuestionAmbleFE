@@ -16,7 +16,7 @@ export default class GameNew extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#C2D834'
     }
   }
   constructor(props){
@@ -70,7 +70,7 @@ export default class GameNew extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#F25F5C',
+    backgroundColor: '#06AED5',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
