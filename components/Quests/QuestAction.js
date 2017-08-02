@@ -13,6 +13,12 @@ import { Form,
 } from 'react-native-form-generator';
 
 export default class QuestAction extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   render() {
     return (
       <View style={styles.wholeScreen}>

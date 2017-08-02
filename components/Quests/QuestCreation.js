@@ -14,6 +14,12 @@ import { Form,
 import Button from 'apsl-react-native-button';
 
 export default class QuestCreation extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   constructor(props){
     super(props);
     this.state = {

@@ -9,6 +9,12 @@ import { AppRegistry,
 import {Column as Col, Row} from 'react-native-flexbox-grid';
 
 export default class UserProfile extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   componentWillMount(){
     this.props.screenProps.handleUserProfile();
   }

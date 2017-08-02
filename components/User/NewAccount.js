@@ -9,15 +9,16 @@ import { AppRegistry,
 import Button from 'apsl-react-native-button';
 import { Form,
         Separator,
-        InputField,
-        LinkField,
-        SwitchField,
-        PickerField,
-        DatePicker,
-        TimePickerField
+        InputField
 } from 'react-native-form-generator';
 
 export default class NewAccount extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   constructor(props){
     super(props);
     this.state = {
@@ -34,7 +35,36 @@ export default class NewAccount extends Component {
 
   }
 
+  processNewUser(){
+    this.props.screenProps.handleUserSignUp()
+    if (this.props.screenProps.newUserFormErrors === ""){
+      this.props.navigation.navigate("MainMenu")
+    }
+    else{
+      this.setState({formErrors: "An error has occurred. Please check all fields before submitting."})
+    }
+  }
+
+  onSubmitForm(e){
+    if (this.props.screenProps.newUserUsername === "" ||
+        this.props.screenProps.newUserEmail === "" ||
+        this.props.screenProps.newUserPassword === "" ){
+        Alert.alert(
+          'All Fields Are Required',
+          'Please complete all fields before submitting',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+        { cancelable: false }
+      )
+    }
+    else {
+      this.processNewUser();
+      }
+    }
+
   render(){
+    let handleUserSignUp = this.props.screenProps.handleUserSignUp
     return(
       <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10,paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
         <View style={styles.container}>
@@ -46,19 +76,23 @@ export default class NewAccount extends Component {
               <InputField
                 onChangeText={this.props.screenProps.handleUserEmailInputForSignUp}
                 ref="email"
+                autoCapitalize="none"
                 placeholder="Email"/>
               <InputField
                 onChangeText={this.props.screenProps.handleUserUsernameInputForSignUp}
                 ref="username"
+                autoCapitalize="none"
                 placeholder="Username"/>
               <InputField
                 onChangeText={this.props.screenProps.handleUserPasswordInputForSignUp}
                 ref="password"
+                autoCapitalize="none"
                 placeholder="Password"
                 secureTextEntry={true}/>
           </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={this.props.screenProps.handleUserSignUp}>
+            <Button style={styles.button}
+            onPress={(e) => this.onSubmitForm(e)}>
               <Text style={styles.buttonText}>
                 CREATE ACCOUNT
               </Text>

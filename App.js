@@ -151,9 +151,8 @@ export default class QuestionAmbleFE extends Component {
       newUserEmail: "",
       newUserPassword: "",
       currentUserFormErrors: "",
+      newUserFormErrors: "",
        //Data entered from the new quest form
-      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
-
       enterGameKeyErrors: "",
       //Data for the logic to start a new game
       currentGameKey: "",
@@ -171,7 +170,13 @@ export default class QuestionAmbleFE extends Component {
       gameStatus: "",
       editQuestForm: {}, //Data entered from the edit quest form
       playerQuestionInput: {}, //What the user types in when trying to answer a question
-      currentGameResult: {}, //Data on whether the user got the answer correct for the guess
+      currentGameResult: {id: "",
+                          createdBy: "",
+                          questTitle: "",
+                          playedBy: "",
+                          completionScore:"",
+                          accuracyScore: "",
+                          dateOfPlay:""}, //Data on whether the user got the answer correct for the guess
     }
     this.handleQuestTitleInputForNewQuest = this.handleQuestTitleInputForNewQuest.bind(this)
     this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
@@ -376,7 +381,6 @@ export default class QuestionAmbleFE extends Component {
             }
           })
         })
-          .then(response => {return response.json()})
           .then(responseData => {
             this.setState({currentUserId: responseData.userID })
             this.setState({currentUserToken: responseData.auth_token});
@@ -431,6 +435,17 @@ export default class QuestionAmbleFE extends Component {
         return response.json()})
       ).then(body => {
         if (body.hasOwnProperty("error") === false){
+          var resetGameResult = {id: "",
+                              createdBy: "",
+                              questTitle: "",
+                              playedBy: "",
+                              completionScore:"",
+                              accuracyScore: "",
+                              dateOfPlay:""}
+
+          currentContext.setState({currentGameResult: resetGameResult})
+          currentContext.setState({gameStatus: ""})
+          currentContext.setState({previousQuestionID: ""})
           currentContext.setState({currentRoundID: body.round_id, currentQuestion: body.first_question})
         }
       })
@@ -532,23 +547,7 @@ export default class QuestionAmbleFE extends Component {
     fetch(path).then((response => {
       return response.json()})
     ).then(body => {
-      if (body.result === "correct"){
-        //Ask for guidance on line below
-        //body.game_status
-        //body.result
-        //body.next_question
-        currentContext.setState({currentGuessStatus: "correct"})
-        currentContext.setState({previousQuestionID: currentContext.state.currentQuestion.id})
-
-        if (body.game_status === "game complete"){
-          currentContext.setState({gameStatus: "game complete"})
-        }
-        else{
-          currentContext.setState({gameStatus: "game incomplete"})
-          currentContext.setState({currentQuestion: body.next_question})
-        }
-        //body.next_question
-      }
+        currentContext.setState({currentGameResult: body})
     })
     .catch(err => {
       console.log(err)
@@ -589,6 +588,7 @@ export default class QuestionAmbleFE extends Component {
                   checkLocation: this.checkLocation,
                   newQuestFormErrors: this.state.newQuestFormErrors,
                   newQuestionFormErrors: this.state.newQuestionFormErrors,
+                  newUserFormErrors: this.state.newUserFormErrors,
                   handleQuestionNew: this.handleQuestionNew,
                   handleNewQuestForm: this.handleNewQuestForm,
                   enterGameKeyErrors: this.state.enterGameKeyErrors,
@@ -607,6 +607,7 @@ export default class QuestionAmbleFE extends Component {
                   newQuestFormQuestDescription: this.state.newQuestFormQuestDescription,
                   previousQuestionID: this.state.previousQuestionID,
                   gameStatus: this.state.gameStatus,
+                  currentGameResult: this.state.currentGameResult,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
