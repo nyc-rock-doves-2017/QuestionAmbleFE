@@ -12,6 +12,12 @@ import {Column as Col, Row} from 'react-native-flexbox-grid';
 
 
 export default class QuestShow extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   render() {
     let data = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questId)
 

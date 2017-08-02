@@ -17,6 +17,12 @@ var {height, width} = Dimensions.get('window');
 import MapView from 'react-native-maps';
 
 export default class QuestionNew extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   constructor(props){
     super(props);
     this.state = {

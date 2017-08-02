@@ -11,6 +11,12 @@ import {
 } from 'react-native';
 
 export default class QuestIndex extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   componentDidMount(){
     this.props.screenProps.handleQuestData()
   }

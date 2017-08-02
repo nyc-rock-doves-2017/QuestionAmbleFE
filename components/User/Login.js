@@ -13,6 +13,12 @@ import { Form,
 } from 'react-native-form-generator';
 
 export default class Login extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   constructor(props){
     super(props);
     this.state = {
@@ -52,7 +58,7 @@ export default class Login extends Component {
             </Form>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={this.props.screenProps.handleUserLogin}>
-              <Text style={styles.buttonText} 
+              <Text style={styles.buttonText}
                 onPress={() => this.props.navigation.navigate("MainMenu")}>
                 LOGIN
               </Text>

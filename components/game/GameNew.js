@@ -13,6 +13,12 @@ import { AppRegistry,
   } from 'react-native-form-generator';
 
 export default class GameNew extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   constructor(props){
     super(props);
     this.state = {

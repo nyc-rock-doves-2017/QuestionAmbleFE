@@ -7,6 +7,12 @@ import { AppRegistry,
 import Button from 'apsl-react-native-button';
 
 export default class Welcome extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   render(){
     return(
       <View style={styles.wholeScreen}>
