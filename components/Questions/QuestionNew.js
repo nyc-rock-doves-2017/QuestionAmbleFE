@@ -82,7 +82,7 @@ export default class QuestionNew extends Component {
             label="New Question">
 
             <View>
-              <Text style={styles.explanationText}>
+              <Text style={styles.explanationTextFirst}>
                 Help the played find the question location, give them a clue:
               </Text>
               <InputField
@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center',
-    paddingBottom: 15
   },
   subtitle: {
     color: 'azure',
@@ -194,6 +193,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center',
+  },
+  explanationTextFirst: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   explanationText: {
     color: 'azure',
