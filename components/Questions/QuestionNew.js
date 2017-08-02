@@ -5,7 +5,8 @@ import { AppRegistry,
   View,
   SectionList,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import { Form,
   Separator,
@@ -35,6 +36,26 @@ export default class QuestionNew extends Component {
       this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
     }
   }
+
+  onSubmitForm(e){
+    if (this.props.screenProps.newQuestionFormText === "" ||
+        this.props.screenProps.newQuestionFormAnswer === "" ||
+        this.props.screenProps.newQuestionFormHint === "" ||
+        this.props.screenProps.newQuestionFormClueText === ""){
+        Alert.alert(
+          'All Fields Are Required',
+          'Please complete all fields before submitting',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+        { cancelable: false }
+      )
+    }
+    else {
+      this.processNewQuestion();
+    }
+  }
+
   render() {
     let handleQuestionNew = this.props.screenProps.handleQuestionNew
     let handleQuestionTextInputForNewQuestion = this.props.screenProps.handleQuestionTextInputForNewQuestion
@@ -69,6 +90,7 @@ export default class QuestionNew extends Component {
               </Text>
               <InputField
               placeholder="Enter the question"
+              value={this.state.value}
               onChangeText={handleQuestionTextInputForNewQuestion}/>
             </View>
 
@@ -107,7 +129,7 @@ export default class QuestionNew extends Component {
           </MapView>
           <View style={styles.buttonContainer}>
             <Button style={styles.button}
-            onPress={this.processNewQuestion}>
+            onPress={(e) => this.onSubmitForm(e)}>
               <Text style={styles.buttonText}>
                 CREATE QUESTION
               </Text>
