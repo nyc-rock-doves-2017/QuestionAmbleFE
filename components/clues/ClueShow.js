@@ -5,6 +5,7 @@ import { AppRegistry,
   View
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class ClueShow extends Component {
   static navigationOptions ={
@@ -31,7 +32,6 @@ export default class ClueShow extends Component {
     var lat = currentContext.props.screenProps.currentLat
     var lng = currentContext.props.screenProps.currentLng
     var path = "https://questionamble.herokuapp.com/rounds/"+roundID+"/compare_location?player_lat="+lat+"&player_lng="+lng+"&cur_question_id="+currentQuestionID
-debugger
     fetch(path,{
       method: "GET",
       headers: {"Content-Type": "application/json"}
@@ -59,6 +59,9 @@ debugger
             <Text style={styles.errorGreenBackground}>
               {this.state.formErrors}
             </Text>
+            <View style={styles.iconContainer}>
+              <Icon name="search" size={50} color='#1aa3ff' />
+            </View>
             <Text style={styles.title}>
               Here's a clue to find your question...
             </Text>
@@ -85,6 +88,11 @@ debugger
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   errorGreenBackground: {
     textAlign: 'center',
     fontSize: 18,
@@ -92,7 +100,7 @@ const styles = StyleSheet.create({
     color: '#CE57A6'
   },
   button: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   title: {
-    marginTop: 30,
+    marginTop: 10,
     color: 'azure',
     fontWeight: 'bold',
     fontSize: 30,
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   subtitle: {
-    color: '#06AED5',
+    color: '#1aa3ff',
     fontSize: 18,
     textAlign: 'center',
     paddingTop: 10,

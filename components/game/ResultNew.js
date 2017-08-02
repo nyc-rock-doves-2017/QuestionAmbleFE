@@ -54,7 +54,7 @@ export default class ResultNew extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   subtitle: {
-    color: '#06AED5',
+    color: '#1aa3ff',
     fontSize: 18,
     textAlign: 'center',
     paddingTop: 10,

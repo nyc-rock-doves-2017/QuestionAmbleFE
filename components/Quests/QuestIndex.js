@@ -4,18 +4,18 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Alert,
   FlatList,
   ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Button from 'apsl-react-native-button';
 
 export default class QuestIndex extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   componentDidMount(){
@@ -47,6 +47,18 @@ export default class QuestIndex extends Component {
              </View>
            </View>
          }/>
+         <View style={styles.buttonContainer}>
+           <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestCreation")}>
+             <Text style={styles.buttonText}>
+               MAKE A NEW QUEST
+             </Text>
+           </Button>
+           <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+             <Text style={styles.buttonText}>
+               HOME
+             </Text>
+           </Button>
+         </View>
        </View>
      </ScrollView>
    );
@@ -54,8 +66,28 @@ export default class QuestIndex extends Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#F25F5C',
+    borderRadius: 25,
+    borderColor: 'azure',
+    borderWidth: 2
+  },
+  buttonContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 40,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonText: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+  },
  wholeScreen: {
-   backgroundColor: '#06AED5',
+   backgroundColor: '#1aa3ff',
    flex: 3
  },
  container: {

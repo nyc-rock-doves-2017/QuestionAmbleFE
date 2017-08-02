@@ -11,7 +11,7 @@ export default class Welcome extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   render(){
@@ -19,7 +19,7 @@ export default class Welcome extends Component {
       <View style={styles.wholeScreen}>
         <View style={styles.container}>
           <View style={styles.iconContainer}>
-            <Icon name="lightbulb-o" size={75} color='azure' />
+            <Icon name="lightbulb-o" size={50} color='azure' />
           </View>
           <Text style={styles.title}>QuestionAmble</Text>
           <Text style={styles.subtitle}>A Quest for Knowledge</Text>
@@ -35,7 +35,9 @@ export default class Welcome extends Component {
               </Text>
             </Button>
           </View>
-          <Text style={styles.disclaimerText}>*If you have a Quest Code, but don't have an account yet, sign up to play!</Text>
+          <Text style={styles.disclaimerText}>
+            *If you have a Quest Code, but don't have an account yet, sign up to play!
+          </Text>
         </View>
       </View>
     );
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {

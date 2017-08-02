@@ -11,12 +11,13 @@ import { Form,
         Separator,
         InputField
 } from 'react-native-form-generator';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Login extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   constructor(props){
@@ -80,8 +81,11 @@ export default class Login extends Component {
 
   render(){
     return(
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
+      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
         <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Icon name="user-circle" size={50} color='azure' />
+          </View>
           <Text style={styles.title}>Login</Text>
           <Text>{this.state.logErrors}</Text>
           <Form
@@ -114,6 +118,11 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   button: {
     backgroundColor: '#F25F5C',
     borderRadius: 25,
@@ -121,7 +130,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {

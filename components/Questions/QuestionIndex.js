@@ -12,13 +12,13 @@ export default class QuestionIndex extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   render() {
     let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#06AED5'}}>
+      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
         <View style={styles.container}>
         <Text style={styles.title}>
           {questData[0].title}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {

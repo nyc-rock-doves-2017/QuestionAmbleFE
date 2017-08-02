@@ -7,12 +7,13 @@ import { AppRegistry,
   StyleSheet
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class MainMenu extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   async userLogout() {
@@ -28,7 +29,10 @@ export default class MainMenu extends Component {
     return(
       <View style={styles.wholeScreen}>
         <View style={styles.container}>
-          <Text style={styles.title}>Main Menu</Text>
+          <View style={styles.iconContainer}>
+            <Icon name="lightbulb-o" size={50} color='azure' />
+          </View>
+          <Text style={styles.title}>QuestionAmble</Text>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("GameNew")}>
               <Text style={styles.buttonText}>
@@ -58,6 +62,11 @@ export default class MainMenu extends Component {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   button: {
     backgroundColor: '#F25F5C',
     borderRadius: 25,
@@ -65,11 +74,11 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {
-    marginTop: 100,
+    marginTop: 80,
   },
   buttonContainer: {
     paddingLeft: 15,
