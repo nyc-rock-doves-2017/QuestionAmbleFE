@@ -31,6 +31,7 @@ export default class ClueShow extends Component {
     var lat = currentContext.props.screenProps.currentLat
     var lng = currentContext.props.screenProps.currentLng
     var path = "https://questionamble.herokuapp.com/rounds/"+roundID+"/compare_location?player_lat="+lat+"&player_lng="+lng+"&cur_question_id="+currentQuestionID
+debugger
     fetch(path,{
       method: "GET",
       headers: {"Content-Type": "application/json"}
@@ -55,16 +56,18 @@ export default class ClueShow extends Component {
     return (
       <View style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#C2D834', flexDirection: 'column', justifyContent: 'space-between'}}>
           <View>
+            <Text style={styles.errorGreenBackground}>
+              {this.state.formErrors}
+            </Text>
             <Text style={styles.title}>
               Here's a clue to find your question...
             </Text>
             <Text style={styles.subtitle}>
               Where could it be?
             </Text>
-            <Text>{this.state.formErrors}</Text>
           </View>
           <View style={styles.questionContainer}>
-            <Text style={styles.question}>{currentQuestion.question_text}</Text>
+            <Text style={styles.question}>{currentQuestion.clue_text}</Text>
           </View>
           <View>
             <View style={styles.buttonContainer}>
@@ -82,6 +85,12 @@ export default class ClueShow extends Component {
 }
 
 const styles = StyleSheet.create({
+  errorGreenBackground: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#CE57A6'
+  },
   button: {
     backgroundColor: '#06AED5',
     borderRadius: 25,

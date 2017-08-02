@@ -74,6 +74,9 @@ export default class PlayWindow extends Component {
     return (
         <View keyboardShouldPersistTaps="always" style={styles.wholeScreen}>
           <View style={styles.container}>
+            <Text style={styles.errorGreenBackground}>
+              {this.state.formErrors}
+            </Text>
             <View style={styles.iconStyles}>
               <Icon name="map-marker"
                 size={50}
@@ -82,7 +85,6 @@ export default class PlayWindow extends Component {
             <Text style={styles.title}>
               You're in the Right Spot!
             </Text>
-            <Text style={styles.title}>{this.state.formErrors}</Text>
             <Text style={styles.subtitle}>
               Answer this question for your next clue:
             </Text>
@@ -120,6 +122,12 @@ export default class PlayWindow extends Component {
   }
 }
 const styles = StyleSheet.create({
+  errorGreenBackground: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#CE57A6'
+  },
   button: {
     backgroundColor: '#06AED5',
     borderRadius: 25,
@@ -195,7 +203,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   iconStyles: {
-    textAlign: 'center',
     alignItems: 'center'
   }
 });
