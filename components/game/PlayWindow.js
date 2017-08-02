@@ -12,7 +12,7 @@ export default class PlayWindow extends Component {
 
   checkAnswer(){
     this.props.screenProps.processGuess();
-    if (this.props.screenProps.currentGuessStatus === "correct"){
+    if ((this.props.screenProps.currentQuestion.id != this.props.screenProps.previousQuestionID)){
       this.setState({status: "error"})
       this.props.navigation.navigate("ResultNew",{currentQ: this.props.screenProps.currentQuestion.id})
 
@@ -27,6 +27,8 @@ export default class PlayWindow extends Component {
       <View>
         <Text>You found the question! Here is your question:</Text>
         <Text>{question.question_text}</Text>
+        <Text>Hint</Text>
+        <Text>{question.hint}</Text>
         <Text>Your input:</Text>
         <TextInput
           multiline={true}
