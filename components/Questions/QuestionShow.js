@@ -18,6 +18,15 @@ export default class QuestionShow extends Component {
       backgroundColor: '#06AED5'
     }
   }
+  // constructor(props){
+  //   super(props);
+  //   this.state = {
+  //     formData: {}
+  //   }
+  // }
+
+
+
   render() {
     let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     let question = questData[0].questions.filter( (question) => question.id === this.props.navigation.state.params.questionID)

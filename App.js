@@ -249,6 +249,9 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newQuestFormQuestDescription: textValue})
   }
 
+  //Question
+  // handleCurrentQuestId()
+
   handleNewQuestForm(){
     currentContext = this;
     fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
@@ -387,7 +390,6 @@ export default class QuestionAmbleFE extends Component {
         })
       }
     }
-
 
     updateAppStateForUserAndToken(userID, userToken){
       this.setState({currentUserId: userID })
