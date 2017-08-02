@@ -4,7 +4,8 @@ import { AppRegistry,
   Text,
   View,
   SectionList,
-  ScrollView
+  ScrollView,
+  Alert
  } from 'react-native';
   import Button from 'apsl-react-native-button';
   import { Form,
@@ -31,6 +32,22 @@ export default class GameNew extends Component {
     }
   }
 
+  onSubmitForm(e){
+    if (this.props.screenProps.currentGameKey === ""){
+        Alert.alert(
+          'All Fields Are Required',
+          'Please complete all fields before submitting',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+        { cancelable: false }
+      )
+    }
+    else {
+      this.processGame();
+    }
+  }
+
   render() {
     let { handleNewGameKeyInput } = this.props.screenProps
     return (
@@ -50,7 +67,8 @@ export default class GameNew extends Component {
                 />
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={this.processGame}>
+            <Button style={styles.button}
+              onPress={(e) => this.onSubmitForm(e)}>
               <Text style={styles.buttonText}>
                 LET'S GO
               </Text>
