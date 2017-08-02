@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry,
   StyleSheet,
   Text,
-  View,
-  SectionList,
-  ScrollView
+  View
  } from 'react-native';
   import Button from 'apsl-react-native-button';
   import { Form,
@@ -40,7 +38,7 @@ export default class GameNew extends Component {
   render() {
     let { handleNewGameKeyInput } = this.props.screenProps
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#bfd629'}}>
+      <View keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#bfd629'}}>
         <View style={styles.container}>
           <Text style={styles.title}>
             Enter the Quest Code to Begin...
@@ -52,7 +50,7 @@ export default class GameNew extends Component {
               <InputField
                 editable={true}
                 ref="questCode"
-                placeholder="Quest Code"
+                placeholder="Enter your quest code..."
                 returnKeyType='next'
                 onChangeText={handleNewGameKeyInput}
                 />
@@ -65,7 +63,7 @@ export default class GameNew extends Component {
             </Button>
         </View>
       </View>
-    </ScrollView>
+    </View>
     );
     }
     }
