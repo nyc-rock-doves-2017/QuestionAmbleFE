@@ -9,6 +9,12 @@ import { AppRegistry,
 import Button from 'apsl-react-native-button';
 
 export default class QuestionIndex extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   render() {
     let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     return (

@@ -12,6 +12,12 @@ import { AppRegistry,
   import MapView from 'react-native-maps';
 
 export default class QuestionShow extends Component {
+  static navigationOptions ={
+    headerLeft: null,
+    headerStyle: {
+      backgroundColor: '#06AED5'
+    }
+  }
   render() {
     let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     let question = questData[0].questions.filter( (question) => question.id === this.props.navigation.state.params.questionID)
@@ -68,14 +74,6 @@ export default class QuestionShow extends Component {
                   coordinate={{latitude: Number(currentLat), longitude: Number(currentLng)}}
                 />
             </MapView>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button style={styles.button}
-            onPress={() => this.props.navigation.navigate("QuestionEdit")}>
-            <Text style={styles.buttonText}>
-              EDIT QUESTION
-            </Text>
-          </Button>
         </View>
       </ScrollView>
     );
