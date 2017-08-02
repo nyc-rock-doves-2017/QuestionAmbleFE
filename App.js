@@ -552,6 +552,10 @@ export default class QuestionAmbleFE extends Component {
                   handleUserGuess: this.handleUserGuess,
                   processGuess: this.processGuess,
                   currentGuessStatus: this.state.currentGuessStatus,
+                  newQuestionFormText: this.state.newQuestionFormText,
+                  newQuestionFormAnswer: this.state.newQuestionFormAnswer,
+                  newQuestionFormHint: this.state.newQuestionFormHint,
+                  newQuestionFormClue: this.state.newQuestionFormClue,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
