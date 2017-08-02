@@ -10,6 +10,7 @@ import { AppRegistry,
           Separator,
           InputField
   } from 'react-native-form-generator';
+  import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class GameNew extends Component {
   static navigationOptions ={
@@ -86,6 +87,9 @@ export default class GameNew extends Component {
           backgroundColor: '#bfd629'
         }}>
         <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Icon name="compass" size={50} color='#1aa3ff' />
+          </View>
           <Text style={styles.title}>Enter the Quest Code to Begin...</Text>
           <Text>{this.state.formErrors}</Text>
           <Form
@@ -104,7 +108,12 @@ export default class GameNew extends Component {
             <Button style={styles.button}
               onPress={(e) => this.onSubmitForm(e)}>
               <Text style={styles.buttonText}>
-                LET'S GO
+                LET'S GO!
+              </Text>
+            </Button>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+              <Text style={styles.buttonText}>
+                HOME
               </Text>
             </Button>
         </View>
@@ -115,8 +124,13 @@ export default class GameNew extends Component {
     }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   button: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2

@@ -15,7 +15,7 @@ export default class QuestionShow extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   // constructor(props){
@@ -33,7 +33,7 @@ export default class QuestionShow extends Component {
     let currentLat = this.props.screenProps.currentLat
     let currentLng = this.props.screenProps.currentLng
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#06AED5'}}>
+      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
         <View style={styles.container}>
           <Text style={styles.subtitle}>
             View Question from...
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   mapcContainer: {

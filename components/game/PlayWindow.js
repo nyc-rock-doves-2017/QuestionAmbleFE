@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     color: '#CE57A6'
   },
   button: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     paddingBottom: 25
   },
   subtitle: {
-    color: '#06AED5',
+    color: '#1aa3ff',
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5
   },
   subtitleTwo: {
-    color: '#06AED5',
+    color: '#1aa3ff',
     fontSize: 18,
     textAlign: 'center',
     paddingRight: 25,
