@@ -22,6 +22,7 @@ export default class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
+      logErrors: "",
       formData:{}
     }
   }
@@ -33,6 +34,33 @@ export default class Login extends Component {
 
   handleFormFocus(e, component){
 
+  }
+
+  processLogAgain(){
+    this.props.screenProps.handleUserLogin()
+    if (this.props.screenProps.currentUserToken === null || this.props.screenProps.currentUserToken === ""){
+      this.setState({logErrors: "An error occurred. Please check all fields before submitting!"})
+    }
+    else{
+      this.props.navigation.navigate("MainMenu")
+    }
+  }
+
+  onSubmitForm(e){
+    if (this.props.screenProps.currentUserUsername === "" ||
+        this.props.screenProps.currentUserPassword === ""){
+        Alert.alert(
+          'All Fields Are Required',
+          'Please complete all fields before submitting',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+        { cancelable: false }
+      )
+    }
+    else {
+      this.processLogAgain();
+    }
   }
 
   render(){
@@ -57,9 +85,8 @@ export default class Login extends Component {
                 secureTextEntry={true}/>
             </Form>
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={this.props.screenProps.handleUserLogin}>
-              <Text style={styles.buttonText}
-                onPress={() => this.props.navigation.navigate("MainMenu")}>
+            <Button style={styles.button} onPress={(e) => this.onSubmitForm(e)}>
+              <Text style={styles.buttonText}>
                 LOGIN
               </Text>
             </Button>
