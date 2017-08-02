@@ -23,18 +23,49 @@ export default class PlayWindow extends Component {
     super(props);
     this.state = {
       status: "",
+      formErrors: "",
     }
     this.checkAnswer = this.checkAnswer.bind(this)
   }
 
   checkAnswer(){
-    this.props.screenProps.processGuess();
-    if ((this.props.screenProps.currentQuestion.id != this.props.screenProps.previousQuestionID)){
-      this.setState({status: "error"})
-      this.props.navigation.navigate("ResultNew",{currentQ: this.props.screenProps.currentQuestion.id})
+    currentContext = this
+    fetch("https://questionamble.herokuapp.com/results",{
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ player_id: 2,
+        question_id: currentContext.props.screenProps.currentQuestion.id,
+        round_id: currentContext.props.screenProps.currentRoundID,
+        user_guess: currentContext.props.screenProps.currentGuess
+      })
+    }).then(response => {
+      return response.json()
+    }).then(body => {
+      if (body.result === "correct"){
+        currentContext.props.screenProps.updateCurrentGuessStatus("correct")
+        currentContext.props.screenProps.updatePreviousQuestionID(currentContext.props.screenProps.currentQuestion.id)
 
-    }
+        if (body.game_status === "game complete"){
+          currentContext.props.screenProps.updateGameStatus("game complete")
+          currentContext.props.screenProps.getRoundInfo()
+          this.props.navigation.navigate("RoundShow")
+
+        }
+        else{
+          currentContext.props.screenProps.updateGameStatus("game incomplete")
+          currentContext.props.screenProps.updateCurrentQuestion(body.next_question)
+          this.props.navigation.navigate("ResultNew",{currentQ: this.props.screenProps.currentQuestion.id})
+        }
+        //body.next_question
+      } else {
+        this.setState({formErrors: "Wrong answer! Try again!!"})
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
+
   render() {
     let currentGuessStatus = this.props.screenProps.currentGuessStatus
     let processGuess = this.props.screenProps.processGuess
@@ -51,6 +82,7 @@ export default class PlayWindow extends Component {
             <Text style={styles.title}>
               You're in the Right Spot!
             </Text>
+            <Text style={styles.title}>{this.state.formErrors}</Text>
             <Text style={styles.subtitle}>
               Answer this question for your next clue:
             </Text>

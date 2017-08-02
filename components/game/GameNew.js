@@ -37,7 +37,6 @@ export default class GameNew extends Component {
     }).then((response => {
       return response.json()})
     ).then(body => {
-      debugger
       if (body.hasOwnProperty("error") === false){
         var resetGameResult = {id: "",
                             createdBy: "",
@@ -46,8 +45,8 @@ export default class GameNew extends Component {
                             completionScore:"",
                             accuracyScore: "",
                             dateOfPlay:""}
-        var cQuestion = currentContext.props.screenProps.currentQuestion
-        var cRoundID = currentContext.props.screenProps.currentRoundID
+        var cQuestion = body.first_question
+        var cRoundID = body.round_id
         currentContext.props.screenProps.setNewGameInfo(resetGameResult, cRoundID ,cQuestion)
         currentContext.props.navigation.navigate("ClueShow")
       }

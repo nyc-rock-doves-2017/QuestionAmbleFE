@@ -196,12 +196,14 @@ export default class QuestionAmbleFE extends Component {
     this.handleUserPasswordInputForSignUp = this.handleUserPasswordInputForSignUp.bind(this)
     this.handleNewGameKeyInput = this.handleNewGameKeyInput.bind(this)
     this.updateLocation = this.updateLocation.bind(this)
-    this.checkLocation = this.checkLocation.bind(this)
     this.handleUserGuess = this.handleUserGuess.bind(this)
-    this.processGuess = this.processGuess.bind(this)
     this.getRoundInfo = this.getRoundInfo.bind(this)
     this.updateAppStateForUserAndToken = this.updateAppStateForUserAndToken.bind(this)
     this.setNewGameInfo = this.setNewGameInfo.bind(this)
+    this.updateCurrentGuessStatus = this.updateCurrentGuessStatus.bind(this)
+    this.updatePreviousQuestionID = this.updatePreviousQuestionID.bind(this)
+    this.updateGameStatus = this.updateGameStatus.bind(this)
+    this.updateCurrentQuestion = this.updateCurrentQuestion.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -386,10 +388,11 @@ export default class QuestionAmbleFE extends Component {
 
 
   setNewGameInfo(newGameResult, currRoundID , currQuestion){
-    currentContext.setState({currentGameResult: newGameResult})
-    currentContext.setState({gameStatus: ""})
-    currentContext.setState({previousQuestionID: ""})
-    currentContext.setState({currentRoundID: currRoundID, currentQuestion: currQuestion})
+    this.setState({currentGameResult: newGameResult})
+    this.setState({gameStatus: ""})
+    this.setState({previousQuestionID: ""})
+    this.setState({currentRoundID: currRoundID})
+    this.setState({currentQuestion: currQuestion})
   }
 
   updateLocation(){
@@ -399,67 +402,24 @@ export default class QuestionAmbleFE extends Component {
     })
   }
 
-
-  checkLocation(){
-    currentContext = this;
-    var roundID = this.state.currentRoundID
-    var currentQuestionID = this.state.currentQuestion.id
-    var path = "https://questionamble.herokuapp.com/rounds/"+roundID+"/compare_location?player_lat="+currentContext.state.currentLat+"&player_lng="+currentContext.state.currentLng+"&cur_question_id="+currentQuestionID
-    fetch(path,{
-      method: "GET",
-      headers: {"Content-Type": "application/json"}
-    }).then((response => {
-      return response.json()})
-    ).then(body => {
-      if (body.clue === "found"){
-        //Ask for guidance on line below
-        currentContext.setState({currentLocationMatch: body.clue})
-      }
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
-
   handleUserGuess(text_value){
     this.setState({currentGuess: text_value})
   }
 
-  processGuess(){
-    currentContext = this;
-    fetch("https://questionamble.herokuapp.com/results",{
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ player_id: 2,
-        question_id: currentContext.state.currentQuestion.id,
-        round_id: currentContext.state.currentRoundID,
-        user_guess: currentContext.state.currentGuess,
-      })
-    }).then((response => {
-      return response.json()})
-    ).then(body => {
-      if (body.result === "correct"){
-        //Ask for guidance on line below
-        //body.game_status
-        //body.result
-        //body.next_question
-        currentContext.setState({currentGuessStatus: "correct"})
-        currentContext.setState({previousQuestionID: currentContext.state.currentQuestion.id})
+  updateCurrentGuessStatus(currentGuessStat){
+    this.setState({currentGuessStatus: currentGuessStat})
+  }
 
-        if (body.game_status === "game complete"){
-          currentContext.setState({gameStatus: "game complete"})
-          currentContext.getRoundInfo();
-        }
-        else{
-          currentContext.setState({gameStatus: "game incomplete"})
-          currentContext.setState({currentQuestion: body.next_question})
-        }
-        //body.next_question
-      }
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  updatePreviousQuestionID(previousQuestionID){
+    this.setState({currentGuessStatus: previousQuestionID})
+  }
+
+  updateGameStatus(status){
+    this.setState({gameStatus: status})
+  }
+
+  updateCurrentQuestion(question){
+    this.setState({currentQuestion: question})
   }
 
   getRoundInfo(){
@@ -504,7 +464,6 @@ export default class QuestionAmbleFE extends Component {
                   handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp,
                   handleNewGameKeyInput: this.handleNewGameKeyInput,
                   currentQuestion: this.state.currentQuestion,
-                  checkLocation: this.checkLocation,
                   newQuestFormErrors: this.state.newQuestFormErrors,
                   newQuestionFormErrors: this.state.newQuestionFormErrors,
                   newUserFormErrors: this.state.newUserFormErrors,
@@ -514,9 +473,7 @@ export default class QuestionAmbleFE extends Component {
                   requestQuestion: this.requestQuestion,
                   updateLocation: this.updateLocation,
                   currentLocationMatch: this.state.currentLocationMatch,
-                  checkLocation: this.checkLocation,
                   handleUserGuess: this.handleUserGuess,
-                  processGuess: this.processGuess,
                   currentGuessStatus: this.state.currentGuessStatus,
                   newQuestionFormText: this.state.newQuestionFormText,
                   newQuestionFormAnswer: this.state.newQuestionFormAnswer,
@@ -532,6 +489,12 @@ export default class QuestionAmbleFE extends Component {
                   currentGameKey: this.state.currentGameKey,
                   setNewGameInfo: this.setNewGameInfo,
                   currentRoundID: this.state.currentRoundID,
+                  updateCurrentGuessStatus: this.updateCurrentGuessStatus,
+                  updatePreviousQuestionID: this.updatePreviousQuestionID,
+                  updateGameStatus: this.updateGameStatus,
+                  updateCurrentQuestion: this.updateCurrentQuestion,
+                  currentGuess: this.state.currentGuess,
+                  getRoundInfo: this.getRoundInfo,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
