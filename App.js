@@ -245,7 +245,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleNewQuestForm(){
     currentContext = this;
-    fetch("http://localhost:3000/quests",{ //Replace link with "/quests/"
+    fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: currentContext.state.newQuestFormQuestTitle,
@@ -267,7 +267,7 @@ export default class QuestionAmbleFE extends Component {
 
   handleQuestData(){
     currentContext = this;
-    fetch("http://localhost:3000/users/"+this.state.currentUserId+"/my_quests")
+    fetch("https://questionamble.herokuapp.com/users/"+this.state.currentUserId+"/my_quests")
     .then(
       response => {
         return response.json()})
@@ -281,7 +281,7 @@ export default class QuestionAmbleFE extends Component {
   //Questions
   handleQuestionNew(){
     currentContext = this;
-    fetch("http://localhost:3000/questions",{
+    fetch("https://questionamble.herokuapp.com/questions",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: { quest_id: "2",
@@ -503,7 +503,6 @@ export default class QuestionAmbleFE extends Component {
 
         if (body.game_status === "game complete"){
           currentContext.setState({gameStatus: "game complete"})
-          debugger
           currentContext.getRoundInfo();
         }
         else{
@@ -519,13 +518,11 @@ export default class QuestionAmbleFE extends Component {
   }
 
   getRoundInfo(){
-    debugger
     currentContext = this;
     var path = "https://questionamble.herokuapp.com/rounds/"+currentContext.state.currentRoundID
     fetch(path).then((response => {
       return response.json()})
     ).then(body => {
-      debugger
       if (body.result === "correct"){
         //Ask for guidance on line below
         //body.game_status

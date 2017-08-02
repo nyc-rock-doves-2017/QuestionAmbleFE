@@ -10,7 +10,6 @@ export default class ResultNew extends Component {
 
   determineNextScreen(){
     // this.props.screenProps.getNextQuestion();
-    debugger
       if (this.props.screenProps.gameStatus === "game complete"){
         this.props.navigation.navigate("RoundShow")
       }

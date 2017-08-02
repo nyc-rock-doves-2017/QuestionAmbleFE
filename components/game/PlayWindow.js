@@ -11,7 +11,6 @@ export default class PlayWindow extends Component {
   }
 
   checkAnswer(){
-    debugger
     this.props.screenProps.processGuess();
     if (this.props.screenProps.currentGuessStatus === "correct"){
       this.setState({status: "error"})
