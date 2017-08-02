@@ -10,3 +10,4 @@ export default class ResultLose extends Component {
     );
   }
 }
+

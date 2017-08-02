@@ -56,7 +56,7 @@ export default class ClueShow extends Component {
       <View style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#C2D834', flexDirection: 'column', justifyContent: 'space-between'}}>
           <View>
             <Text style={styles.title}>
-              Here's a clue to find your question...
+              Here is a clue to find your question...
             </Text>
             <Text style={styles.subtitle}>
               Where could it be?
