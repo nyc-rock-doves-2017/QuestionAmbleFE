@@ -409,6 +409,11 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newUserPassword: ""})
     this.setState({currentUserFormErrors: ""})
     this.setState({newUserFormErrors: ""})
+    this.setState({currentLat: ""})
+    this.setState({currentLng: ""})
+    this.setState({currentGameKey: ""})
+    this.setState({currentRoundID: ""})
+    this.setState({playerQuestionInput: ""})
   }
   render() {
     let methods = {
