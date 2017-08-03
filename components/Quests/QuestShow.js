@@ -83,23 +83,17 @@ export default class QuestShow extends Component {
           <Text style={styles.subtitle}>
             Played By:
           </Text>
-
             <FlatList
               data={data[0].playedBy}
               renderItem={({item}) =>
 
                 <Text style={styles.listText}
                   key={item.id}>
-                  <Text style={styles.subtitle}>-  {item}</Text>
+                  <Text style={styles.subtitle}>{item}</Text>
                 </Text>
             }/>
 
         </View>
-        <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
-          <Text style={styles.buttonText}>
-            HOME
-          </Text>
-        </Button>
       </ScrollView>
     );
   }

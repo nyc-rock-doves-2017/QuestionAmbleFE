@@ -84,6 +84,13 @@ export default class QuestionShow extends Component {
                 />
             </MapView>
         </View>
+        <View style={styles.buttonContainer}>
+          <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+            <Text style={styles.buttonText}>
+              HOME
+            </Text>
+          </Button>
+        </View>
       </ScrollView>
     );
   }
