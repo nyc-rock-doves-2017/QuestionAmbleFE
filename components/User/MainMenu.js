@@ -15,6 +15,12 @@ export default class MainMenu extends Component {
       backgroundColor: '#06AED5'
     }
   }
+  // debugger
+  componentWillMount(){
+    this.props.screenProps.handleUserProfile();
+  }
+
+
   async userLogout() {
     try {
       await AsyncStorage.removeItem('id_token');

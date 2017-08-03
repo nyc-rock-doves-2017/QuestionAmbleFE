@@ -199,7 +199,6 @@ export default class QuestionAmbleFE extends Component {
     this.handleUserProfile = this.handleUserProfile.bind(this)
     this.handleUserUsernameInputForLogin = this.handleUserUsernameInputForLogin.bind(this)
     this.handleUserPasswordInputForLogin = this.handleUserPasswordInputForLogin.bind(this)
-    this.handleUserSignUp = this.handleUserSignUp.bind(this)
     this.handleUserUsernameInputForSignUp = this.handleUserUsernameInputForSignUp.bind(this)
     this.handleUserEmailInputForSignUp = this.handleUserEmailInputForSignUp.bind(this)
     this.handleUserPasswordInputForSignUp = this.handleUserPasswordInputForSignUp.bind(this)
@@ -361,31 +360,6 @@ export default class QuestionAmbleFE extends Component {
       })
     }
 
-
-    handleUserSignUp() {
-      currentContext = this;
-      if (this.handleUserUsernameInputForSignUp && this.handleUserPasswordInputForSignUp) {
-        fetch('https://questionamble.herokuapp.com/users', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user: {
-              email: this.state.newUserEmail,
-              username: this.state.newUserUsername,
-              password: this.state.newUserPassword
-            }
-          })
-        })
-          .then(responseData => {
-            this.setState({currentUserId: responseData.userID })
-            this.setState({currentUserToken: responseData.auth_token});
-        })
-      }
-    }
-
     updateAppStateForUserAndToken(userID, userToken){
       this.setState({currentUserId: userID })
       this.setState({currentUserToken: userToken})
@@ -467,7 +441,6 @@ export default class QuestionAmbleFE extends Component {
                   handleUserProfile: this.handleUserProfile,
                   handleUserUsernameInputForLogin: this.handleUserUsernameInputForLogin,
                   handleUserPasswordInputForLogin: this.handleUserPasswordInputForLogin,
-                  handleUserSignUp: this.handleUserSignUp,
                   handleUserUsernameInputForSignUp: this.handleUserUsernameInputForSignUp,
                   handleUserEmailInputForSignUp: this.handleUserEmailInputForSignUp,
                   handleUserPasswordInputForSignUp: this.handleUserPasswordInputForSignUp,
@@ -501,6 +474,9 @@ export default class QuestionAmbleFE extends Component {
                   updateCurrentGuessStatus: this.updateCurrentGuessStatus,
                   updatePreviousQuestionID: this.updatePreviousQuestionID,
                   updateGameStatus: this.updateGameStatus,
+                  newUserEmail: this.state.newUserEmail,
+                  newUserUsername: this.state.newUserUsername,
+                  newUserPassword: this.state.newUserPassword,
                   updateCurrentQuestion: this.updateCurrentQuestion,
                   currentGuess: this.state.currentGuess,
                   getRoundInfo: this.getRoundInfo,

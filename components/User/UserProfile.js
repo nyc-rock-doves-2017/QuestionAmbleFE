@@ -15,10 +15,12 @@ export default class UserProfile extends Component {
       backgroundColor: '#06AED5'
     }
   }
+
   componentWillMount(){
     this.props.screenProps.handleUserProfile();
   }
   render(){
+
     let playerData = this.props.screenProps.playerStatistics
     return(
       <ScrollView style={styles.wholeScreen}>
