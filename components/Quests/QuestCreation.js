@@ -93,6 +93,11 @@ export default class QuestCreation extends Component {
                       CREATE QUEST
                     </Text>
                   </Button>
+                  <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+                    <Text style={styles.buttonText}>
+                      HOME
+                    </Text>
+                  </Button>
                 </View>
             </View>
           </View>
