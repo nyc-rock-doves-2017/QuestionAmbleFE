@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Alert,
-  ScrollView
+  ScrollView,
+  FlatList
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import {Column as Col, Row} from 'react-native-flexbox-grid';
@@ -20,7 +21,6 @@ export default class QuestShow extends Component {
   }
   render() {
     let data = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questId)
-
     return (
       <ScrollView style={styles.wholeScreen}>
         <View style={styles.container}>
@@ -83,9 +83,17 @@ export default class QuestShow extends Component {
           <Text style={styles.subtitle}>
             Played By:
           </Text>
-          <Text style={styles.subSubtitle}>
-            {data[0].playedBy}
-          </Text>
+
+            <FlatList
+              data={data[0].playedBy}
+              renderItem={({item}) =>
+
+                <Text style={styles.listText}
+                  key={item.id}>
+                  <Text style={styles.listTitleItem}> {item}</Text>
+                </Text>
+            }/>
+
         </View>
       </ScrollView>
     );
