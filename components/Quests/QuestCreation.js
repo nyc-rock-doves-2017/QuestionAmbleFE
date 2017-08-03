@@ -51,28 +51,10 @@ export default class QuestCreation extends Component {
         currentContext.props.screenProps.resetNewQuestForm();
         currentContext.props.navigation.navigate("QuestIndex")
       }
-      // if (this.props.screenProps.newQuestionFormErrors === ""){
-      //   this.props.screenProps.handleQuestData();
-      //   this.props.navigation.navigate("QuestIndex")
-      // }
-      // else{
-      //   this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
-      // }
     })
     .catch( err => {
       console.log(err)
     })
-
-
-
-
-    // if (this.props.screenProps.newQuestionFormErrors === ""){
-    //   this.props.screenProps.handleQuestData();
-    //   this.props.navigation.navigate("QuestIndex")
-    // }
-    // else{
-    //   this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
-    // }
   }
 
   onSubmitForm(e){
