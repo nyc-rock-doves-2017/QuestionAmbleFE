@@ -87,9 +87,6 @@ export default class QuestShow extends Component {
                 </Text>
             }/>
               
-          <Text style={styles.subSubtitle}>
-            {data[0].playedBy}
-          </Text>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestionIndex", {questID: data[0].id})}>
               <Text style={styles.buttonText}>
