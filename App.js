@@ -180,9 +180,7 @@ export default class QuestionAmbleFE extends Component {
     }
     this.handleQuestTitleInputForNewQuest = this.handleQuestTitleInputForNewQuest.bind(this)
     this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
-    // this.handleNewQuestForm = this.handleNewQuestForm.bind(this)
     this.handleQuestData = this.handleQuestData.bind(this)
-    this.handleQuestionNew = this.handleQuestionNew.bind(this)
     this.handleQuestionTextInputForNewQuestion = this.handleQuestionTextInputForNewQuestion.bind(this)
     this.handleQuestionAnswerputForNewQuestion = this.handleQuestionAnswerputForNewQuestion.bind(this)
     this.handleQuestionHintInputForNewQuestion = this.handleQuestionHintInputForNewQuestion.bind(this)
@@ -208,6 +206,7 @@ export default class QuestionAmbleFE extends Component {
     this.resetNewQuestForm = this.resetNewQuestForm.bind(this)
     this.clearLoginInput = this.clearLoginInput.bind(this)
     this.clearUserData = this.clearUserData.bind(this)
+    this.resetNewQuestionForm = this.resetNewQuestionForm.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -261,6 +260,13 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newQuestFormQuestDescription: ""})
   }
 
+  resetNewQuestionForm(){
+    this.setState({newQuestionFormText: ""})
+    this.setState({newQuestionFormAnswer: ""})
+    this.setState({newQuestionFormClueText: ""})
+    this.setState({newQuestionFormHint: ""})
+  }
+
   handleQuestData(){
     currentContext = this;
     fetch("https://questionamble.herokuapp.com/users/"+this.state.currentUserId+"/my_quests")
@@ -274,31 +280,9 @@ export default class QuestionAmbleFE extends Component {
       console.log(err)
     })
   }
-  //Questions
-  handleQuestionNew(){
-    currentContext = this;
-    fetch("https://questionamble.herokuapp.com/questions",{
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({question: { quest_id: "2",
-        question_text: this.state.newQuestionFormText,
-        answer: this.state.newQuestionFormAnswer,
-        clue_type: "text",
-        clue_text: this.state.newQuestionFormClueText,
-        hint: this.state.newQuestionFormHint,
-        lat: this.state.currentLat,
-        lng: this.state.currentLng,
-      }})
-    }).then((response => {
-      return response.json()})
-    ).then(body => {
-      if (body.hasOwnProperty("error")){
-        this.setState({newQuestionFormErrors: body.error})
-      }
-    })
-    .catch(err => {
-      console.log(err)
-    })
+
+  updateNewQuestionFormErrors(value){
+    this.setState({newQuestionFormErrors: value})
   }
 
   handleQuestionTextInputForNewQuestion(textValue){
@@ -314,7 +298,7 @@ export default class QuestionAmbleFE extends Component {
   }
 
   handleQuestionClueTextInputForNewQuestion(textValue){
-    this.setState({newQuestionFormClue: textValue})
+    this.setState({newQuestionFormClueText: textValue})
   }
 
 
@@ -443,7 +427,6 @@ export default class QuestionAmbleFE extends Component {
                   handleQuestDescriptionInputForNewQuest: this.handleQuestDescriptionInputForNewQuest,
                   handleNewQuestForm: this.handleNewQuestForm,
                   questData: this.state.questData,
-                  handleQuestionNew: this.handleQuestionNew,
                   handleQuestionTextInputForNewQuestion: this.handleQuestionTextInputForNewQuestion,
                   handleQuestionAnswerputForNewQuestion: this.handleQuestionAnswerputForNewQuestion,
                   handleQuestionHintInputForNewQuestion: this.handleQuestionHintInputForNewQuestion,
@@ -463,7 +446,6 @@ export default class QuestionAmbleFE extends Component {
                   newQuestFormErrors: this.state.newQuestFormErrors,
                   newQuestionFormErrors: this.state.newQuestionFormErrors,
                   newUserFormErrors: this.state.newUserFormErrors,
-                  handleQuestionNew: this.handleQuestionNew,
                   handleNewQuestForm: this.handleNewQuestForm,
                   enterGameKeyErrors: this.state.enterGameKeyErrors,
                   requestQuestion: this.requestQuestion,
@@ -474,7 +456,7 @@ export default class QuestionAmbleFE extends Component {
                   newQuestionFormText: this.state.newQuestionFormText,
                   newQuestionFormAnswer: this.state.newQuestionFormAnswer,
                   newQuestionFormHint: this.state.newQuestionFormHint,
-                  newQuestionFormClue: this.state.newQuestionFormClue,
+                  newQuestionFormClueText: this.state.newQuestionFormClueText,
                   newQuestFormQuestTitle: this.state.newQuestFormQuestTitle,
                   newQuestFormQuestDescription: this.state.newQuestFormQuestDescription,
                   previousQuestionID: this.state.previousQuestionID,
@@ -495,6 +477,7 @@ export default class QuestionAmbleFE extends Component {
                   resetNewQuestForm: this.resetNewQuestForm,
                   clearLoginInput: this.clearLoginInput,
                   clearUserData: this.clearUserData,
+                  resetNewQuestionForm: this.resetNewQuestionForm,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
