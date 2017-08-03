@@ -6,7 +6,7 @@ import {
   View,
   Alert,
   ScrollView,
-  FlatList
+  FlatList,
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import {Column as Col, Row} from 'react-native-flexbox-grid';
@@ -95,6 +95,11 @@ export default class QuestShow extends Component {
             }/>
 
         </View>
+        <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+          <Text style={styles.buttonText}>
+            HOME
+          </Text>
+        </Button>
       </ScrollView>
     );
   }
