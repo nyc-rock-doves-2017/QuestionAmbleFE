@@ -36,7 +36,7 @@ export default class QuestCreation extends Component {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({quest: {title: currentContext.props.screenProps.newQuestFormQuestTitle,
                             description: currentContext.props.screenProps.newQuestFormQuestDescription,
-                            creator_id: "2"}
+                            creator_id: currentContext.props.screenProps.currentUserId}
                           })
     }).then(
       response => {

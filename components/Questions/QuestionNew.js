@@ -35,7 +35,6 @@ export default class QuestionNew extends Component {
   processNewQuestion(){
     this.props.screenProps.handleQuestionNew()
     if (this.props.screenProps.newQuestionFormErrors === ""){
-      this.props.screenProps.handleQuestData();
       this.props.navigation.navigate("QuestIndex")
     }
     else{
