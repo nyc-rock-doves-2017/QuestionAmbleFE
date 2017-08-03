@@ -398,6 +398,12 @@ export default class QuestionAmbleFE extends Component {
     this.setState({currentUserId: ""})
     this.setState({currentUserUsername: ""})
     this.setState({currentUserToken: ""})
+    this.setState({currentUserPassword: ""})
+    this.setState({newUserUsername: ""})
+    this.setState({newUserEmail: ""})
+    this.setState({newUserPassword: ""})
+    this.setState({currentUserFormErrors: ""})
+    this.setState({newUserFormErrors: ""})
   }
   render() {
     let methods = {
