@@ -39,17 +39,17 @@ import QuestShow from './components/Quests/QuestShow.js';
 
 import PlayWindow from './components/Game/PlayWindow.js';
 import ResultNew from './components/Game/ResultNew.js';
-import ResultWin from './components/Game/ResultWin.js';
-import ResultLose from './components/Game/ResultLose.js';
+// import ResultWin from './components/Game/ResultWin.js';
+// import ResultLose from './components/Game/ResultLose.js';
 import RoundShow from './components/Game/RoundShow.js';
 import GameNew from './components/Game/GameNew.js';
 import Directory from './components/Directory.js';
 
 
 const AppDirectory = StackNavigator({
-  Directory: {
-    screen: Directory,
-  },
+  // Directory: {
+  //   screen: Directory,
+  // },
   Welcome: {
     screen: Welcome,
   },
@@ -101,12 +101,12 @@ const AppDirectory = StackNavigator({
   ResultNew: {
     screen: ResultNew,
   },
-  ResultWin: {
-    screen: ResultWin,
-  },
-  ResultLose: {
-    screen: ResultLose,
-  },
+  // ResultWin: {
+  //   screen: ResultWin,
+  // },
+  // ResultLose: {
+  //   screen: ResultLose,
+  // },
   RoundShow: {
     screen: RoundShow,
   },

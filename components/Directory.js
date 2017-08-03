@@ -41,8 +41,8 @@ export default class Directory extends Component {
         <Text style={styles.welcome}> Game </Text>
         <Button onPress={() => this.props.navigation.navigate("PlayWindow")} title="Game Start"/>
         <Button onPress={() => this.props.navigation.navigate("ResultNew")} title="New Result"/>
-        <Button onPress={() => this.props.navigation.navigate("ResultWin")} title="Result Win"/>
-        <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Result Lose"/>
+        {/* <Button onPress={() => this.props.navigation.navigate("ResultWin")} title="Result Win"/>
+        <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Result Lose"/> */}
         <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
         <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
         <Button onPress={() => this.props.navigation.navigate("Menu")} title="Menu"/>
