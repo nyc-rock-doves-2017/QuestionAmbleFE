@@ -33,7 +33,7 @@ export default class GameNew extends Component {
     fetch("https://questionamble.herokuapp.com/rounds",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({round: { player_id: 2,
+      body: JSON.stringify({round: { player_id: currentContext.props.screenProps.currentUserId,
         game_key: currentContext.props.screenProps.currentGameKey,
       }})
     }).then((response => {

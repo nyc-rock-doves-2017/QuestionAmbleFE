@@ -34,14 +34,40 @@ export default class QuestionNew extends Component {
   }
 
   processNewQuestion(){
-    this.props.screenProps.handleQuestionNew()
-    if (this.props.screenProps.newQuestionFormErrors === ""){
-      this.props.screenProps.handleQuestData();
-      this.props.navigation.navigate("QuestIndex")
-    }
-    else{
-      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
-    }
+    // currentContext = this;
+    // fetch("https://questionamble.herokuapp.com/questions",{
+    //   method: "POST",
+    //   headers: {"Content-Type": "application/json"},
+    //   body: JSON.stringify({question: { quest_id: currentContext.props.navigation.state.params.questId,
+    //     question_text: currentContext.props.screenProps.newQuestionFormText,
+    //     answer: currentContext.props.screenProps.newQuestionFormAnswer,
+    //     clue_type: "text",
+    //     clue_text: currentContext.props.screenProps.newQuestionFormClueText,
+    //     hint: currentContext.props.screenProps.newQuestionFormHint,
+    //     lat: currentContext.props.screenProps.currentLat,
+    //     lng: currentContext.props.screenProps.currentLng,
+    //   }})
+    // }).then((response => {
+    //   return response.json()})
+    // ).then(body => {
+    //   if (body.hasOwnProperty("error")){
+    //     currentContext.props.screenProps.updateNewQuestionFormErrors(body.error)
+    //     currentContext.setState({formErrors: body.error})
+    //   } else {
+    //     currentContext.props.navigation.navigate("QuestIndex")
+    //   }
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
+
+    // this.props.screenProps.handleQuestionNew()
+    // if (this.props.screenProps.newQuestionFormErrors === ""){
+    //   this.props.navigation.navigate("QuestIndex")
+    // }
+    // else{
+    //   this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+    // }
   }
 
   onSubmitForm(e){
@@ -59,7 +85,33 @@ export default class QuestionNew extends Component {
       )
     }
     else {
-      this.processNewQuestion();
+      currentContext = this;
+      fetch("https://questionamble.herokuapp.com/questions",{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({question: { quest_id: currentContext.props.navigation.state.params.questID,
+          question_text: currentContext.props.screenProps.newQuestionFormText,
+          answer: currentContext.props.screenProps.newQuestionFormAnswer,
+          clue_type: "text",
+          clue_text: currentContext.props.screenProps.newQuestionFormClueText,
+          hint: currentContext.props.screenProps.newQuestionFormHint,
+          lat: currentContext.props.screenProps.currentLat,
+          lng: currentContext.props.screenProps.currentLng,
+        }})
+      }).then((response => {
+        return response.json()})
+      ).then(body => {
+        if (body.hasOwnProperty("error")){
+          currentContext.props.screenProps.updateNewQuestionFormErrors(body.error)
+          currentContext.setState({formErrors: body.error})
+        } else {
+          currentContext.props.screenProps.resetNewQuestionForm()
+          currentContext.props.navigation.navigate("QuestIndex")
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 
@@ -83,9 +135,10 @@ export default class QuestionNew extends Component {
               ref="QuestionForm"
               label="New Question">
 
+
               <View>
                 <Text style={styles.explanationTextFirst}>
-                  Help the played find the question location, give them a clue:
+                  Help the player find the question location, give them a clue:
                 </Text>
                 <InputField
                   placeholder="Enter the location clue"
@@ -111,14 +164,15 @@ export default class QuestionNew extends Component {
                 onChangeText={handleQuestionAnswerputForNewQuestion}/>
               </View>
 
-              <View>
-                <Text style={styles.explanationText}>
-                  Give the player a hint if they get the asnwer incorrect:
-                </Text>
-                <InputField
-                placeholder="Enter the hint"
-                onChangeText={handleQuestionHintInputForNewQuestion}/>
-              </View>
+
+            <View>
+              <Text style={styles.explanationText}>
+                Give the player a hint if they get the answer incorrect:
+              </Text>
+              <InputField
+              placeholder="Enter the hint"
+              onChangeText={handleQuestionHintInputForNewQuestion}/>
+            </View>
 
               <Text style={styles.explanationTextTwo}>Using the map below, verify that you are setting this question in the right location - then hit the 'SUBMIT' button below.</Text>
             </Form>

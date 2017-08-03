@@ -34,7 +34,7 @@ export default class PlayWindow extends Component {
     fetch("https://questionamble.herokuapp.com/results",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({ player_id: 2,
+      body: JSON.stringify({ player_id: currentContext.props.screenProps.currentUserId,
         question_id: currentContext.props.screenProps.currentQuestion.id,
         round_id: currentContext.props.screenProps.currentRoundID,
         user_guess: currentContext.props.screenProps.currentGuess
