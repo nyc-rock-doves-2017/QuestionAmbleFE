@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 5,
     color: '#6F706F',
-    height: 65
+    height: 65,
+    fontSize: 16
   },
   listText: {
     fontWeight: 'bold',
