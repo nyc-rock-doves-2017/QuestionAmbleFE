@@ -18,20 +18,12 @@ export default class QuestionShow extends Component {
       backgroundColor: '#1aa3ff'
     }
   }
-  // constructor(props){
-  //   super(props);
-  //   this.state = {
-  //     formData: {}
-  //   }
-  // }
-
-
 
   render() {
     let questData = this.props.screenProps.questData.filter( (data) => data.id === this.props.navigation.state.params.questID)
     let question = questData[0].questions.filter( (question) => question.id === this.props.navigation.state.params.questionID)
-    let currentLat = this.props.screenProps.currentLat
-    let currentLng = this.props.screenProps.currentLng
+
+
     return (
       <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
         <View style={styles.container}>
@@ -74,13 +66,13 @@ export default class QuestionShow extends Component {
           <MapView
             style={styles.map}
             region={{
-              latitude: Number(currentLat),
-              longitude: Number(currentLng),
+              latitude: Number(question[0].lat),
+              longitude: Number(question[0].lng),
               latitudeDelta: 0.00922,
               longitudeDelta: 0.00421,
             }}>
                 <MapView.Marker
-                  coordinate={{latitude: Number(currentLat), longitude: Number(currentLng)}}
+                  coordinate={{latitude: Number(question[0].lat), longitude: Number(question[0].lng)}}
                 />
             </MapView>
         </View>
