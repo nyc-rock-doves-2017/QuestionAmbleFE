@@ -180,7 +180,7 @@ export default class QuestionAmbleFE extends Component {
     }
     this.handleQuestTitleInputForNewQuest = this.handleQuestTitleInputForNewQuest.bind(this)
     this.handleQuestDescriptionInputForNewQuest = this.handleQuestDescriptionInputForNewQuest.bind(this)
-    this.handleNewQuestForm = this.handleNewQuestForm.bind(this)
+    // this.handleNewQuestForm = this.handleNewQuestForm.bind(this)
     this.handleQuestData = this.handleQuestData.bind(this)
     this.handleQuestionNew = this.handleQuestionNew.bind(this)
     this.handleQuestionTextInputForNewQuestion = this.handleQuestionTextInputForNewQuestion.bind(this)
@@ -204,6 +204,8 @@ export default class QuestionAmbleFE extends Component {
     this.updatePreviousQuestionID = this.updatePreviousQuestionID.bind(this)
     this.updateGameStatus = this.updateGameStatus.bind(this)
     this.updateCurrentQuestion = this.updateCurrentQuestion.bind(this)
+    this.updateNewQuestFormErrors = this.updateNewQuestFormErrors.bind(this)
+    this.resetNewQuestForm = this.resetNewQuestForm.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -248,30 +250,40 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newQuestFormQuestDescription: textValue})
   }
 
+  updateNewQuestFormErrors(value){
+    this.setState({newQuestFormErrors: value})
+  }
+
+  resetNewQuestForm(){
+    this.setState({newQuestFormQuestTitle: ""})
+    this.setState({newQuestFormQuestDescription: ""})
+  }
   //Question
   // handleCurrentQuestId()
 
-  handleNewQuestForm(){
-    currentContext = this;
-    fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({quest: {title: currentContext.state.newQuestFormQuestTitle,
-                            description: currentContext.state.newQuestFormQuestDescription,
-                            creator_id: "2"}
-                          })
-    }).then(
-      response => {
-        return response.json()})
-    .then(body => {
-      if (body.hasOwnProperty("error")){
-        currentContext.setState({newQuestFormErrors: body.error})
-      }
-    })
-    .catch( err => {
-      console.log(err)
-    })
-  }
+  // handleNewQuestForm(){
+  //   debugger
+  //   currentContext = this;
+  //   fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
+  //     method: "POST",
+  //     headers: {"Content-Type": "application/json"},
+  //     body: JSON.stringify({quest: {title: currentContext.state.newQuestFormQuestTitle,
+  //                           description: currentContext.state.newQuestFormQuestDescription,
+  //                           creator_id: "2"}
+  //                         })
+  //   }).then(
+  //     response => {
+  //       return response.json()})
+  //   .then(body => {
+  //     debugger
+  //     if (body.hasOwnProperty("error")){
+  //       currentContext.setState({newQuestFormErrors: body.error})
+  //     }
+  //   })
+  //   .catch( err => {
+  //     console.log(err)
+  //   })
+  // }
 
   handleQuestData(){
     currentContext = this;
@@ -495,6 +507,8 @@ export default class QuestionAmbleFE extends Component {
                   updateCurrentQuestion: this.updateCurrentQuestion,
                   currentGuess: this.state.currentGuess,
                   getRoundInfo: this.getRoundInfo,
+                  updateNewQuestFormErrors: this.updateNewQuestFormErrors,
+                  resetNewQuestForm: this.resetNewQuestForm,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
