@@ -73,6 +73,7 @@ export default class NewAccount extends Component {
                   }
                 else{
                     currentContext.props.screenProps.updateAppStateForUserAndToken(responseData.userID, responseData.auth_token)
+                    currentContext.props.screenProps.updateCurrentUserUsername(currentContext.props.screenProps.newUserUsername)
                     currentContext.props.navigation.navigate("MainMenu")
                   }
             })

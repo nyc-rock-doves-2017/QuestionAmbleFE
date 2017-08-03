@@ -215,6 +215,7 @@ export default class QuestionAmbleFE extends Component {
     this.clearLoginInput = this.clearLoginInput.bind(this)
     this.clearUserData = this.clearUserData.bind(this)
     this.resetNewQuestionForm = this.resetNewQuestionForm.bind(this)
+    this.updateCurrentUserUsername = this.updateCurrentUserUsername.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -369,6 +370,10 @@ export default class QuestionAmbleFE extends Component {
     this.setState({currentGuessStatus: previousQuestionID})
   }
 
+  updateCurrentUserUsername(textValue){
+    this.setState({currentUserUsername: textValue})
+  }
+
   updateGameStatus(status){
     this.setState({gameStatus: status})
   }
@@ -469,6 +474,7 @@ export default class QuestionAmbleFE extends Component {
                   clearLoginInput: this.clearLoginInput,
                   clearUserData: this.clearUserData,
                   resetNewQuestionForm: this.resetNewQuestionForm,
+                  updateCurrentUserUsername: this.updateCurrentUserUsername,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />
