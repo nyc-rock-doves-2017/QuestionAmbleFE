@@ -23,13 +23,14 @@ export default class MainMenu extends Component {
   }
 
   render(){
+    let userName = this.props.screenProps.currentUserUsername
     return(
       <View style={styles.wholeScreen}>
         <View style={styles.container}>
           <View style={styles.iconContainer}>
             <Icon name="lightbulb-o" size={50} color='azure' />
           </View>
-          <Text style={styles.title}>QuestionAmble</Text>
+          <Text style={styles.title}>Hello, {userName}!</Text>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("GameNew")}>
               <Text style={styles.buttonText}>

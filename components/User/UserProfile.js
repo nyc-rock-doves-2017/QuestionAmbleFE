@@ -23,11 +23,15 @@ export default class UserProfile extends Component {
   render(){
 
     let playerData = this.props.screenProps.playerStatistics
+    let userName = this.props.screenProps.currentUserUsername
     return(
       <ScrollView style={styles.wholeScreen}>
         <View style={styles.container}>
         <Text style={styles.title}>
-          My Profile
+          {userName}
+        </Text>
+        <Text style={styles.subtitle}>
+          QuestionAmble Profile
         </Text>
         <View style={styles.grid}>
             <Row style={styles.gridRow}>
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center',
-    paddingBottom: 10
+
   },
   subtitle: {
     color: 'azure',
