@@ -14,6 +14,7 @@
     "react-native-flexbox-grid": "^0.3.1",
     "react-native-form-generator": "^0.9.9",
     "react-native-grid-view": "^0.4.1",
+    "react-native-icon": "^0.2.10",
     "react-native-maps": "^0.15.3",
     "react-native-vector-icons": "^4.3.0",
     "react-navigation": "^1.0.0-beta.11"
