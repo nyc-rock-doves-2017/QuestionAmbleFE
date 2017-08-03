@@ -29,14 +29,50 @@ export default class QuestCreation extends Component {
   }
 
   processNewQuest(){
-    this.props.screenProps.handleNewQuestForm()
-    if (this.props.screenProps.newQuestionFormErrors === ""){
-      this.props.screenProps.handleQuestData();
-      this.props.navigation.navigate("QuestIndex")
-    }
-    else{
-      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
-    }
+    // this.props.screenProps.handleNewQuestForm()
+    currentContext = this;
+    fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({quest: {title: currentContext.props.screenProps.newQuestFormQuestTitle,
+                            description: currentContext.props.screenProps.newQuestFormQuestDescription,
+                            creator_id: currentContext.props.screenProps.currentUserId}
+                          })
+    }).then(
+      response => {
+        return response.json()})
+    .then(body => {
+      if (body.hasOwnProperty("error")){
+        currentContext.props.screenProps.updateNewQuestFormErrors(body.error)
+        currentContext.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+
+      }
+      else{
+        currentContext.props.screenProps.resetNewQuestForm();
+        currentContext.props.navigation.navigate("QuestIndex")
+      }
+      // if (this.props.screenProps.newQuestionFormErrors === ""){
+      //   this.props.screenProps.handleQuestData();
+      //   this.props.navigation.navigate("QuestIndex")
+      // }
+      // else{
+      //   this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+      // }
+    })
+    .catch( err => {
+      console.log(err)
+    })
+
+
+
+
+    // if (this.props.screenProps.newQuestionFormErrors === ""){
+    //   this.props.screenProps.handleQuestData();
+    //   this.props.navigation.navigate("QuestIndex")
+    // }
+    // else{
+    //   this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+    // }
   }
 
   onSubmitForm(e){
@@ -66,6 +102,7 @@ export default class QuestCreation extends Component {
       <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
         <View style={styles.container}>
           <Text style={styles.title}>Create a New Quest</Text>
+          <Text>{this.state.formErrors}</Text>
           <Form
             ref='QuestForm'
             label="QuestCreator">

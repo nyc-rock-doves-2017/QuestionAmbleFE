@@ -16,13 +16,9 @@ export default class MainMenu extends Component {
       backgroundColor: '#1aa3ff'
     }
   }
-  async userLogout() {
-    try {
-      await AsyncStorage.removeItem('id_token');
-      Alert.alert("Logout Success!");
-    } catch (error) {
-      console.log('AsyncStorage error:' + error.message);
-    }
+  userLogout() {
+    this.props.screenProps.clearUserData();
+    currentContext.props.navigation.navigate("Welcome")
   }
 
   render(){
