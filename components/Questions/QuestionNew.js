@@ -203,6 +203,11 @@ export default class QuestionNew extends Component {
                 </Text>
               </Button>
             </View>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+              <Text style={styles.buttonText}>
+                HOME
+              </Text>
+            </Button>
         </ScrollView>
       </TouchableWithoutFeedback>
     );

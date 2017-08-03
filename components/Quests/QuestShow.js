@@ -6,7 +6,7 @@ import {
   View,
   Alert,
   ScrollView,
-  FlatList
+  FlatList,
 } from 'react-native';
 import Button from 'apsl-react-native-button';
 import {Column as Col, Row} from 'react-native-flexbox-grid';
@@ -77,9 +77,17 @@ export default class QuestShow extends Component {
             Played By:
           </Text>
             <FlatList
+
+              data={data[0].playedBy}
+              renderItem={({item}) =>
+
+                <Text style={styles.listText}
+                  key={item.id}>
+                  <Text style={styles.subtitle}>{item}</Text>
+                </Text>
+            }/>
                 data={data[0].playedBy}
                 renderItem={({item}) =>
-
                   <Text style={styles.listText}
                     key={item.id}>
                     <Text style={styles.subtitle}>-  {item}</Text>
