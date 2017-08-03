@@ -86,13 +86,7 @@ export default class QuestShow extends Component {
                   <Text style={styles.subtitle}>{item}</Text>
                 </Text>
             }/>
-                data={data[0].playedBy}
-                renderItem={({item}) =>
-                  <Text style={styles.listText}
-                    key={item.id}>
-                    <Text style={styles.subtitle}>-  {item}</Text>
-                  </Text>
-              }/>
+              
           <Text style={styles.subSubtitle}>
             {data[0].playedBy}
           </Text>
@@ -108,7 +102,7 @@ export default class QuestShow extends Component {
               </Text>
             </Button>
           </View>
-           
+
         </View>
       </ScrollView>
     );
