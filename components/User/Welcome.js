@@ -29,7 +29,8 @@ export default class Welcome extends Component {
                 LOGIN
               </Text>
             </Button>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("NewAccount")}>
+            <Button style={styles.button}
+              onPress={() => this.props.navigation.navigate("NewAccount")}>
               <Text style={styles.buttonText}>
                 SIGN UP
               </Text>

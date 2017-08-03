@@ -15,6 +15,7 @@ import { Form,
 import Button from 'apsl-react-native-button';
 var {height, width} = Dimensions.get('window');
 import MapView from 'react-native-maps';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class QuestionNew extends Component {
   static navigationOptions ={
@@ -123,43 +124,46 @@ export default class QuestionNew extends Component {
     let currentLat = this.props.screenProps.currentLat
     let currentLng = this.props.screenProps.currentLng
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
-        <View style={styles.container}>
-          <Text style={styles.title}>
-            Create a New Question
-          </Text>
-          <Text>{this.state.formErrors}</Text>
-          <Form
-            ref="QuestionForm"
-            label="New Question">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
+          <View style={styles.container}>
+            <Text style={styles.title}>
+              Create a New Question
+            </Text>
+            <Text>{this.state.formErrors}</Text>
+            <Form
+              ref="QuestionForm"
+              label="New Question">
 
-            <View>
-              <Text style={styles.explanationTextFirst}>
-                Help the player find the question location, give them a clue:
-              </Text>
-              <InputField
-                placeholder="Enter the location clue"
-                onChangeText={handleQuestionClueTextInputForNewQuestion}/>
-            </View>
 
-            <View>
-              <Text style={styles.explanationText}>
-                Question to display once the player has found the clue location:
-              </Text>
-              <InputField
-              placeholder="Enter the question"
-              value={this.state.value}
-              onChangeText={handleQuestionTextInputForNewQuestion}/>
-            </View>
+              <View>
+                <Text style={styles.explanationTextFirst}>
+                  Help the player find the question location, give them a clue:
+                </Text>
+                <InputField
+                  placeholder="Enter the location clue"
+                  onChangeText={handleQuestionClueTextInputForNewQuestion}/>
+              </View>
 
-            <View>
-              <Text style={styles.explanationText}>
-                Answer to the question:
-              </Text>
-              <InputField
-              placeholder="Enter the answer"
-              onChangeText={handleQuestionAnswerputForNewQuestion}/>
-            </View>
+              <View>
+                <Text style={styles.explanationText}>
+                  Question to display once the player has found the clue location:
+                </Text>
+                <InputField
+                placeholder="Enter the question"
+                value={this.state.value}
+                onChangeText={handleQuestionTextInputForNewQuestion}/>
+              </View>
+
+              <View>
+                <Text style={styles.explanationText}>
+                  Answer to the question:
+                </Text>
+                <InputField
+                placeholder="Enter the answer"
+                onChangeText={handleQuestionAnswerputForNewQuestion}/>
+              </View>
+
 
             <View>
               <Text style={styles.explanationText}>
@@ -170,30 +174,31 @@ export default class QuestionNew extends Component {
               onChangeText={handleQuestionHintInputForNewQuestion}/>
             </View>
 
-            <Text style={styles.explanationTextTwo}>Using the map below, verify that you are setting this question in the right location - then hit the 'SUBMIT' button below.</Text>
-          </Form>
-        </View>
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: Number(currentLat),
-            longitude: Number(currentLng),
-            latitudeDelta: 0.00922,
-            longitudeDelta: 0.00421,
-          }}>
-              <MapView.Marker
-                coordinate={{latitude: Number(currentLat), longitude: Number(currentLng)}}
-              />
-          </MapView>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button}
-              onPress={(e) => this.onSubmitForm(e)}>
-              <Text style={styles.buttonText}>
-                CREATE QUESTION
-              </Text>
-            </Button>
+              <Text style={styles.explanationTextTwo}>Using the map below, verify that you are setting this question in the right location - then hit the 'SUBMIT' button below.</Text>
+            </Form>
           </View>
-      </ScrollView>
+          <MapView
+            style={styles.map}
+            region={{
+              latitude: Number(currentLat),
+              longitude: Number(currentLng),
+              latitudeDelta: 0.00922,
+              longitudeDelta: 0.00421,
+            }}>
+                <MapView.Marker
+                  coordinate={{latitude: Number(currentLat), longitude: Number(currentLng)}}
+                />
+            </MapView>
+            <View style={styles.buttonContainer}>
+              <Button style={styles.button}
+                onPress={(e) => this.onSubmitForm(e)}>
+                <Text style={styles.buttonText}>
+                  CREATE QUESTION
+                </Text>
+              </Button>
+            </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     );
   }
 }

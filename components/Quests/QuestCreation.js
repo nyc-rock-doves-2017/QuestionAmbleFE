@@ -12,6 +12,8 @@ import { Form,
   InputField
 } from 'react-native-form-generator';
 import Button from 'apsl-react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class QuestCreation extends Component {
   static navigationOptions ={
@@ -81,39 +83,55 @@ export default class QuestCreation extends Component {
     let handleNewQuestForm = this.props.screenProps.handleNewQuestForm
 
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Create a New Quest</Text>
-          <Text>{this.state.formErrors}</Text>
-          <Form
-            ref='QuestForm'
-            label="QuestCreator">
-            <Separator />
-            <InputField
-              ref='title'
-              placeholder='Title'
-              onChangeText={handleQuestTitleInputForNewQuest}/>
-            <InputField
-              multiline = {true}
-              placeholder='Description'
-              onChangeText={handleQuestDescriptionInputForNewQuest}
-              />
-          </Form>
-              <View style={styles.buttonContainer}>
-                <Button style={styles.button}
-                  onPress={(e) => this.onSubmitForm(e)}>
-                  <Text style={styles.buttonText}>
-                    CREATE QUEST
-                  </Text>
-                </Button>
-              </View>
+
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
+          <View style={styles.container}>
+            <View style={styles.iconContainer}>
+              <Icon name="map-o" size={50} color='azure' />
+            </View>
+            <Text style={styles.title}>Create a New Quest</Text>
+            <Form
+              ref='QuestForm'
+              label="QuestCreator">
+              <Separator />
+              <InputField
+                ref='title'
+                placeholder='Title'
+                onChangeText={handleQuestTitleInputForNewQuest}/>
+              <InputField
+                multiline = {true}
+                placeholder='Description'
+                onChangeText={handleQuestDescriptionInputForNewQuest}
+                />
+            </Form>
+                <View style={styles.buttonContainer}>
+                  <Button style={styles.button}
+                    onPress={(e) => this.onSubmitForm(e)}>
+                    <Text style={styles.buttonText}>
+                      CREATE QUEST
+                    </Text>
+                  </Button>
+                  <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+                    <Text style={styles.buttonText}>
+                      HOME
+                    </Text>
+                  </Button>
+                </View>
+            </View>
+
           </View>
-      </ScrollView>
+        </TouchableWithoutFeedback>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   button: {
     backgroundColor: '#F25F5C',
     borderRadius: 25,

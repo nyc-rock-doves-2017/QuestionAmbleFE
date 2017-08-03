@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry,
   Text,
-  ScrollView,
   View,
   Alert,
   StyleSheet
@@ -12,6 +11,7 @@ import { Form,
         InputField
 } from 'react-native-form-generator';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class Login extends Component {
   static navigationOptions ={
@@ -82,38 +82,46 @@ export default class Login extends Component {
 
   render(){
     return(
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
-        <View style={styles.container}>
-          <View style={styles.iconContainer}>
-            <Icon name="user-circle" size={50} color='azure' />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
+          <View style={styles.container}>
+            <View style={styles.iconContainer}>
+              <Icon name="user-circle" size={50} color='azure' />
+            </View>
+            <Text style={styles.title}>Login</Text>
+            <Text>{this.state.logErrors}</Text>
+            <Form
+              ref='LoginForm'
+              label="Login">
+                <Separator />
+                <InputField
+                  onChangeText={this.props.screenProps.handleUserUsernameInputForLogin}
+                  ref="username"
+                  autoCapitalize="none"
+                  placeholder="Username"/>
+                <InputField
+                  onChangeText={this.props.screenProps.handleUserPasswordInputForLogin}
+                  ref="password"
+                  autoCapitalize="none"
+                  placeholder="Password"
+                  secureTextEntry={true}/>
+              </Form>
+            <View style={styles.buttonContainer}>
+              <Button style={styles.button} onPress={(e) => this.onSubmitForm(e)}>
+                <Text style={styles.buttonText}>
+                  LOGIN
+                </Text>
+              </Button>
+              <Button style={styles.button}
+                onPress={() => this.props.navigation.navigate("Welcome")}>
+                <Text style={styles.buttonText}>
+                  RETURN
+                </Text>
+              </Button>
           </View>
-          <Text style={styles.title}>Login</Text>
-          <Text>{this.state.logErrors}</Text>
-          <Form
-            ref='LoginForm'
-            label="Login">
-              <Separator />
-              <InputField
-                onChangeText={this.props.screenProps.handleUserUsernameInputForLogin}
-                ref="username"
-                autoCapitalize="none"
-                placeholder="Username"/>
-              <InputField
-                onChangeText={this.props.screenProps.handleUserPasswordInputForLogin}
-                ref="password"
-                autoCapitalize="none"
-                placeholder="Password"
-                secureTextEntry={true}/>
-            </Form>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={(e) => this.onSubmitForm(e)}>
-              <Text style={styles.buttonText}>
-                LOGIN
-              </Text>
-            </Button>
         </View>
       </View>
-    </ScrollView>
+    </TouchableWithoutFeedback>
     );
   }
 }
