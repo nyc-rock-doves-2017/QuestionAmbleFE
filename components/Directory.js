@@ -45,6 +45,8 @@ export default class Directory extends Component {
         <Button onPress={() => this.props.navigation.navigate("ResultLose")} title="Result Lose"/>
         <Button onPress={() => this.props.navigation.navigate("RoundShow")} title="Scores"/>
         <Button onPress={() => this.props.navigation.navigate("GameNew")} title="New Game"/>
+        <Button onPress={() => this.props.navigation.navigate("Menu")} title="Menu"/>
+
 
       </ScrollView>
     );

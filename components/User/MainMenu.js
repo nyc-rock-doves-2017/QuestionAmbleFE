@@ -16,6 +16,7 @@ export default class MainMenu extends Component {
       backgroundColor: '#1aa3ff'
     }
   }
+
   userLogout() {
     this.props.screenProps.clearUserData();
     currentContext.props.navigation.navigate("Welcome")

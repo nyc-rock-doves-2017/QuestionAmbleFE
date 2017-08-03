@@ -36,15 +36,6 @@ export default class NewAccount extends Component {
 
   }
 
-  processNewUser(){
-    this.props.screenProps.handleUserSignUp()
-    if (this.props.screenProps.newUserFormErrors === ""){
-      this.props.navigation.navigate("MainMenu")
-    }
-    else{
-      this.setState({formErrors: "An error has occurred. Please check all fields before submitting."})
-    }
-  }
 
   onSubmitForm(e){
     if (this.props.screenProps.newUserUsername === "" ||
@@ -60,9 +51,33 @@ export default class NewAccount extends Component {
       )
     }
     else {
-      this.processNewUser();
+          currentContext = this;
+            fetch('https://questionamble.herokuapp.com/users', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user: {
+                  email: currentContext.props.screenProps.newUserEmail,
+                  username: currentContext.props.screenProps.newUserUsername,
+                  password: currentContext.props.screenProps.newUserPassword
+                }
+              })
+            }).then(response => {
+              return response.json()})
+              .then(responseData => {
+                if (responseData.hasOwnProperty("error")){
+                    currentContext.setState({logErrors: "An error occurred. Please check all fields before submitting!"})
+                  }
+                else{
+                    currentContext.props.screenProps.updateAppStateForUserAndToken(responseData.userID, responseData.auth_token)
+                    currentContext.props.navigation.navigate("MainMenu")
+                  }
+            })
+          }
       }
-    }
 
   render(){
     let handleUserSignUp = this.props.screenProps.handleUserSignUp
