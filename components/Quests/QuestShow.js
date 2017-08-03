@@ -33,13 +33,6 @@ export default class QuestShow extends Component {
           <Text style={styles.subSubtitle}>
             Quest Code: {data[0].gameKey}
           </Text>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestionIndex", {questID: data[0].id})}>
-              <Text style={styles.buttonText}>
-                VIEW QUESTIONS
-              </Text>
-            </Button>
-          </View>
           <View style={styles.grid}>
               <Row style={styles.gridRow}>
                 <Col sm={6} md={4} lg={3} style={styles.topLeft}>
@@ -86,6 +79,18 @@ export default class QuestShow extends Component {
           <Text style={styles.subSubtitle}>
             {data[0].playedBy}
           </Text>
+          <View style={styles.buttonContainer}>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestionIndex", {questID: data[0].id})}>
+              <Text style={styles.buttonText}>
+                VIEW QUESTIONS
+              </Text>
+            </Button>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+              <Text style={styles.buttonText}>
+                HOME
+              </Text>
+            </Button>
+          </View>
         </View>
       </ScrollView>
     );

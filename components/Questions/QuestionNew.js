@@ -196,6 +196,12 @@ export default class QuestionNew extends Component {
                   CREATE QUESTION
                 </Text>
               </Button>
+              <Button style={styles.button}
+                onPress={() => this.props.navigation.navigate("MainMenu")}>
+                <Text style={styles.buttonText}>
+                  HOME
+                </Text>
+              </Button>
             </View>
         </ScrollView>
       </TouchableWithoutFeedback>
