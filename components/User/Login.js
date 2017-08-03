@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry,
   Text,
-  ScrollView,
   View,
   Alert,
   StyleSheet
@@ -11,12 +10,14 @@ import { Form,
         Separator,
         InputField
 } from 'react-native-form-generator';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class Login extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   constructor(props){
@@ -52,6 +53,7 @@ export default class Login extends Component {
         }
       else{
           componentContext.props.screenProps.updateAppStateForUserAndToken(responseData.userID, responseData.auth_token)
+          componentContext.props.screenProps.clearLoginInput()
           componentContext.props.navigation.navigate("MainMenu")
         }
     }).catch(error => {
@@ -80,40 +82,65 @@ export default class Login extends Component {
 
   render(){
     return(
-      <ScrollView keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#06AED5'}}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Login</Text>
-          <Text>{this.state.logErrors}</Text>
-          <Form
-            ref='LoginForm'
-            label="Login">
-              <Separator />
-              <InputField
-                onChangeText={this.props.screenProps.handleUserUsernameInputForLogin}
-                ref="username"
-                autoCapitalize="none"
-                placeholder="Username"/>
-              <InputField
-                onChangeText={this.props.screenProps.handleUserPasswordInputForLogin}
-                ref="password"
-                autoCapitalize="none"
-                placeholder="Password"
-                secureTextEntry={true}/>
-            </Form>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={(e) => this.onSubmitForm(e)}>
-              <Text style={styles.buttonText}>
-                LOGIN
-              </Text>
-            </Button>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
+          <View style={styles.container}>
+            <Text style={styles.errorBlueBackground}>
+              {this.state.logErrors}
+            </Text>
+            <View style={styles.iconContainer}>
+              <Icon name="user-circle" size={50} color='azure' />
+            </View>
+            <Text style={styles.title}>Login</Text>
+            <Form
+              ref='LoginForm'
+              label="Login">
+                <Separator />
+                <InputField
+                  onChangeText={this.props.screenProps.handleUserUsernameInputForLogin}
+                  ref="username"
+                  autoCapitalize="none"
+                  placeholder="Username"/>
+                <InputField
+                  onChangeText={this.props.screenProps.handleUserPasswordInputForLogin}
+                  ref="password"
+                  autoCapitalize="none"
+                  placeholder="Password"
+                  secureTextEntry={true}/>
+              </Form>
+            <View style={styles.buttonContainer}>
+              <Button style={styles.button} onPress={(e) => this.onSubmitForm(e)}>
+                <Text style={styles.buttonText}>
+                  LOGIN
+                </Text>
+              </Button>
+              <Button style={styles.button}
+                onPress={() => this.props.navigation.navigate("Welcome")}>
+                <Text style={styles.buttonText}>
+                  RETURN
+                </Text>
+              </Button>
+          </View>
         </View>
       </View>
-    </ScrollView>
+    </TouchableWithoutFeedback>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  errorBlueBackground: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#C2D834'
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10,
+    paddingTop: 5
+  },
   button: {
     backgroundColor: '#F25F5C',
     borderRadius: 25,
@@ -121,7 +148,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {

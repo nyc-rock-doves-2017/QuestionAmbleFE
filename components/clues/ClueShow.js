@@ -5,6 +5,7 @@ import { AppRegistry,
   View
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class ClueShow extends Component {
   static navigationOptions ={
@@ -55,16 +56,21 @@ export default class ClueShow extends Component {
     return (
       <View style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#C2D834', flexDirection: 'column', justifyContent: 'space-between'}}>
           <View>
+            <Text style={styles.errorGreenBackground}>
+              {this.state.formErrors}
+            </Text>
+            <View style={styles.iconContainer}>
+              <Icon name="search" size={50} color='#1aa3ff' />
+            </View>
             <Text style={styles.title}>
               Here's a clue to find your question...
             </Text>
             <Text style={styles.subtitle}>
               Where could it be?
             </Text>
-            <Text>{this.state.formErrors}</Text>
           </View>
           <View style={styles.questionContainer}>
-            <Text style={styles.question}>{currentQuestion.question_text}</Text>
+            <Text style={styles.question}>{currentQuestion.clue_text}</Text>
           </View>
           <View>
             <View style={styles.buttonContainer}>
@@ -82,8 +88,21 @@ export default class ClueShow extends Component {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10,
+    paddingTop: 10
+  },
+  errorGreenBackground: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#CE57A6',
+    paddingTop: 20
+  },
   button: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     borderRadius: 25,
     borderColor: 'azure',
     borderWidth: 2
@@ -101,7 +120,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end'
   },
   title: {
-    marginTop: 30,
+    marginTop: 10,
     color: 'azure',
     fontWeight: 'bold',
     fontSize: 30,
@@ -110,7 +129,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   subtitle: {
-    color: '#06AED5',
+    color: '#1aa3ff',
     fontSize: 18,
     textAlign: 'center',
     paddingTop: 10,

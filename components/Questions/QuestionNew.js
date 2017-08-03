@@ -15,12 +15,13 @@ import { Form,
 import Button from 'apsl-react-native-button';
 var {height, width} = Dimensions.get('window');
 import MapView from 'react-native-maps';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class QuestionNew extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   constructor(props){
@@ -33,14 +34,40 @@ export default class QuestionNew extends Component {
   }
 
   processNewQuestion(){
-    this.props.screenProps.handleQuestionNew()
-    if (this.props.screenProps.newQuestionFormErrors === ""){
-      this.props.screenProps.handleQuestData();
-      this.props.navigation.navigate("QuestIndex")
-    }
-    else{
-      this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
-    }
+    // currentContext = this;
+    // fetch("https://questionamble.herokuapp.com/questions",{
+    //   method: "POST",
+    //   headers: {"Content-Type": "application/json"},
+    //   body: JSON.stringify({question: { quest_id: currentContext.props.navigation.state.params.questId,
+    //     question_text: currentContext.props.screenProps.newQuestionFormText,
+    //     answer: currentContext.props.screenProps.newQuestionFormAnswer,
+    //     clue_type: "text",
+    //     clue_text: currentContext.props.screenProps.newQuestionFormClueText,
+    //     hint: currentContext.props.screenProps.newQuestionFormHint,
+    //     lat: currentContext.props.screenProps.currentLat,
+    //     lng: currentContext.props.screenProps.currentLng,
+    //   }})
+    // }).then((response => {
+    //   return response.json()})
+    // ).then(body => {
+    //   if (body.hasOwnProperty("error")){
+    //     currentContext.props.screenProps.updateNewQuestionFormErrors(body.error)
+    //     currentContext.setState({formErrors: body.error})
+    //   } else {
+    //     currentContext.props.navigation.navigate("QuestIndex")
+    //   }
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
+
+    // this.props.screenProps.handleQuestionNew()
+    // if (this.props.screenProps.newQuestionFormErrors === ""){
+    //   this.props.navigation.navigate("QuestIndex")
+    // }
+    // else{
+    //   this.setState({formErrors: "An error occurred. Please check all fields before submitting!"})
+    // }
   }
 
   onSubmitForm(e){
@@ -58,7 +85,33 @@ export default class QuestionNew extends Component {
       )
     }
     else {
-      this.processNewQuestion();
+      currentContext = this;
+      fetch("https://questionamble.herokuapp.com/questions",{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({question: { quest_id: currentContext.props.navigation.state.params.questID,
+          question_text: currentContext.props.screenProps.newQuestionFormText,
+          answer: currentContext.props.screenProps.newQuestionFormAnswer,
+          clue_type: "text",
+          clue_text: currentContext.props.screenProps.newQuestionFormClueText,
+          hint: currentContext.props.screenProps.newQuestionFormHint,
+          lat: currentContext.props.screenProps.currentLat,
+          lng: currentContext.props.screenProps.currentLng,
+        }})
+      }).then((response => {
+        return response.json()})
+      ).then(body => {
+        if (body.hasOwnProperty("error")){
+          currentContext.props.screenProps.updateNewQuestionFormErrors(body.error)
+          currentContext.setState({formErrors: body.error})
+        } else {
+          currentContext.props.screenProps.resetNewQuestionForm()
+          currentContext.props.navigation.navigate("QuestIndex")
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
   }
 
@@ -71,77 +124,81 @@ export default class QuestionNew extends Component {
     let currentLat = this.props.screenProps.currentLat
     let currentLng = this.props.screenProps.currentLng
     return (
-      <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#06AED5'}}>
-        <View style={styles.container}>
-          <Text style={styles.title}>
-            Create a New Question
-          </Text>
-          <Text>{this.state.formErrors}</Text>
-          <Form
-            ref="QuestionForm"
-            label="New Question">
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView keyboardShouldPersistTaps="always" style={{height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
+          <View style={styles.container}>
+            <Text style={styles.title}>
+              Create a New Question
+            </Text>
+            <Text>{this.state.formErrors}</Text>
+            <Form
+              ref="QuestionForm"
+              label="New Question">
+
+
+              <View>
+                <Text style={styles.explanationTextFirst}>
+                  Help the player find the question location, give them a clue:
+                </Text>
+                <InputField
+                  placeholder="Enter the location clue"
+                  onChangeText={handleQuestionClueTextInputForNewQuestion}/>
+              </View>
+
+              <View>
+                <Text style={styles.explanationText}>
+                  Question to display once the player has found the clue location:
+                </Text>
+                <InputField
+                placeholder="Enter the question"
+                value={this.state.value}
+                onChangeText={handleQuestionTextInputForNewQuestion}/>
+              </View>
+
+              <View>
+                <Text style={styles.explanationText}>
+                  Answer to the question:
+                </Text>
+                <InputField
+                placeholder="Enter the answer"
+                onChangeText={handleQuestionAnswerputForNewQuestion}/>
+              </View>
+
 
             <View>
               <Text style={styles.explanationText}>
-                Help the played find the question location, give them a clue:
-              </Text>
-              <InputField
-                placeholder="Enter the location clue"
-                onChangeText={handleQuestionClueTextInputForNewQuestion}/>
-            </View>
-
-            <View>
-              <Text style={styles.explanationText}>
-                Question to display once the player has found the clue location:
-              </Text>
-              <InputField
-              placeholder="Enter the question"
-              value={this.state.value}
-              onChangeText={handleQuestionTextInputForNewQuestion}/>
-            </View>
-
-            <View>
-              <Text style={styles.explanationText}>
-                Answer to the question:
-              </Text>
-              <InputField
-              placeholder="Enter the answer"
-              onChangeText={handleQuestionAnswerputForNewQuestion}/>
-            </View>
-
-            <View>
-              <Text style={styles.explanationText}>
-                Give the player a hint if they get the asnwer incorrect:
+                Give the player a hint if they get the answer incorrect:
               </Text>
               <InputField
               placeholder="Enter the hint"
               onChangeText={handleQuestionHintInputForNewQuestion}/>
             </View>
 
-            <Text style={styles.explanationTextTwo}>Using the map below, verify that you are setting this question in the right location - then hit the 'SUBMIT' button below.</Text>
-          </Form>
-        </View>
-        <MapView
-          style={styles.map}
-          region={{
-            latitude: Number(currentLat),
-            longitude: Number(currentLng),
-            latitudeDelta: 0.00922,
-            longitudeDelta: 0.00421,
-          }}>
-              <MapView.Marker
-                coordinate={{latitude: Number(currentLat), longitude: Number(currentLng)}}
-              />
-          </MapView>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button}
-              onPress={(e) => this.onSubmitForm(e)}>
-              <Text style={styles.buttonText}>
-                CREATE QUESTION
-              </Text>
-            </Button>
+              <Text style={styles.explanationTextTwo}>Using the map below, verify that you are setting this question in the right location - then hit the 'SUBMIT' button below.</Text>
+            </Form>
           </View>
-      </ScrollView>
+          <MapView
+            style={styles.map}
+            region={{
+              latitude: Number(currentLat),
+              longitude: Number(currentLng),
+              latitudeDelta: 0.00922,
+              longitudeDelta: 0.00421,
+            }}>
+                <MapView.Marker
+                  coordinate={{latitude: Number(currentLat), longitude: Number(currentLng)}}
+                />
+            </MapView>
+            <View style={styles.buttonContainer}>
+              <Button style={styles.button}
+                onPress={(e) => this.onSubmitForm(e)}>
+                <Text style={styles.buttonText}>
+                  CREATE QUESTION
+                </Text>
+              </Button>
+            </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -158,7 +215,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {
@@ -180,7 +237,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center',
-    paddingBottom: 15
   },
   subtitle: {
     color: 'azure',
@@ -194,6 +250,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'center',
+  },
+  explanationTextFirst: {
+    color: 'azure',
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   explanationText: {
     color: 'azure',

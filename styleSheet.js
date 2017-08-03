@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {

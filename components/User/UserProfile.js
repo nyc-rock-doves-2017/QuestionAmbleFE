@@ -7,12 +7,13 @@ import { AppRegistry,
   StyleSheet
 } from 'react-native';
 import {Column as Col, Row} from 'react-native-flexbox-grid';
+import Button from 'apsl-react-native-button';
 
 export default class UserProfile extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
 
@@ -25,7 +26,9 @@ export default class UserProfile extends Component {
     return(
       <ScrollView style={styles.wholeScreen}>
         <View style={styles.container}>
-        <Text style={styles.title}>My Profile</Text>
+        <Text style={styles.title}>
+          My Profile
+        </Text>
         <View style={styles.grid}>
             <Row style={styles.gridRow}>
               <Col sm={6} md={4} lg={3} style={styles.topLeft}>
@@ -93,6 +96,14 @@ export default class UserProfile extends Component {
           }
         />
       </View>
+      <View style={styles.buttonContainer}>
+        <Button onPress={() => this.props.navigation.navigate("MainMenu")}
+          style={styles.button}>
+          <Text style={styles.buttonText}>
+            HOME
+          </Text>
+        </Button>
+    </View>
       </ScrollView>
     );
   }
@@ -109,7 +120,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {
@@ -121,7 +132,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 20,
+    paddingTop: 30,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center'

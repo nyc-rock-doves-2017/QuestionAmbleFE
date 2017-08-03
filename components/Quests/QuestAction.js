@@ -7,6 +7,7 @@ import {
   Alert
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Form,
   Separator, InputField,
@@ -16,13 +17,16 @@ export default class QuestAction extends Component {
   static navigationOptions ={
     headerLeft: null,
     headerStyle: {
-      backgroundColor: '#06AED5'
+      backgroundColor: '#1aa3ff'
     }
   }
   render() {
     return (
       <View style={styles.wholeScreen}>
         <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Icon name="map-signs" size={50} color='azure' />
+          </View>
           <Text style={styles.title}>Choose Your Adventure...</Text>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestCreation")}>
@@ -35,6 +39,11 @@ export default class QuestAction extends Component {
                 VIEW MY QUESTS
               </Text>
             </Button>
+            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+              <Text style={styles.buttonText}>
+                HOME
+              </Text>
+            </Button>
           </View>
         </View>
       </View>
@@ -43,6 +52,11 @@ export default class QuestAction extends Component {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   button: {
     backgroundColor: '#F25F5C',
     borderRadius: 25,
@@ -50,7 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   wholeScreen: {
-    backgroundColor: '#06AED5',
+    backgroundColor: '#1aa3ff',
     flex: 3
   },
   container: {
