@@ -47,9 +47,9 @@ import Directory from './components/Directory.js';
 
 
 const AppDirectory = StackNavigator({
-  Directory: {
-    screen: Directory,
-  },
+  // Directory: {
+  //   screen: Directory,
+  // },
   Welcome: {
     screen: Welcome,
   },
