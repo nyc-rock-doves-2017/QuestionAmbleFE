@@ -11,6 +11,7 @@ import { AppRegistry,
           InputField
   } from 'react-native-form-generator';
   import Icon from 'react-native-vector-icons/FontAwesome';
+  import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class GameNew extends Component {
   static navigationOptions ={
@@ -78,52 +79,63 @@ export default class GameNew extends Component {
   render() {
     let { handleNewGameKeyInput } = this.props.screenProps
     return (
-      <View keyboardShouldPersistTaps="always"
-        style={{
-          paddingLeft:10,
-          paddingRight:10,
-          height:200,
-          flex: 3,
-          backgroundColor: '#bfd629'
-        }}>
-        <View style={styles.container}>
-          <View style={styles.iconContainer}>
-            <Icon name="compass" size={50} color='#1aa3ff' />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View keyboardShouldPersistTaps="always"
+          style={{
+            paddingLeft:10,
+            paddingRight:10,
+            height:200,
+            flex: 3,
+            backgroundColor: '#bfd629'
+          }}>
+          <Text style={styles.errorGreenBackground}>
+            {this.state.formErrors}
+          </Text>
+          <View style={styles.container}>
+            <View style={styles.iconContainer}>
+              <Icon name="compass" size={50} color='#1aa3ff' />
+            </View>
+            <Text style={styles.title}>Enter the Quest Code to Begin...</Text>
+            <Form
+              ref='LoginForm'
+              label="Login">
+                <Separator />
+                <InputField
+                  editable={true}
+                  ref="questCode"
+                  placeholder="Enter your quest code..."
+                  returnKeyType='next'
+                  onChangeText={handleNewGameKeyInput}
+                  />
+              </Form>
+            <View style={styles.buttonContainer}>
+              <Button style={styles.button}
+                onPress={(e) => this.onSubmitForm(e)}>
+                <Text style={styles.buttonText}>
+                  LET'S GO!
+                </Text>
+              </Button>
+              <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
+                <Text style={styles.buttonText}>
+                  HOME
+                </Text>
+              </Button>
           </View>
-          <Text style={styles.title}>Enter the Quest Code to Begin...</Text>
-          <Text>{this.state.formErrors}</Text>
-          <Form
-            ref='LoginForm'
-            label="Login">
-              <Separator />
-              <InputField
-                editable={true}
-                ref="questCode"
-                placeholder="Enter your quest code..."
-                returnKeyType='next'
-                onChangeText={handleNewGameKeyInput}
-                />
-            </Form>
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button}
-              onPress={(e) => this.onSubmitForm(e)}>
-              <Text style={styles.buttonText}>
-                LET'S GO!
-              </Text>
-            </Button>
-            <Button style={styles.button} onPress={() => this.props.navigation.navigate("MainMenu")}>
-              <Text style={styles.buttonText}>
-                HOME
-              </Text>
-            </Button>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
     );
     }
     }
 
 const styles = StyleSheet.create({
+  errorGreenBackground: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#CE57A6',
+    paddingTop: 20
+  },
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -140,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 3
   },
   container: {
-    marginTop: 100,
+    marginTop: 60,
   },
   buttonContainer: {
     paddingLeft: 15,

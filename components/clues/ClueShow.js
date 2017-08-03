@@ -91,13 +91,15 @@ const styles = StyleSheet.create({
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingTop: 10
   },
   errorGreenBackground: {
     textAlign: 'center',
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#CE57A6'
+    color: '#CE57A6',
+    paddingTop: 20
   },
   button: {
     backgroundColor: '#1aa3ff',
