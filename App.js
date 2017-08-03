@@ -258,32 +258,6 @@ export default class QuestionAmbleFE extends Component {
     this.setState({newQuestFormQuestTitle: ""})
     this.setState({newQuestFormQuestDescription: ""})
   }
-  //Question
-  // handleCurrentQuestId()
-
-  // handleNewQuestForm(){
-  //   debugger
-  //   currentContext = this;
-  //   fetch("https://questionamble.herokuapp.com/quests",{ //Replace link with "/quests/"
-  //     method: "POST",
-  //     headers: {"Content-Type": "application/json"},
-  //     body: JSON.stringify({quest: {title: currentContext.state.newQuestFormQuestTitle,
-  //                           description: currentContext.state.newQuestFormQuestDescription,
-  //                           creator_id: "2"}
-  //                         })
-  //   }).then(
-  //     response => {
-  //       return response.json()})
-  //   .then(body => {
-  //     debugger
-  //     if (body.hasOwnProperty("error")){
-  //       currentContext.setState({newQuestFormErrors: body.error})
-  //     }
-  //   })
-  //   .catch( err => {
-  //     console.log(err)
-  //   })
-  // }
 
   handleQuestData(){
     currentContext = this;
