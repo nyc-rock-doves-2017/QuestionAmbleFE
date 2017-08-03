@@ -111,6 +111,12 @@ export default class Login extends Component {
                   LOGIN
                 </Text>
               </Button>
+              <Button style={styles.button}
+                onPress={() => this.props.navigation.navigate("Welcome")}>
+                <Text style={styles.buttonText}>
+                  RETURN
+                </Text>
+              </Button>
           </View>
         </View>
       </View>
