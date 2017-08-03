@@ -7,6 +7,7 @@ import { AppRegistry,
   ScrollView
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class QuestionIndex extends Component {
   static navigationOptions ={
@@ -26,27 +27,40 @@ export default class QuestionIndex extends Component {
         <Text style={styles.subSubtitle}>
           Questions
         </Text>
+        <FlatList
+          data={questData[0].questions}
+          renderItem={({item}) =>
+          <View style={styles.listItems}>
+            <View>
+              <Text
+                style={styles.listText}
+                onPress={() => this.props.navigation.navigate("QuestionShow", {questID: this.props.navigation.state.params.questID, questionID: item.id})}
+                key={item.id}>
+                <Text>
+                  {item.questionText}
+                </Text>
+              </Text>
+          </View>
+            <View style={styles.right}>
+              <Icon name="angle-right"
+                size={30} color='#A33E6E'
+                onPress={() => this.props.navigation.navigate("QuestionShow", {questID: this.props.navigation.state.params.questID, questionID: item.id})}/>
+            </View>
+        </View>
+        }/>
         <View style={styles.buttonContainer}>
           <Button style={styles.button} onPress={() => this.props.navigation.navigate("QuestionNew", {questID: questData[0].id})}>
             <Text style={styles.buttonText}>
               ADD QUESTION
             </Text>
           </Button>
-        </View>
-        <FlatList
-          data={questData[0].questions}
-          renderItem={({item}) =>
-          <View style={styles.listItems}>
-          <Text
-            style={styles.listText}
-            onPress={() => this.props.navigation.navigate("QuestionShow", {questID: this.props.navigation.state.params.questID, questionID: item.id})}
-            key={item.id}>
-            <Text >
-              {item.questionText}
+          <Button style={styles.button}
+            onPress={() => this.props.navigation.navigate("MainMenu")}>
+            <Text style={styles.buttonText}>
+              HOME
             </Text>
-          </Text>
+          </Button>
         </View>
-        }/>
           </View>
       </ScrollView>
     );
@@ -73,7 +87,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 5,
+    paddingTop: 20,
     paddingBottom: 15,
     width: '100%',
     justifyContent: 'center',
@@ -96,8 +110,9 @@ const styles = StyleSheet.create({
     color: '#6F706F',
     paddingLeft: 5,
     height: 40,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
+    width: 300
   },
   listItems: {
     backgroundColor: 'azure',
@@ -106,6 +121,9 @@ const styles = StyleSheet.create({
     borderColor: '#E6E6E6',
     borderWidth: 1,
     paddingLeft: 5,
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between'
   },
   subSubtitle: {
     color: 'azure',
@@ -113,4 +131,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+  right: {
+    paddingRight: 10
+  }
 });
