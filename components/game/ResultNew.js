@@ -5,6 +5,8 @@ import { AppRegistry,
   View,
 } from 'react-native';
 import Button from 'apsl-react-native-button';
+  import Icon from 'react-native-vector-icons/FontAwesome';
+  import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class ResultNew extends Component {
   static navigationOptions ={
@@ -33,11 +35,14 @@ export default class ResultNew extends Component {
     return (
       <View keyboardShouldPersistTaps="always" style={{backgroundColor: '#C2D834', flex: 3}}>
         <View style={styles.container}>
-          <Text style={styles.title}>
-            Checking your guess...
-          </Text>
+          <View style={styles.iconContainer}>
+            <Icon name="thumbs-o-up" size={50} color='#1aa3ff' />
+            <Text style={styles.title}>
+              You're Correct!
+            </Text>
+          </View>
           <Text style={styles.subtitle}>
-            You'll see the same question appear if it's incorrect!
+            Hit proceed to see where to go next!
           </Text>
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={this.determineNextScreen}>
@@ -53,6 +58,11 @@ export default class ResultNew extends Component {
 }
 
 const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10
+  },
   button: {
     backgroundColor: '#1aa3ff',
     borderRadius: 25,

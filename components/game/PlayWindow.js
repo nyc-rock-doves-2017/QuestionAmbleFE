@@ -10,6 +10,7 @@ import { Form,
 } from 'react-native-form-generator';
 import Button from 'apsl-react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
+  import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class PlayWindow extends Component {
   static navigationOptions ={
@@ -72,6 +73,7 @@ export default class PlayWindow extends Component {
     let handleUserGuess = this.props.screenProps.handleUserGuess
     let question = this.props.screenProps.currentQuestion
     return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View keyboardShouldPersistTaps="always" style={styles.wholeScreen}>
           <View style={styles.container}>
             <Text style={styles.errorGreenBackground}>
@@ -80,13 +82,13 @@ export default class PlayWindow extends Component {
             <View style={styles.iconStyles}>
               <Icon name="map-marker"
                 size={50}
-                color='#F25F5C' />
+                color='#1aa3ff' />
             </View>
             <Text style={styles.title}>
               You're in the Right Spot!
             </Text>
             <Text style={styles.subtitle}>
-              Answer this question for your next clue:
+              Answer this for your next clue...
             </Text>
             <View style={styles.questionContainer}>
               <Text style={styles.question}>
@@ -117,7 +119,8 @@ export default class PlayWindow extends Component {
               </Button>
           </View>
         </View>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
     );
   }
 }
