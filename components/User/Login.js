@@ -85,11 +85,13 @@ export default class Login extends Component {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View keyboardShouldPersistTaps="always" style={{paddingLeft:10, paddingRight:10, height:200, flex: 3, backgroundColor: '#1aa3ff'}}>
           <View style={styles.container}>
+            <Text style={styles.errorBlueBackground}>
+              {this.state.logErrors}
+            </Text>
             <View style={styles.iconContainer}>
               <Icon name="user-circle" size={50} color='azure' />
             </View>
             <Text style={styles.title}>Login</Text>
-            <Text>{this.state.logErrors}</Text>
             <Form
               ref='LoginForm'
               label="Login">
@@ -127,10 +129,17 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+  errorBlueBackground: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#C2D834'
+  },
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingTop: 5
   },
   button: {
     backgroundColor: '#F25F5C',
