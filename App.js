@@ -206,6 +206,8 @@ export default class QuestionAmbleFE extends Component {
     this.updateCurrentQuestion = this.updateCurrentQuestion.bind(this)
     this.updateNewQuestFormErrors = this.updateNewQuestFormErrors.bind(this)
     this.resetNewQuestForm = this.resetNewQuestForm.bind(this)
+    this.clearLoginInput = this.clearLoginInput.bind(this)
+    this.clearUserData = this.clearUserData.bind(this)
   }
   //To test:
   componentDidMount(){
@@ -421,7 +423,15 @@ export default class QuestionAmbleFE extends Component {
     })
   }
 
+  clearLoginInput(){
+    this.setState({currentUserPassword: ""})
+  }
 
+  clearUserData(){
+    this.setState({currentUserId: ""})
+    this.setState({currentUserUsername: ""})
+    this.setState({currentUserToken: ""})
+  }
   render() {
     let methods = {
                   currentUserId: this.state.currentUserId,
@@ -483,6 +493,8 @@ export default class QuestionAmbleFE extends Component {
                   getRoundInfo: this.getRoundInfo,
                   updateNewQuestFormErrors: this.updateNewQuestFormErrors,
                   resetNewQuestForm: this.resetNewQuestForm,
+                  clearLoginInput: this.clearLoginInput,
+                  clearUserData: this.clearUserData,
                   }
     return (
       <AppDirectory screenProps={methods} ref={ nav => {this.navigator = nav;}} />

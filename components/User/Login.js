@@ -53,6 +53,7 @@ export default class Login extends Component {
         }
       else{
           componentContext.props.screenProps.updateAppStateForUserAndToken(responseData.auth_token, responseData.userID)
+          componentContext.props.screenProps.clearLoginInput()
           componentContext.props.navigation.navigate("MainMenu")
         }
     }).catch(error => {
