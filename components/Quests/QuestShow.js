@@ -90,7 +90,7 @@ export default class QuestShow extends Component {
 
                 <Text style={styles.listText}
                   key={item.id}>
-                  <Text style={styles.listTitleItem}> {item}</Text>
+                  <Text style={styles.subtitle}>-  {item}</Text>
                 </Text>
             }/>
 
