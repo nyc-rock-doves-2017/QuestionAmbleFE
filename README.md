@@ -5,10 +5,10 @@ QuestionAmble is a React Native application that allows users to create quests w
 This is the front-end component of our project. Although we had one week to design and program the initial version that was demoed, there may be updates from time to time. This is not a commercial application.
 
 ### Table of Contents
-1. Team Members
-2. Program Structure
-3. Live Demo
-4. Resources
+- Team Members
+- Program Structure
+- Live Demo
+- Resources
 
 #### Team Members
 * Wan Tsui - *[GitHub: wantsui](https://github.com/wantsui)*
