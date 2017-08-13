@@ -2,17 +2,17 @@
 
 QuestionAmble is a React Native mobile application that allows users to create and play quests with location-based questions. Players who embark on a quest need to locate where each question is based and, once found, try to guess the answer. The game is over when the player has correctly answered all the questions for the quest. When this happens, the player is shown their results. The focus of this app is knowledge by exploring the physical world!
 
-This is the front-end component of our project. Although we had one week to design and program the initial version that was demoed, there may be updates from time to time. This is not a commercial application.
+This is the front end component of our project. Although we had one week to design and program the initial version that was demoed, there may be updates from time to time. This is not a commercial application.
 
 Information regarding the QuestionAmble Back End can be found [here](https://github.com/nyc-rock-doves-2017/QuestionAmble-BE).
 
 ### Table of Contents
-- [Team Members](#Team Members)
-- [Program Structure](#Program Structure)
-- [Design Decisions](#Design Decisions)
-- [User Interactions](#User Interactions)
-- [Live Demo](#Live Demo)
-- [Resources](#Resources)
+- Team Members
+- Program Structure
+- Design Decisions
+- User Interactions
+- Live Demo
+- Resources
 
 #### Team Members
 * Wan Tsui - *[GitHub: wantsui](https://github.com/wantsui)*
@@ -35,7 +35,7 @@ The front end is programmed in React Native and calls on the back end to access 
 
 #### User Interactions
 The app was designed so that a user can be both a quest creator and player. As a result, users have the following options when interacting with the application:
-1. User (General)
+1. General
   - A user can sign up for an account.
   - A user can log in to an account.
   - A user can log out.
