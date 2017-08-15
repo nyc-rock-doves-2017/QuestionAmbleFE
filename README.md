@@ -35,17 +35,17 @@ The front end is programmed in React Native and calls on the back end to access 
 
 #### User Interactions
 The app was designed so that a user can be both a quest creator and player. As a result, users have the following options when interacting with the application:
-1. General
+1. **General**
   - A user can sign up for an account.
   - A user can log in to an account.
   - A user can log out.
   - A user can either create a quest or play a quest.
-2. Quest Creation
+2. **Quest Creation**
   - A user provides a title/description when creating an new quest.
   - A user can create a geolocation based question for a quest.
   - A user can get a game key that is unique to the quest and share the key with others.
   - A user can see the players that attempted the quest.
-3. Player
+3. **Player**
   - A user can start a new game by entering a game key.
   - A user can only answer a question if near a predetermined location.
   - If a user gets a question incorrectly, the user can try to answer again.
