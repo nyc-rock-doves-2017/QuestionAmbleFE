@@ -1,6 +1,6 @@
 # QuestionAmble (Front End)
 
-QuestionAmble is a React Native mobile application that allows users to create and play quests with location-based questions. Players who embark on a quest need to locate where each question is based and, once found, try to guess the answer. The game is over when the player has correctly answered all the questions for the quest. When this happens, the player is shown their results. The focus of this app is knowledge by exploring the physical world!
+QuestionAmble is a React Native mobile application that allows users to create and play quests with location-based questions. Players who embark on a quest need to locate where each question is based and, once found, try to guess the answer. The game is over when the player has correctly answered all the questions for the quest. When this happens, the player is shown their results. The focus of this app is to gather knowledge by exploring the physical world!
 
 This is the front end component of our project. Although we had one week to design and program the initial version that was demoed, there may be updates from time to time. This is not a commercial application.
 
@@ -52,8 +52,10 @@ The app was designed so that a user can be both a quest creator and player. As a
   - Once all the questions have been answered, a user can see results.
 
 #### Live Demo
+After being given one week to work on the project, our team presented the demo to our cohort and other attendees on August 4, 2017.
 
-*Link coming soon!*
+To watch a live demo and explanation for our final project,
+[click here](https://youtu.be/cPXdBUwHqvc).
 
 #### Resources
 1. [React Native](https://facebook.github.io/react-native/)
